@@ -23,7 +23,7 @@ SMODS.Joker{ --Monster Costume
         }
     },
     pos = {
-        x = 1,
+        x = 5,
         y = 2
     },
     display_size = {

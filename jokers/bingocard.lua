@@ -1,30 +1,30 @@
-SMODS.Joker{ --Keychain
-    key = "keychain",
+SMODS.Joker{ --Bingo Card
+    key = "bingocard",
     config = {
         extra = {
-            odds = "(G.hand and G.hand.config.card_limit or 0)"
+            eyes = 0,
+            dollars = 30,
+            var1 = 0
         }
     },
     loc_txt = {
-        ['name'] = 'Keychain',
+        ['name'] = 'Bingo Card',
         ['text'] = {
-            [1] = 'When a discard is used, {C:green}#1# in #2{}#',
-            [2] = 'chance of creating a random {C:attention}Tag{}, chance',
-            [3] = '{C:attention}increases{} with {C:red}decreased{}{C:attention} hand size{}'
+            [1] = 'Every {C:attention}5{} {C:inactive}[#1#] {}{C:attention}Blinds{} defeated, gain {C:money}$40{} and a {C:attention}Boss Tag{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 2,
-        y = 2
+        x = 3,
+        y = 0
     },
     display_size = {
         w = 71 * 1, 
         h = 95 * 1
     },
-    cost = 4,
+    cost = 6,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -35,15 +35,16 @@ SMODS.Joker{ --Keychain
     pools = { ["solo_solo_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_keychain') 
-        return {vars = {new_numerator, new_denominator}}
+        return {vars = {card.ability.extra.eyes}}
     end,
 
     calculate = function(self, card, context)
-        if context.pre_discard  then
-            if true then
-                if SMODS.pseudorandom_probability(card, 'group_0_b7cfff6c', 1, card.ability.extra.odds, 'j_solo_keychain', false) then
-              SMODS.calculate_effect({func = function()
+        if context.end_of_round and context.game_over == false and context.main_eval  then
+            if (card.ability.extra.eyes or 0) == 5 then
+                return {
+                    dollars = card.ability.extra.dollars,
+                    extra = {
+                        func = function()
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local selected_tag = pseudorandom_element(G.P_TAGS, pseudoseed("create_tag")).key
@@ -64,9 +65,25 @@ SMODS.Joker{ --Keychain
                 end
             }))
                     return true
-                end}, card)
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Created Tag!", colour = G.C.GREEN})
-          end
+                end,
+                            message = "Created Tag!",
+                        colour = G.C.GREEN,
+                        extra = {
+                            func = function()
+                    card.ability.extra.eyes = 0
+                    return true
+                end,
+                            colour = G.C.BLUE
+                        }
+                        }
+                }
+            else
+                return {
+                    func = function()
+                    card.ability.extra.var1 = (card.ability.extra.var1) + 1
+                    return true
+                end
+                }
             end
         end
     end

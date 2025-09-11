@@ -16,7 +16,7 @@ SMODS.Joker{ --Watercolors
         }
     },
     pos = {
-        x = 0,
+        x = 5,
         y = 4
     },
     display_size = {

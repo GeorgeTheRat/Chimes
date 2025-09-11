@@ -21,8 +21,8 @@ SMODS.Joker{ --Tobiko
         }
     },
     pos = {
-        x = 5,
-        y = 3
+        x = 0,
+        y = 4
     },
     display_size = {
         w = 71 * 1, 

@@ -21,7 +21,7 @@ SMODS.Joker{ --Tamago
         }
     },
     pos = {
-        x = 4,
+        x = 9,
         y = 3
     },
     display_size = {
@@ -54,13 +54,12 @@ SMODS.Joker{ --Tamago
                 }
             else
                 return {
-                    func = function()
-            for i, other_card in ipairs(G.jokers.cards) do
-                if other_card.set_cost then
-                    other_card.ability.extra_value = (other_card.ability.extra_value or 0) + card.ability.extra.sell_value
-                    other_card:set_cost()
-                end
+                    func = function()for i, target_card in ipairs(G.jokers.cards) do
+                if target_card.set_cost then
+            target_joker.ability.extra_value = (card.ability.extra_value or 0) + card.ability.extra.sell_value
+            target_joker:set_cost()
             end
+        end
                     return true
                 end,
                     message = "All Jokers +"..tostring(card.ability.extra.sell_value).." Sell Value",

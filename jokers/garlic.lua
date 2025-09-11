@@ -17,7 +17,7 @@ SMODS.Joker{ --Garlic
         }
     },
     pos = {
-        x = 3,
+        x = 7,
         y = 1
     },
     display_size = {
