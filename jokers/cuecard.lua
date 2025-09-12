@@ -177,5 +177,8 @@ SMODS.Joker{ --Cue Card
                 }
             end
         end
+        if context.individual and context.cardarea == G.play  then
+                card.ability.extra.woxihuanchibingxilin = pseudorandom('woxihuanchibingxilin_21554fb1', 1, 6)
+        end
     end
 }

@@ -6,7 +6,7 @@ SMODS.Consumable {
         name = 'Sun',
         text = {
         [1] = 'If {C:attention}1{} card is selected, convert to an {C:attention}Ace{},',
-        [2] = 'If 2 cards are selected, convert to {C:attention}2 2s{},',
+        [2] = 'If {C:attention}2{} cards are selected, convert to {C:attention}2 2s{},',
         [3] = 'And if {C:attention}3{} cards are selected, convert to {C:attention}3 3s{}'
     }
     },

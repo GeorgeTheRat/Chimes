@@ -3,13 +3,13 @@ SMODS.Consumable {
     set = 'lenormand',
     pos = { x = 9, y = 1 },
     config = { extra = {
-        dollars_value = 20
+        dollars_value = 35
     } },
     loc_txt = {
         name = 'Rider',
         text = {
-        [1] = 'Gain {C:attention}2{} speed tags,',
-        [2] = '{C:red}-$20{}'
+        [1] = 'Gain {C:attention}2{} investment tags,',
+        [2] = '{C:red}-$35{}'
     }
     },
     cost = 4,
@@ -60,8 +60,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "-"..tostring(20).." $", colour = G.C.RED})
-                    ease_dollars(-math.min(G.GAME.dollars, 20), true)
+                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "-"..tostring(35).." $", colour = G.C.RED})
+                    ease_dollars(-math.min(G.GAME.dollars, 35), true)
                     return true
                 end
             }))

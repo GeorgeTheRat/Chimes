@@ -4,7 +4,9 @@ SMODS.Joker{ --Bento Box
         extra = {
             sushi = 0,
             ignore = 0,
-            respect = 0
+            respect = 0,
+            start_dissolve = 0,
+            y = 0
         }
     },
     loc_txt = {
@@ -79,9 +81,10 @@ SMODS.Joker{ --Bento Box
                         colour = G.C.BLUE,
                         extra = {
                             func = function()
-                card:undefined()
+                card:start_dissolve()
                 return true
             end,
+                            message = "Empty!",
                             colour = G.C.RED
                         }
                         }

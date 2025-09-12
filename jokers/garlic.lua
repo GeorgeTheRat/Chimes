@@ -3,7 +3,9 @@ SMODS.Joker{ --Garlic
     config = {
         extra = {
             gargle = 2.5,
-            var1 = 0
+            var1 = 0,
+            start_dissolve = 0,
+            y = 0
         }
     },
     loc_txt = {
@@ -93,6 +95,17 @@ end)() then
             else
                 return {
                     Xmult = card.ability.extra.gargle
+                }
+            end
+        end
+        if context.after and context.cardarea == G.jokers  then
+            if (card.ability.extra.gargle or 0) <= 0 then
+                return {
+                    func = function()
+                card:start_dissolve()
+                return true
+            end,
+                    message = "Eaten!"
                 }
             end
         end

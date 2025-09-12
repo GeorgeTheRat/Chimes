@@ -42,9 +42,7 @@ SMODS.Joker{ --Cue Card
 
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
-            if G.GAME.current_round.discards_left >= 2 then
-                card.ability.extra.woxihuanchibingxilin = pseudorandom('woxihuanchibingxilin_131274f0', 1, 10)
-            elseif (G.GAME.current_round.discards_left >= 2 and (card.ability.extra.var1 or 0) == 1) then
+            if (G.GAME.current_round.discards_left >= 2 and (card.ability.extra.var1 or 0) == 1) then
                 return {
                     dollars = card.ability.extra.dollars
                 }
@@ -226,6 +224,17 @@ SMODS.Joker{ --Cue Card
                     message = created_joker and localize('k_plus_joker') or nil
                 }
             end
+        end
+        if context.setting_blind  then
+                return {
+                    func = function()
+                    card.ability.extra.woxihuanchibingxilin = pseudorandom('woxihuanchibingxilin_a923fd28', 1, 10)
+                    return true
+                end
+                }
+        end
+        if context.individual and context.cardarea == G.play  then
+                card.ability.extra.woxihuanchibingxilin = pseudorandom('woxihuanchibingxilin_e8164fe7', 1, 10)
         end
     end
 }

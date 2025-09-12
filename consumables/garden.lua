@@ -3,12 +3,13 @@ SMODS.Consumable {
     set = 'lenormand',
     pos = { x = 0, y = 1 },
     config = { extra = {
-        leftmostcardrank = 0
+        lowestrankinhand = 0
     } },
     loc_txt = {
         name = 'Garden',
         text = {
-        [1] = 'Earn 5X the value of the leftmost crd in hand as money'
+        [1] = 'Earn {C:attention}5X{} the value of the',
+        [2] = '{C:attention}lowest ranked card {}in hand as {C:money}money{}'
     }
     },
     cost = 4,
@@ -23,8 +24,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring(((G.hand and G.hand.cards[1] and G.hand.cards[1].base.id or 0)) * 5).." $", colour = G.C.MONEY})
-                    ease_dollars(((G.hand and G.hand.cards[1] and G.hand.cards[1].base.id or 0)) * 5, true)
+                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring(((function() local min = 14; for _, card in ipairs(G.hand and G.hand.cards or {}) do if card.base.id < min then min = card.base.id end end; return min end)()) * 5).." $", colour = G.C.MONEY})
+                    ease_dollars(((function() local min = 14; for _, card in ipairs(G.hand and G.hand.cards or {}) do if card.base.id < min then min = card.base.id end end; return min end)()) * 5, true)
                     return true
                 end
             }))

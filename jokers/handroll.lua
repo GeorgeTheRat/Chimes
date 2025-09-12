@@ -5,7 +5,9 @@ SMODS.Joker{ --Hand Roll
             all = 4,
             handys = 0,
             handsremaining = 0,
-            round = 0
+            round = 0,
+            start_dissolve = 0,
+            y = 0
         }
     },
     loc_txt = {
@@ -54,9 +56,10 @@ SMODS.Joker{ --Hand Roll
             if (card.ability.extra.all or 0) <= 0 then
                 return {
                     func = function()
-                card:undefined()
+                card:start_dissolve()
                 return true
-            end
+            end,
+                    message = "Eaten!"
                 }
             else
                 local handys_value = card.ability.extra.handys

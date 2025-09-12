@@ -2,13 +2,15 @@ SMODS.Joker{ --Keychain
     key = "keychain",
     config = {
         extra = {
-            odds = "(G.hand and G.hand.config.card_limit or 0)"
+            aaa = 8,
+            currenthandsize = 0,
+            odds = "card.ability.extra.aaa"
         }
     },
     loc_txt = {
         ['name'] = 'Keychain',
         ['text'] = {
-            [1] = 'When a discard is used, {C:green}#1# in #2{}#',
+            [1] = 'When a discard is used, {C:green}#3# in #1# {}',
             [2] = 'chance of creating a random {C:attention}Tag{}, chance',
             [3] = '{C:attention}increases{} with {C:red}decreased{}{C:attention} hand size{}'
         },
@@ -36,7 +38,7 @@ SMODS.Joker{ --Keychain
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_keychain') 
-        return {vars = {new_numerator, new_denominator}}
+        return {vars = {card.ability.extra.aaa, ((G.hand and G.hand.config.card_limit or 0) or 0), new_numerator, new_denominator}}
     end,
 
     calculate = function(self, card, context)
@@ -68,6 +70,14 @@ SMODS.Joker{ --Keychain
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Created Tag!", colour = G.C.GREEN})
           end
             end
+        end
+        if context.setting_blind  then
+                return {
+                    func = function()
+                    card.ability.extra.aaa = (card.ability.extra.aaa) + (G.hand and G.hand.config.card_limit or 0)
+                    return true
+                end
+                }
         end
     end
 }

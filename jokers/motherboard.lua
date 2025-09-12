@@ -11,7 +11,7 @@ SMODS.Joker{ --Motherboard
             [1] = '{C:blue}+#1# {}Chips,',
             [2] = 'this {C:attention}Joker{} gains {C:blue}+3 {}Chips',
             [3] = 'when a {C:green}listed chance{} is failed',
-            [4] = 'and {C:blue}+5{} Chips when',
+            [4] = 'and {C:red}-5{} Chips when',
             [5] = 'a {C:green}listed chance{} succeeds'
         },
         ['unlock'] = {
@@ -26,8 +26,8 @@ SMODS.Joker{ --Motherboard
         w = 71 * 1, 
         h = 95 * 1
     },
-    cost = 4,
-    rarity = 1,
+    cost = 5,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,

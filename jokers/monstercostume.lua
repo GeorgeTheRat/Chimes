@@ -13,8 +13,8 @@ SMODS.Joker{ --Monster Costume
     loc_txt = {
         ['name'] = 'Monster Costume',
         ['text'] = {
-            [1] = 'Scored cards have a {C:green}#1# in #2# {}chance',
-            [2] = 'of being {C:red}destroyed{} and a {C:green}#1# in #2# {}',
+            [1] = 'Scored cards have a {C:green}#4# in #5# {}chance',
+            [2] = 'of being {C:red}destroyed{} and a {C:green}#4# in #5# {}',
             [3] = 'chance of having a random {C:attention}Enhancement{} applied',
             [4] = '{C:red}-$10{} and create another {C:attention}Costume{} when sold'
         },
@@ -42,7 +42,7 @@ SMODS.Joker{ --Monster Costume
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_monstercostume') 
-        return {vars = {card.ability.extra.edititionion, card.ability.extra.costumes2, new_numerator, new_denominator}}
+        return {vars = {card.ability.extra.edititionion, card.ability.extra.costumes2, card.ability.extra.respect, new_numerator, new_denominator}}
     end,
 
     calculate = function(self, card, context)

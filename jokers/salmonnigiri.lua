@@ -4,7 +4,9 @@ SMODS.Joker{ --Salmon Nigiri
         extra = {
             ah = 12,
             pb_h_mult_1e7fdaf6 = 1,
-            perma_h_mult = 0
+            perma_h_mult = 0,
+            explode = 0,
+            y = 0
         }
     },
     loc_txt = {
@@ -43,17 +45,20 @@ SMODS.Joker{ --Salmon Nigiri
 
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
+            if (card.ability.extra.ah or 0) ~= 0 then
                 return {
                     mult = card.ability.extra.ah
                 }
+            end
         end
         if context.individual and context.cardarea == G.play  then
-            if (card.ability.extra.ah or 0) == 0 then
+            if (card.ability.extra.ah or 0) <= 0 then
                 return {
                     func = function()
-                card:undefined()
+                card:explode()
                 return true
-            end
+            end,
+                    message = "Eaten!"
                 }
             else
                 context.other_card.ability.perma_h_mult = context.other_card.ability.perma_h_mult or 0

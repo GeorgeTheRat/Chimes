@@ -6,7 +6,9 @@ SMODS.Joker{ --Tobiko
             mults = 10,
             multsextra = 1.5,
             depender = 0,
-            respect = 0
+            respect = 0,
+            start_dissolve = 0,
+            y = 0
         }
     },
     loc_txt = {
@@ -151,9 +153,10 @@ SMODS.Joker{ --Tobiko
                         colour = G.C.BLUE,
                         extra = {
                             func = function()
-                card:undefined()
+                card:start_dissolve()
                 return true
             end,
+                            message = "Eaten!",
                             colour = G.C.RED
                         }
                         }
