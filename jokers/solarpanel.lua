@@ -10,7 +10,7 @@ SMODS.Joker{ --Solar Panel
         ['name'] = 'Solar Panel',
         ['text'] = {
             [1] = 'When {C:attention}last hand{} is played create',
-            [2] = 'a copy of {C:attention}Sun{} and {C:tarot}The Sun{} with {C:dark_edition}Negative{}',
+            [2] = 'a copy of {C:attention}Sun{} and {C:tarot}The Sun{}',
             [3] = '{C:inactive}(Must have room){}'
         },
         ['unlock'] = {
