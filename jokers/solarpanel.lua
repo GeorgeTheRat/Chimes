@@ -41,14 +41,14 @@ SMODS.Joker{ --Solar Panel
                 local created_consumable = true
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        SMODS.add_card{set = 'lenormand', key = 'c_solo_sun', edition = 'e_negative', soulable = nil, key_append = 'joker_forge_lenormand'}
+                        SMODS.add_card{set = 'lenormand', key = 'c_solo_sun', soulable = nil, key_append = 'joker_forge_lenormand'}
                         return true
                     end
                 }))
                 local created_consumable = true
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        SMODS.add_card{set = 'Tarot', key = 'c_sun', edition = 'e_negative', soulable = nil, key_append = 'joker_forge_tarot'}
+                        SMODS.add_card{set = 'Tarot', key = 'c_sun', soulable = nil, key_append = 'joker_forge_tarot'}
                         return true
                     end
                 }))
