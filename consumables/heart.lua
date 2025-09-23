@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'heart',
     set = 'lenormand',
-    pos = { x = 1, y = 1 },
+    pos = { x = 5, y = 1 },
     config = { extra = {
         
         consumable_count = 1
@@ -9,7 +9,7 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Heart',
         text = {
-        [1] = 'Create {C:attention}1{} {C:attention}Lenormand Card{}',
+        [1] = 'Create {C:attention}1{} {C:BDD5D2}Lenormand Card{}',
         [2] = 'and {C:attention}1{} {C:planet}Planet Card{}',
         [3] = '{C:inactive}(Must have room){}'
     }

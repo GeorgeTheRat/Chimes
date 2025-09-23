@@ -17,7 +17,7 @@ SMODS.Joker{ --Bingo Card
         }
     },
     pos = {
-        x = 3,
+        x = 2,
         y = 0
     },
     display_size = {

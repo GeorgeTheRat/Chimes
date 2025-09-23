@@ -4,13 +4,13 @@
   "author": [
     "GeorgeTheRat"
   ],
-  "description": "Vanilla balanced content made for people bored of exponentiation",
+  "description": "Vanilla balanced content made for people bored of exponentiation, created by a one man team\nI try to make good art too ig",
   "prefix": "solo",
   "main_file": "main.lua",
-  "version": "0.7.1",
+  "version": "0.9.0",
   "priority": 27,
   "badge_colour": "4f6367",
-  "badge_text_colour": "000000",
+  "badge_text_colour": "FFFFFF",
   "dependencies": [
     "Steamodded (>=1.0.0~BETA-0711a)"
   ]

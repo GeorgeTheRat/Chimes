@@ -17,7 +17,7 @@ SMODS.Joker{ --Paper
         }
     },
     pos = {
-        x = 9,
+        x = 3,
         y = 2
     },
     display_size = {

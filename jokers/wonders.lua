@@ -3,21 +3,23 @@ SMODS.Joker{ --Wonders
     config = {
         extra = {
             r = 11,
-            var1 = 0
+            _7sinhand = 0,
+            Xmult = 1.3
         }
     },
     loc_txt = {
         ['name'] = 'Wonders',
         ['text'] = {
-            [1] = 'Played {C:attention}7s{} give between {X:red,C:white}X1.1{}',
-            [2] = 'and {X:red,C:white}X1.7{} Mult when scored'
+            [1] = 'Played {C:attention}7s{} give {X:red,C:white}X1.3{} Mult when scored',
+            [2] = '{C:attention}7s{} give {C:attention}$1{} while {C:attention}held in hand{}',
+            [3] = 'for every {C:attention}7{} in played hand'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 8,
+        x = 3,
         y = 4
     },
     display_size = {
@@ -36,10 +38,15 @@ SMODS.Joker{ --Wonders
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
             if context.other_card:get_id() == 7 then
-                card.ability.extra.var1 = (card.ability.extra.var1) + pseudorandom('var1_776df99f', 11, 17)
-                card.ability.extra.r = (card.ability.extra.r) * 0.1
                 return {
-                    Xmult = card.ability.extra.r
+                    Xmult = card.ability.extra.Xmult
+                }
+            end
+        end
+        if context.individual and context.cardarea == G.hand and not context.end_of_round  then
+            if context.other_card:get_id() == 7 then
+                return {
+                    dollars = (function() local count = 0; for _, card in ipairs(G.hand and G.hand.cards or {}) do if card.base.id == 7 then count = count + 1 end end; return count end)()
                 }
             end
         end

@@ -4,16 +4,16 @@ SMODS.Joker{ --Tamago
         extra = {
             ten = 10,
             sell_value = 4,
-            all_jokers = 0,
-            var1 = 0
+            explode = 0,
+            y = 0
         }
     },
     loc_txt = {
         ['name'] = 'Tamago',
         ['text'] = {
-            [1] = 'Sell this card to gain {C:money}$10{}',
+            [1] = 'Sell this card to gain {C:money}$#1#{}',
             [2] = 'Decrease by {C:money}$2{} and increase',
-            [3] = '{C:attention}sell value{} of all {C:attention}Jokers{} by {C:money}$4{}',
+            [3] = '{C:attention}sell value{} of the {C:attention}Joker{} to the right by {C:money}$4{}',
             [4] = 'whenever a {C:attention}Blind{} is skipped'
         },
         ['unlock'] = {
@@ -21,7 +21,7 @@ SMODS.Joker{ --Tamago
         }
     },
     pos = {
-        x = 9,
+        x = 4,
         y = 3
     },
     display_size = {
@@ -38,6 +38,10 @@ SMODS.Joker{ --Tamago
     atlas = 'CustomJokers',
     pools = { ["solo_sushi"] = true },
 
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.ten}}
+    end,
+
     calculate = function(self, card, context)
         if context.selling_self  then
                 return {
@@ -48,27 +52,30 @@ SMODS.Joker{ --Tamago
             if (card.ability.extra.ten or 0) == 0 then
                 return {
                     func = function()
-                card:undefined()
+                card:explode()
                 return true
-            end
+            end,
+                    message = "Eaten!"
                 }
             else
                 return {
-                    func = function()for i, target_card in ipairs(G.jokers.cards) do
-                if target_card.set_cost then
-            target_joker.ability.extra_value = (card.ability.extra_value or 0) + card.ability.extra.sell_value
-            target_joker:set_cost()
+                    func = function()local my_pos = nil
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == card then
+                my_pos = i
+                break
             end
         end
+        local target_card = (my_pos and my_pos < #G.jokers.cards) and G.jokers.cards[my_pos + 1] or nil
                     return true
                 end,
-                    message = "All Jokers +"..tostring(card.ability.extra.sell_value).." Sell Value",
+                    message = "+"..tostring(card.ability.extra.sell_value).." Sell Value",
                     extra = {
                         func = function()
-                    card.ability.extra.var1 = (card.ability.extra.var1) + 1
+                    card.ability.extra.ten = math.max(0, (card.ability.extra.ten) - 2)
                     return true
                 end,
-                        colour = G.C.GREEN
+                        colour = G.C.RED
                         }
                 }
             end

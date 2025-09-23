@@ -19,8 +19,8 @@ SMODS.Joker{ --Togarashi
         }
     },
     pos = {
-        x = 1,
-        y = 4
+        x = 6,
+        y = 3
     },
     display_size = {
         w = 71 * 1, 
@@ -46,13 +46,17 @@ SMODS.Joker{ --Togarashi
                     func = function()
                     card.ability.extra.redsuit = (card.ability.extra.redsuit) + 1
                     return true
-                end
+                end,
+                    message = "Upgrade!"
                 }
             end
         end
         if context.individual and context.cardarea == G.play  then
             if context.other_card:is_suit("Hearts") or context.other_card:is_suit("Diamonds") then
                 card.ability.extra.redsuit = math.max(0, (card.ability.extra.redsuit) - 3)
+                return {
+                    message = "Too Spicy!"
+                }
             end
         end
     end

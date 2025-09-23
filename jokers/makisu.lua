@@ -18,8 +18,8 @@ SMODS.Joker{ --Makisu
         }
     },
     pos = {
-        x = 4,
-        y = 2
+        x = 8,
+        y = 1
     },
     display_size = {
         w = 71 * 1, 
@@ -36,7 +36,7 @@ SMODS.Joker{ --Makisu
 
     calculate = function(self, card, context)
         if context.using_consumeable  then
-            if (G.GAME.blind:get_type() == 'Small' or G.GAME.blind:get_type() == 'Big' or G.GAME.blind.boss) then
+            if (G.GAME.blind.name == "Cerulean Bell" or G.GAME.blind.name == "Cerulean Bell") then
                 return {
                     func = function()
             local created_joker = false

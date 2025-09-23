@@ -16,7 +16,7 @@ SMODS.Joker{ --Colored Pencils
         }
     },
     pos = {
-        x = 8,
+        x = 7,
         y = 0
     },
     display_size = {

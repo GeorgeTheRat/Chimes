@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'coffin',
     set = 'lenormand',
-    pos = { x = 5, y = 0 },
+    pos = { x = 7, y = 0 },
     config = { extra = {
         destroy_count = 3,
         add_cards_count = 2

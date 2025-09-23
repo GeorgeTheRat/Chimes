@@ -17,8 +17,8 @@ SMODS.Joker{ --Punk Joker
         }
     },
     pos = {
-        x = 2,
-        y = 3
+        x = 6,
+        y = 2
     },
     display_size = {
         w = 71 * 1, 

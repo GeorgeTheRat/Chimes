@@ -16,7 +16,7 @@ SMODS.Joker{ --Wine
         }
     },
     pos = {
-        x = 7,
+        x = 2,
         y = 4
     },
     display_size = {
@@ -71,11 +71,9 @@ SMODS.Joker{ --Wine
 
     add_to_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit + 1
-        G.jokers.config.card_limit = G.jokers.config.card_limit + 1
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - 1
         G.jokers.config.card_limit = G.jokers.config.card_limit - 1
     end,
   check_for_unlock = function(self,args)

@@ -8,14 +8,16 @@ SMODS.Joker{ --Overgrown Joker
     loc_txt = {
         ['name'] = 'Overgrown Joker',
         ['text'] = {
-            [1] = '{C:attention}+2{} consumable slots'
+            [1] = '{C:attention}+2{} consumable slots,',
+            [2] = 'halve the {C:green}chance{} for {C:attention}Vine Cards',
+            [3] = '{}to become {C:attention}Overgrown{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 8,
+        x = 2,
         y = 2
     },
     display_size = {

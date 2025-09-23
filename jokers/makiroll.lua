@@ -10,7 +10,7 @@ SMODS.Joker{ --Maki Roll
     loc_txt = {
         ['name'] = 'Maki Roll',
         ['text'] = {
-            [1] = '{C:attention}+#3# {}{C:attention}Booster Pack {}slots, gain {C:money}$3{} when exiting shop',
+            [1] = '{C:attention}+#1# {}{C:attention}Booster Pack {}slots, gain {C:money}$#1#{} when exiting shop',
             [2] = 'for every {C:attention}Booster Pack {}that {C:red}wasn\'t{} opened',
             [3] = 'Decreases by {C:attention}1{} slot and {C:money}$1{} when shop is entered'
         },
@@ -19,8 +19,8 @@ SMODS.Joker{ --Maki Roll
         }
     },
     pos = {
-        x = 3,
-        y = 2
+        x = 7,
+        y = 1
     },
     display_size = {
         w = 71 * 1, 
@@ -37,7 +37,7 @@ SMODS.Joker{ --Maki Roll
     pools = { ["solo_sushi"] = true },
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.all, card.ability.extra.left, card.ability.extra.tf}}
+        return {vars = {card.ability.extra.all}}
     end,
 
     calculate = function(self, card, context)

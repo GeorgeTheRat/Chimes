@@ -16,7 +16,7 @@ SMODS.Joker{ --Fungi
         }
     },
     pos = {
-        x = 6,
+        x = 1,
         y = 1
     },
     display_size = {

@@ -9,15 +9,15 @@ SMODS.Joker{ --Toy Car
         ['name'] = 'Toy Car',
         ['text'] = {
             [1] = 'Earn {C:attention}$#1# {}when {C:attention}Blind{} is skipped',
-            [2] = 'Increases by {C:attention}$2{} at end of round'
+            [2] = 'Increases by {C:attention}$3{} at end of round'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 3,
-        y = 4
+        x = 8,
+        y = 3
     },
     display_size = {
         w = 71 * 1, 
@@ -40,7 +40,7 @@ SMODS.Joker{ --Toy Car
         if context.end_of_round and context.game_over == false and context.main_eval  and not context.blueprint then
                 return {
                     func = function()
-                    card.ability.extra.moneyvar = (card.ability.extra.moneyvar) + 2
+                    card.ability.extra.moneyvar = (card.ability.extra.moneyvar) + 3
                     return true
                 end
                 }

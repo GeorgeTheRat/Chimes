@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'clouds',
     set = 'lenormand',
-    pos = { x = 3, y = 0 },
+    pos = { x = 5, y = 0 },
     config = { extra = {
         cardsinhand = 0,
         cards_amount = #(G.hand and G.hand.cards or {}),

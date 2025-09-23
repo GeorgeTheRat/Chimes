@@ -19,7 +19,7 @@ SMODS.Joker{ --Garlic
         }
     },
     pos = {
-        x = 7,
+        x = 2,
         y = 1
     },
     display_size = {
@@ -34,7 +34,6 @@ SMODS.Joker{ --Garlic
     unlocked = true,
     discovered = true,
     atlas = 'CustomJokers',
-    pools = { ["solo_food"] = true },
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.gargle}}
@@ -98,7 +97,7 @@ end)() then
                 }
             end
         end
-        if context.after and context.cardarea == G.jokers  then
+        if context.after and context.cardarea == G.jokers  and not context.blueprint then
             if (card.ability.extra.gargle or 0) <= 0 then
                 return {
                     func = function()

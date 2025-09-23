@@ -1,11 +1,11 @@
 SMODS.Consumable {
     key = 'lady',
     set = 'lenormand',
-    pos = { x = 4, y = 1 },
+    pos = { x = 8, y = 1 },
     loc_txt = {
         name = 'Lady',
         text = {
-        [1] = '{C:attention}Randomize{} the rank of up to {C:attention}3{} selected cards'
+        [1] = '{C:attention}Randomize{} the rank of up to {C:attention}4{} selected cards'
     }
     },
     cost = 4,
@@ -16,7 +16,7 @@ SMODS.Consumable {
     atlas = 'CustomConsumables',
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if (#G.hand.highlighted <= 3 and #G.hand.highlighted >= 1) then
+        if (#G.hand.highlighted <= 4 and #G.hand.highlighted >= 1) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,
@@ -76,6 +76,6 @@ SMODS.Consumable {
         end
     end,
     can_use = function(self, card)
-        return ((#G.hand.highlighted <= 3 and #G.hand.highlighted >= 1))
+        return ((#G.hand.highlighted <= 4 and #G.hand.highlighted >= 1))
     end
 }

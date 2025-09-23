@@ -9,7 +9,7 @@ SMODS.Joker{ --Waterfall
         ['name'] = 'Waterfall',
         ['text'] = {
             [1] = 'Retrigger each played {C:attention}6{}, {C:attention}7{}, {C:attention}8{}, {C:attention}9{}, and {C:attention}10{}',
-            [2] = 'once for each {C:attention}straight{} played this round',
+            [2] = 'once for each {C:attention}Two Pair{} played previously this round',
             [3] = '{C:inactive}(Currently #1#){}'
         },
         ['unlock'] = {
@@ -17,7 +17,7 @@ SMODS.Joker{ --Waterfall
         }
     },
     pos = {
-        x = 6,
+        x = 1,
         y = 4
     },
     display_size = {
@@ -39,7 +39,7 @@ SMODS.Joker{ --Waterfall
 
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  and not context.blueprint then
-            if context.scoring_name == "Straight" then
+            if context.scoring_name == "Two Pair" then
                 card.ability.extra.runtrigger = (card.ability.extra.runtrigger) + 1
             end
         end

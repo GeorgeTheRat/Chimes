@@ -3,8 +3,8 @@ SMODS.Booster {
     loc_txt = {
         name = "Jumbo Lenormand Pack",
         text = {
-            "Choose 1 of up to 4 Lenormand",
-            "cards to add to consumable slots"
+            "Choose 1 of up to 4",
+            "Lenormand cards to be used immediately"
         },
         group_name = "Jumbo Lenormand Pack"
     },
@@ -14,7 +14,6 @@ SMODS.Booster {
     atlas = "CustomBoosters",
     pos = { x = 0, y = 0 },
     draw_hand = true,
-    select_card = "consumeables",
     discovered = true,
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
@@ -54,8 +53,8 @@ SMODS.Booster {
     loc_txt = {
         name = "Lenormand Pack",
         text = {
-            "Choose 1 of up to 2 Lenormand",
-            "cards to add to consumable slots"
+            "Choose 1 of up to 2",
+            "Lenormand cards to be used immediately"
         },
         group_name = "Lenormand Pack"
     },
@@ -64,7 +63,6 @@ SMODS.Booster {
     atlas = "CustomBoosters",
     pos = { x = 1, y = 0 },
     draw_hand = true,
-    select_card = "consumeables",
     discovered = true,
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
@@ -106,8 +104,8 @@ SMODS.Booster {
     loc_txt = {
         name = "Mega Lenormand Pack",
         text = {
-            "Choose 2 of up to 4 Lenormand",
-            "cards to add to consumable slots"
+            "Choose 2 of up to 4",
+            "Lenormand cards to be used immediately"
         },
         group_name = "Mega Lenormand Pack"
     },
@@ -117,7 +115,6 @@ SMODS.Booster {
     atlas = "CustomBoosters",
     pos = { x = 2, y = 0 },
     draw_hand = true,
-    select_card = "consumeables",
     discovered = true,
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config

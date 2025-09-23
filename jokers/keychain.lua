@@ -2,25 +2,22 @@ SMODS.Joker{ --Keychain
     key = "keychain",
     config = {
         extra = {
-            aaa = 8,
-            currenthandsize = 0,
-            odds = "card.ability.extra.aaa"
+            nun = 0
         }
     },
     loc_txt = {
         ['name'] = 'Keychain',
         ['text'] = {
-            [1] = 'When a discard is used, {C:green}#3# in #1# {}',
-            [2] = 'chance of creating a random {C:attention}Tag{}, chance',
-            [3] = '{C:attention}increases{} with {C:red}decreased{}{C:attention} hand size{}'
+            [1] = 'Create {C:attention}1{} random {C:attention}Tag{} when sold',
+            [2] = 'Increase by {C:attention}1{} when a {C:attention}Tag{} is obtained'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 2,
-        y = 2
+        x = 6,
+        y = 1
     },
     display_size = {
         w = 71 * 1, 
@@ -36,15 +33,10 @@ SMODS.Joker{ --Keychain
     atlas = 'CustomJokers',
     pools = { ["solo_solo_jokers"] = true },
 
-    loc_vars = function(self, info_queue, card)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_keychain') 
-        return {vars = {card.ability.extra.aaa, ((G.hand and G.hand.config.card_limit or 0) or 0), new_numerator, new_denominator}}
-    end,
-
     calculate = function(self, card, context)
-        if context.pre_discard  then
+        if context.selling_self  then
             if true then
-                if SMODS.pseudorandom_probability(card, 'group_0_b7cfff6c', 1, card.ability.extra.odds, 'j_solo_keychain', false) then
+                for i = 1, card.ability.extra.nun do
               SMODS.calculate_effect({func = function()
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -71,10 +63,10 @@ SMODS.Joker{ --Keychain
           end
             end
         end
-        if context.setting_blind  then
+        if context.tag_added and not context.blueprint then
                 return {
                     func = function()
-                    card.ability.extra.aaa = (card.ability.extra.aaa) + (G.hand and G.hand.config.card_limit or 0)
+                    card.ability.extra.nun = (card.ability.extra.nun) + 1
                     return true
                 end
                 }

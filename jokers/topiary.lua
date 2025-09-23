@@ -30,8 +30,8 @@ SMODS.Joker{ --Topiary
         }
     },
     pos = {
-        x = 2,
-        y = 4
+        x = 7,
+        y = 3
     },
     display_size = {
         w = 71 * 1, 

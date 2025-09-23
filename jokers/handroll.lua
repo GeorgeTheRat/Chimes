@@ -22,8 +22,8 @@ SMODS.Joker{ --Hand Roll
         }
     },
     pos = {
-        x = 1,
-        y = 2
+        x = 5,
+        y = 1
     },
     display_size = {
         w = 71 * 1, 

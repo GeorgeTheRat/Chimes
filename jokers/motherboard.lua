@@ -11,7 +11,7 @@ SMODS.Joker{ --Motherboard
             [1] = '{C:blue}+#1# {}Chips,',
             [2] = 'this {C:attention}Joker{} gains {C:blue}+3 {}Chips',
             [3] = 'when a {C:green}listed chance{} is failed',
-            [4] = 'and {C:red}-5{} Chips when',
+            [4] = 'and loses {C:red}-5{} Chips when',
             [5] = 'a {C:green}listed chance{} succeeds'
         },
         ['unlock'] = {
@@ -19,7 +19,7 @@ SMODS.Joker{ --Motherboard
         }
     },
     pos = {
-        x = 6,
+        x = 0,
         y = 2
     },
     display_size = {

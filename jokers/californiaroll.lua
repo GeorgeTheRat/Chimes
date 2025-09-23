@@ -19,7 +19,7 @@ SMODS.Joker{ --California Roll
         }
     },
     pos = {
-        x = 6,
+        x = 5,
         y = 0
     },
     display_size = {

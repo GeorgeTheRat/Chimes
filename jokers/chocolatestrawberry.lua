@@ -16,7 +16,7 @@ SMODS.Joker{ --Chocolate Strawberry
         }
     },
     pos = {
-        x = 7,
+        x = 6,
         y = 0
     },
     display_size = {
@@ -31,7 +31,6 @@ SMODS.Joker{ --Chocolate Strawberry
     unlocked = true,
     discovered = true,
     atlas = 'CustomJokers',
-    pools = { ["solo_food"] = true },
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.banana}}
