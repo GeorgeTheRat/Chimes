@@ -8,7 +8,7 @@ SMODS.Joker{ --Punk Joker
     loc_txt = {
         ['name'] = 'Punk Joker',
         ['text'] = {
-            [1] = 'Gains {C:blue}+30{} Chips when a',
+            [1] = 'Gains {C:blue}+40{} Chips when a',
             [2] = '{C:spades}Spade{} or {C:clubs}Club{} is destroyed',
             [3] = '{C:inactive}(Currently +#1# Chips){}'
         },
@@ -49,7 +49,7 @@ SMODS.Joker{ --Punk Joker
 end)() then
                 return {
                     func = function()
-                    card.ability.extra.chipvar = (card.ability.extra.chipvar) + 30
+                    card.ability.extra.chipvar = (card.ability.extra.chipvar) + 40
                     return true
                 end
                 }

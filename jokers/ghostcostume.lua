@@ -3,12 +3,8 @@ SMODS.Joker{ --Ghost Costume
     config = {
         extra = {
             edititionion = 1,
-            odds = 2,
-            odds2 = 2,
-            odds3 = 2,
-            odds4 = 2,
+            odds = 13,
             dollars = 10,
-            var1 = 0,
             costumes1 = 0,
             respect = 0
         }
@@ -16,10 +12,9 @@ SMODS.Joker{ --Ghost Costume
     loc_txt = {
         ['name'] = 'Ghost Costume',
         ['text'] = {
-            [1] = 'Scored cards have a {C:green}#5# in #6# {}chance',
-            [2] = 'of being {C:red}destroyed{} and a {C:green}#5# in #6# {}',
-            [3] = 'chance of having {C:edition}Foil{}, {C:edition}Holographic{}, or {C:edition}Polychrome{} applied',
-            [4] = '{C:red}-$10{} and create another {C:attention}Costume{} when sold'
+            [1] = 'Scored cards have a {C:green}#4# in #5# {}',
+            [2] = 'chance of having {C:edition}Foil{}, {C:edition}Holographic{}, or {C:edition}Polychrome{} applied',
+            [3] = '{C:red}-$10{} and create another {C:attention}Costume{} when sold'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -45,40 +40,22 @@ SMODS.Joker{ --Ghost Costume
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_ghostcostume') 
-        return {vars = {card.ability.extra.edititionion, card.ability.extra.costumes1, card.ability.extra.respect, card.ability.extra.var1, new_numerator, new_denominator}}
+        return {vars = {card.ability.extra.edititionion, card.ability.extra.costumes1, card.ability.extra.respect, new_numerator, new_denominator}}
     end,
 
     calculate = function(self, card, context)
-        if context.destroy_card and context.destroy_card.should_destroy  then
-            return { remove = true }
-        end
         if context.individual and context.cardarea == G.play  then
-            context.other_card.should_destroy = false
-            if ((card.ability.extra.edititionion or 0) == 1 or (card.ability.extra.edititionion or 0) == 2 or (card.ability.extra.edititionion or 0) == 3) then
-                if SMODS.pseudorandom_probability(card, 'group_0_94b68a9b', 1, card.ability.extra.odds, 'j_solo_ghostcostume', false) then
-              context.other_card:set_edition("e_foil", true)
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Card Modified!", colour = G.C.BLUE})
-          end
-            elseif (card.ability.extra.var1 or 0) == 0 then
-                card.ability.extra.edititionion = pseudorandom('edititionion_03cb7817', 1, 6)
-            elseif ((card.ability.extra.edititionion or 0) == 4 or (card.ability.extra.edititionion or 0) == 5) then
-                if SMODS.pseudorandom_probability(card, 'group_0_85a6bc40', 1, card.ability.extra.odds, 'j_solo_ghostcostume', false) then
-              context.other_card:set_edition("e_holo", true)
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Card Modified!", colour = G.C.BLUE})
-          end
-            elseif (card.ability.extra.edititionion or 0) == 6 then
+            if true then
                 if SMODS.pseudorandom_probability(card, 'group_0_422d6e71', 1, card.ability.extra.odds, 'j_solo_ghostcostume', false) then
-              context.other_card:set_edition("e_holo", true)
+              local random_edition = poll_edition('edit_card_edition', nil, true, true)
+                if random_edition then
+                    context.other_card:set_edition(random_edition, true)
+                end
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Card Modified!", colour = G.C.BLUE})
-          end
-            elseif true then
-                if SMODS.pseudorandom_probability(card, 'group_0_b7f55f3a', 1, card.ability.extra.odds, 'j_solo_ghostcostume', false) then
-              context.other_card.should_destroy = true
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Destroyed!", colour = G.C.RED})
           end
             end
         end
-        if context.selling_self  then
+        if context.selling_self  and not context.blueprint then
                 return {
                     dollars = -card.ability.extra.dollars,
                     extra = {
