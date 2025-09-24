@@ -21,7 +21,7 @@ SMODS.Joker{ --Pumpkin Costume
         }
     },
     pos = {
-        x = 5,
+        x = 6,
         y = 2
     },
     display_size = {

@@ -2,10 +2,12 @@ SMODS.Joker{ --Tobiko
     key = "tobiko",
     config = {
         extra = {
-            rerrooll = 5,
+            rerrooll = 4,
             odds = 4,
+            sell_value = 0,
             explode = 0,
-            y = 0
+            y = 0,
+            all_jokers = 0
         }
     },
     loc_txt = {
@@ -14,7 +16,8 @@ SMODS.Joker{ --Tobiko
             [1] = '{C:attention}+#1#{} Free {C:green}Reroll(s){}',
             [2] = '{C:green}#4# in #5#{} chance to decrease {C:green}Reroll{}',
             [3] = 'amount by {C:attention}1 {}when the shop is {C:green}Rerolled{}',
-            [4] = ''
+            [4] = 'When this {C:attention}Joker{} is sold,',
+            [5] = 'set the{C:money} sell value {}of all other {C:attention}Jokers{} to {C:red}0{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -40,7 +43,7 @@ SMODS.Joker{ --Tobiko
 
     loc_vars = function(self, info_queue, card)
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_tobiko') 
-        return {vars = {card.ability.extra.rerrooll, card.ability.extra.explode, card.ability.extra.y, new_numerator, new_denominator}}
+        return {vars = {card.ability.extra.rerrooll, card.ability.extra.all_jokers, card.ability.extra.explode, card.ability.extra.y, new_numerator, new_denominator}}
     end,
 
     calculate = function(self, card, context)
@@ -61,6 +64,19 @@ SMODS.Joker{ --Tobiko
                 end}, card)
           end
             end
+        end
+        if context.selling_self  then
+                return {
+                    func = function()for i, target_card in ipairs(G.jokers.cards) do
+                if target_card.set_cost then
+            target_joker.ability.extra_value = card.ability.extra.sell_value
+            target_joker:set_cost()
+            end
+        end
+                    return true
+                end,
+                    message = "All Jokers Sell Value: $"..tostring(card.ability.extra.sell_value)
+                }
         end
     end,
 

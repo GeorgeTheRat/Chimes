@@ -2,10 +2,14 @@ SMODS.Consumable {
     key = 'house',
     set = 'lenormand',
     pos = { x = 6, y = 1 },
+    config = { extra = {
+        perma_bonus_value = 30
+    } },
     loc_txt = {
         name = 'House',
         text = {
-        [1] = 'Apply {C:attention}Foil{} to up to {C:attention}2{} selected cards'
+        [1] = 'Add a permanent bonus {C:blue}+30{}{C:attention} held in hand{}',
+        [2] = 'Chips to up to {C:attention}2{} selected cards'
     }
     },
     cost = 4,
@@ -45,7 +49,8 @@ SMODS.Consumable {
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_edition({ foil = true }, true)
+                        G.hand.highlighted[i].ability.h_chips = G.hand.highlighted[i].ability.h_chips or 0
+                        G.hand.highlighted[i].ability.h_chips = G.hand.highlighted[i].ability.h_chips + 30
                         return true
                     end
                 }))

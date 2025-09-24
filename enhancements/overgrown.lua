@@ -13,11 +13,11 @@ SMODS.Enhancement {
     atlas = 'CustomEnhancements',
     any_suit = false,
     replace_base_card = false,
-    no_rank = false,
-    no_suit = false,
+    no_rank = true,
+    no_suit = true,
     always_scores = true,
     unlocked = true,
     discovered = true,
     no_collection = false,
-    weight = 5
+    weight = 0
 }

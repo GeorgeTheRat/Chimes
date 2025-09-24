@@ -10,7 +10,7 @@ SMODS.Joker{ --Makisu
         ['name'] = 'Makisu',
         ['text'] = {
             [1] = 'Create a random {C:attention}Sushi Joker{}',
-            [2] = 'when a consumable is used during {C:attention}Blind{}',
+            [2] = 'when a consumable is used during {C:attention}Boss Blind{}',
             [3] = '{C:inactive}(Must have room){}'
         },
         ['unlock'] = {
@@ -36,7 +36,7 @@ SMODS.Joker{ --Makisu
 
     calculate = function(self, card, context)
         if context.using_consumeable  then
-            if (G.GAME.blind.name == "Cerulean Bell" or G.GAME.blind.name == "Cerulean Bell") then
+            if G.GAME.blind.boss then
                 return {
                     func = function()
             local created_joker = false

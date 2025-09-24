@@ -17,7 +17,7 @@ SMODS.Joker{ --Orchid
         }
     },
     pos = {
-        x = 1,
+        x = 2,
         y = 2
     },
     display_size = {

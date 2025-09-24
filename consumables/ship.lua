@@ -26,7 +26,6 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if G.GAME.blind.in_blind then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.7,
@@ -71,9 +70,8 @@ SMODS.Consumable {
             SMODS.destroy_cards(destroyed_cards)
 
             delay(0.5)
-        end
     end,
     can_use = function(self, card)
-        return (G.GAME.blind.in_blind)
+        return true
     end
 }
