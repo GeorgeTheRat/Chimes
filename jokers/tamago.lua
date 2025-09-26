@@ -21,7 +21,7 @@ SMODS.Joker{ --Tamago
         }
     },
     pos = {
-        x = 4,
+        x = 3,
         y = 3
     },
     display_size = {

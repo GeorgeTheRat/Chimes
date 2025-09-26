@@ -22,8 +22,8 @@ SMODS.Joker{ --Salmon Nigiri
         }
     },
     pos = {
-        x = 0,
-        y = 3
+        x = 9,
+        y = 2
     },
     display_size = {
         w = 71 * 1, 

@@ -9,7 +9,7 @@ SMODS.Consumable {
         name = 'Stork',
         text = {
         [1] = 'Add {C:attention}Enhanced Cards{} equal',
-        [2] = 'to the number of',
+        [2] = 'to {C:attention}double{} the number of',
         [3] = '{C:attention}consumables{} owned to hand',
         [4] = '{C:inactive}(#1#){}'
     }
@@ -21,7 +21,7 @@ SMODS.Consumable {
     can_repeat_soul = false,
     atlas = 'CustomConsumables',
     loc_vars = function(self, info_queue, card)
-        return {vars = {(#(G.consumeables and G.consumeables.cards or {}) or 0)}}
+        return {vars = {((#(G.consumeables and G.consumeables.cards or {}) or 0)) * 2}}
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
@@ -30,7 +30,7 @@ SMODS.Consumable {
                 delay = 0.7,
                 func = function()
                     local cards = {}
-                    for i = 1, #(G.consumeables and G.consumeables.cards or {}) do
+                    for i = 1, (#(G.consumeables and G.consumeables.cards or {})) * 2 do
                         local _rank = pseudorandom_element(SMODS.Ranks, 'add_random_rank').card_key
                         local _suit = nil
                         local cen_pool = {}

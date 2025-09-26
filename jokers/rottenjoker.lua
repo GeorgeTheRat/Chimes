@@ -17,7 +17,7 @@ SMODS.Joker{ --Rotten Joker
         }
     },
     pos = {
-        x = 9,
+        x = 8,
         y = 2
     },
     display_size = {

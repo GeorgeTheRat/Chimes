@@ -17,7 +17,7 @@ SMODS.Joker{ --Rock
         }
     },
     pos = {
-        x = 8,
+        x = 7,
         y = 2
     },
     display_size = {

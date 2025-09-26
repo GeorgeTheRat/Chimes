@@ -16,7 +16,7 @@ SMODS.Joker{ --Wine
         }
     },
     pos = {
-        x = 2,
+        x = 1,
         y = 4
     },
     display_size = {

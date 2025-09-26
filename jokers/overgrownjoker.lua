@@ -17,7 +17,7 @@ SMODS.Joker{ --Overgrown Joker
         }
     },
     pos = {
-        x = 3,
+        x = 2,
         y = 2
     },
     display_size = {

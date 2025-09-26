@@ -8,7 +8,7 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Tree',
         text = {
-        [1] = 'Earn {C:money}$1{} for each card below',
+        [1] = 'Earn {C:money}$3{} for each card below',
         [2] = '{C:attention}52{} in your full deck',
         [3] = '{C:inactive}(Currently +$#1#){}'
     }
@@ -20,7 +20,7 @@ SMODS.Consumable {
     can_repeat_soul = false,
     atlas = 'CustomConsumables',
     loc_vars = function(self, info_queue, card)
-        return {vars = {((G.GAME.starting_deck_size - #(G.playing_cards or {})) or 0)}}
+        return {vars = {(((G.GAME.starting_deck_size - #(G.playing_cards or {})) or 0)) * 3}}
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
@@ -28,8 +28,8 @@ SMODS.Consumable {
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring((G.GAME.starting_deck_size - #(G.playing_cards or {}))).." $", colour = G.C.MONEY})
-                    ease_dollars((G.GAME.starting_deck_size - #(G.playing_cards or {})), true)
+                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring(((G.GAME.starting_deck_size - #(G.playing_cards or {}))) * 3).." $", colour = G.C.MONEY})
+                    ease_dollars(((G.GAME.starting_deck_size - #(G.playing_cards or {}))) * 3, true)
                     return true
                 end
             }))
