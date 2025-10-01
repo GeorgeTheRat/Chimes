@@ -71,11 +71,6 @@ SMODS.Consumable {
                 }))
             end
             delay(0.2)
-            for i = 1, #affected_cards do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.1,
-                    func = function()
                         local cen_pool = {}
                         for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
                             if enhancement_center.key ~= 'm_stone' then

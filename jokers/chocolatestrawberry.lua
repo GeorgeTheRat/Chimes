@@ -33,6 +33,7 @@ SMODS.Joker{ --Chocolate Strawberry
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.banana}}
     end,
 

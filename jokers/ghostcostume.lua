@@ -39,6 +39,7 @@ SMODS.Joker{ --Ghost Costume
     pools = { ["solo_costumes"] = true, ["solo_costumes2"] = true },
 
     loc_vars = function(self, info_queue, card)
+        
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_ghostcostume') 
         return {vars = {card.ability.extra.edititionion, card.ability.extra.costumes1, card.ability.extra.respect, new_numerator, new_denominator}}
     end,

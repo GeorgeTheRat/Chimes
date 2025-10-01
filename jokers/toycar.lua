@@ -16,7 +16,7 @@ SMODS.Joker{ --Toy Car
         }
     },
     pos = {
-        x = 7,
+        x = 9,
         y = 3
     },
     display_size = {
@@ -33,6 +33,7 @@ SMODS.Joker{ --Toy Car
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.moneyvar}}
     end,
 

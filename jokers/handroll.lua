@@ -39,6 +39,7 @@ SMODS.Joker{ --Hand Roll
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.all}}
     end,
 

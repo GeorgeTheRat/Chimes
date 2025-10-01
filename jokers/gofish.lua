@@ -35,6 +35,7 @@ SMODS.Joker{ --Go Fish
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {localize((G.GAME.current_round.r1_card or {}).rank or 'Ace', 'ranks'), localize((G.GAME.current_round.r2_card or {}).rank or 'Ace', 'ranks')}}
     end,
 

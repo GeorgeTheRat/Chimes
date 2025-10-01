@@ -24,7 +24,7 @@ SMODS.Joker{ --Tobiko
         }
     },
     pos = {
-        x = 4,
+        x = 6,
         y = 3
     },
     display_size = {
@@ -42,6 +42,7 @@ SMODS.Joker{ --Tobiko
     pools = { ["solo_sushi"] = true },
 
     loc_vars = function(self, info_queue, card)
+        
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_tobiko') 
         return {vars = {card.ability.extra.rerrooll, card.ability.extra.all_jokers, card.ability.extra.explode, card.ability.extra.y, new_numerator, new_denominator}}
     end,

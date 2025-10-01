@@ -19,7 +19,7 @@ SMODS.Joker{ --Motherboard
         }
     },
     pos = {
-        x = 0,
+        x = 1,
         y = 2
     },
     display_size = {
@@ -37,6 +37,7 @@ SMODS.Joker{ --Motherboard
     pools = { ["solo_solo_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.ice}}
     end,
 

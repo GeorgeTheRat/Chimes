@@ -53,7 +53,7 @@ SMODS.Consumable {
                             end
                         end
                         local enhancement = pseudorandom_element(cen_pool, 'random_enhance')
-                        G.hand.highlighted[i]:set_ability(enhancement)
+                        G.hand.highlighted[i]:set_ability(enhancement)            
                         return true
                     end
                 }))

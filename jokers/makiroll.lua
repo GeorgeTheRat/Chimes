@@ -19,7 +19,7 @@ SMODS.Joker{ --Maki Roll
         }
     },
     pos = {
-        x = 7,
+        x = 8,
         y = 1
     },
     display_size = {
@@ -37,6 +37,7 @@ SMODS.Joker{ --Maki Roll
     pools = { ["solo_sushi"] = true },
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.all}}
     end,
 

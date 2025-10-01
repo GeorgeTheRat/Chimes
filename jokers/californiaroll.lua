@@ -37,6 +37,7 @@ SMODS.Joker{ --California Roll
     pools = { ["solo_sushi"] = true },
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.a}}
     end,
 
@@ -44,25 +45,29 @@ SMODS.Joker{ --California Roll
         if context.playing_card_added  then
             if (card.ability.extra.a or 0) ~= 0 then
                 return {
-                    func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                    
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                     extra = {
                         func = function()
             local created_joker = false
@@ -253,109 +258,129 @@ SMODS.Joker{ --California Roll
         end,
                             colour = G.C.BLUE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE
                         }
                         }
@@ -464,88 +489,104 @@ SMODS.Joker{ --California Roll
         end,
                             colour = G.C.BLUE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE
                         }
                         }
@@ -628,67 +669,79 @@ SMODS.Joker{ --California Roll
         end,
                             colour = G.C.BLUE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE
                         }
                         }
@@ -745,46 +798,54 @@ SMODS.Joker{ --California Roll
         end,
                         colour = G.C.BLUE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE,
                         extra = {
-                            func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                            
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                             colour = G.C.PURPLE
                         }
                         }
@@ -815,25 +876,29 @@ SMODS.Joker{ --California Roll
             return true
         end,
                     extra = {
-                        func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local random_sets = {'Tarot', 'Planet', 'Spectral'}
-                            local random_set = random_sets[math.random(1, #random_sets)]
-                            SMODS.add_card{set=random_set, soulable = undefined, key_append='joker_forge_' .. random_set:lower()}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                        
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            local sets = {'Tarot', 'Planet', 'Spectral'}
+            local random_set = pseudorandom_element(sets, 'random_consumable_set')
+            SMODS.add_card({ set = random_set, })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-                end,
+                  end,
                         colour = G.C.PURPLE
                         }
                 }

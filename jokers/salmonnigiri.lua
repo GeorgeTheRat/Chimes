@@ -22,8 +22,8 @@ SMODS.Joker{ --Salmon Nigiri
         }
     },
     pos = {
-        x = 9,
-        y = 2
+        x = 1,
+        y = 3
     },
     display_size = {
         w = 71 * 1, 
@@ -40,6 +40,7 @@ SMODS.Joker{ --Salmon Nigiri
     pools = { ["solo_sushi"] = true },
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.ah}}
     end,
 

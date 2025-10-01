@@ -17,7 +17,7 @@ SMODS.Joker{ --Starflower
         }
     },
     pos = {
-        x = 1,
+        x = 3,
         y = 3
     },
     display_size = {
@@ -37,23 +37,27 @@ SMODS.Joker{ --Starflower
         if context.individual and context.cardarea == G.hand and not context.end_of_round  then
             if context.other_card:is_suit("Diamonds") then
                 if SMODS.pseudorandom_probability(card, 'group_0_9630fc7a', 1, card.ability.extra.odds, 'j_solo_starflower', false) then
-              SMODS.calculate_effect({func = function()local created_consumable = false
-                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    created_consumable = true
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            SMODS.add_card{set = 'Tarot', soulable = undefined, key = nil, key_append = 'joker_forge_tarot'}
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+              SMODS.calculate_effect({
+    func = function()
+    for i = 1, math.min(undefined, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+            play_sound('timpani')
+            SMODS.add_card({ set = 'Tarot', })                            
+            card:juice_up(0.3, 0.5)
+            return true
+        end
+        }))
+    end
+    delay(0.6)
+
                     if created_consumable then
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
                     end
                     return true
-                end}, card)
+                  end}, card)
           end
             end
         end

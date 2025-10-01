@@ -17,7 +17,7 @@ SMODS.Joker{ --Punk Joker
         }
     },
     pos = {
-        x = 6,
+        x = 8,
         y = 2
     },
     display_size = {
@@ -34,6 +34,7 @@ SMODS.Joker{ --Punk Joker
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.chipvar}}
     end,
 

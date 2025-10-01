@@ -21,8 +21,8 @@ SMODS.Joker{ --Monster Costume
         }
     },
     pos = {
-        x = 9,
-        y = 1
+        x = 0,
+        y = 2
     },
     display_size = {
         w = 71 * 1, 
@@ -39,6 +39,7 @@ SMODS.Joker{ --Monster Costume
     pools = { ["solo_costumes"] = true, ["solo_costumes1"] = true },
 
     loc_vars = function(self, info_queue, card)
+        
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_monstercostume') 
         return {vars = {card.ability.extra.edititionion, card.ability.extra.costumes2, card.ability.extra.respect, new_numerator, new_denominator}}
     end,

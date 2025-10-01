@@ -21,7 +21,7 @@ SMODS.Joker{ --Pumpkin Costume
         }
     },
     pos = {
-        x = 5,
+        x = 7,
         y = 2
     },
     display_size = {
@@ -39,6 +39,7 @@ SMODS.Joker{ --Pumpkin Costume
     pools = { ["solo_costumes1"] = true, ["solo_costumes2"] = true },
 
     loc_vars = function(self, info_queue, card)
+        
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_pumpkincostume') 
         return {vars = {card.ability.extra.edititionion, card.ability.extra.costumes, card.ability.extra.respect, new_numerator, new_denominator}}
     end,

@@ -17,7 +17,7 @@ SMODS.Joker{ --Waterfall
         }
     },
     pos = {
-        x = 0,
+        x = 2,
         y = 4
     },
     display_size = {
@@ -34,6 +34,7 @@ SMODS.Joker{ --Waterfall
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.runtrigger}}
     end,
 

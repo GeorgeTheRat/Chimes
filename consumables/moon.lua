@@ -45,7 +45,7 @@ SMODS.Consumable {
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_solo_old'])
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_solo_old'])            
                         return true
                     end
                 }))

@@ -18,7 +18,7 @@ SMODS.Joker{ --Makisu
         }
     },
     pos = {
-        x = 8,
+        x = 9,
         y = 1
     },
     display_size = {

@@ -38,6 +38,7 @@ SMODS.Joker{ --Brain
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
+        
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_solo_brain') 
         return {vars = {card.ability.extra.mult1, card.ability.extra.mult2, new_numerator, new_denominator}}
     end,

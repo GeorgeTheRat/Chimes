@@ -19,7 +19,7 @@ SMODS.Joker{ --Togarashi
         }
     },
     pos = {
-        x = 5,
+        x = 7,
         y = 3
     },
     display_size = {
@@ -36,6 +36,7 @@ SMODS.Joker{ --Togarashi
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
+        
         return {vars = {card.ability.extra.redsuit}}
     end,
 
