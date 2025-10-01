@@ -25,7 +25,6 @@ SMODS.Consumable {
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if G.GAME.blind.in_blind then
             local destroyed_cards = {}
             local temp_hand = {}
 
@@ -52,9 +51,8 @@ SMODS.Consumable {
             SMODS.destroy_cards(destroyed_cards)
 
             delay(0.5)
-        end
     end,
     can_use = function(self, card)
-        return (G.GAME.blind.in_blind)
+        return true
     end
 }

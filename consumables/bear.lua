@@ -10,7 +10,7 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Bear',
         text = {
-        [1] = 'Lose {C:red}-$40{} for every {C:money}$50 {}you have',
+        [1] = 'Lose {C:red}-$20{} for every {C:money}$25 {}you have',
         [2] = '{C:attention}Quadruple{} Money'
     }
     },
