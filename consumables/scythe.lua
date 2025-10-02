@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'scythe',
     set = 'lenormand',
-    pos = { x = 7, y = 2 },
+    pos = { x = 6, y = 2 },
     config = { extra = {
         money÷10 = 0
     } },

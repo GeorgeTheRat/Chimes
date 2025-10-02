@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'ring',
     set = 'lenormand',
-    pos = { x = 6, y = 2 },
+    pos = { x = 5, y = 2 },
     config = { extra = {
         copy_cards_amount = 1
     } },

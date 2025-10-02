@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'mountain',
     set = 'lenormand',
-    pos = { x = 4, y = 2 },
+    pos = { x = 3, y = 2 },
     config = { extra = {
         booster_slots_value = 1,
         voucher_slots_value = 1,

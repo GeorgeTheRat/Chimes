@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'garden',
     set = 'lenormand',
-    pos = { x = 4, y = 1 },
+    pos = { x = 3, y = 1 },
     config = { extra = {
         lowestrankinhand = 0
     } },
