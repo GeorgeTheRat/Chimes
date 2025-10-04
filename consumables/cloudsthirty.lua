@@ -3,7 +3,7 @@ SMODS.Consumable {
     set = 'lenormand',
     pos = { x = 5, y = 0 },
     config = { extra = {
-        hand_size_value = 1
+        hand_size_value = 100
     } },
     loc_txt = {
         name = 'Clouds',
