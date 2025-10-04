@@ -4,7 +4,7 @@ SMODS.Consumable {
     pos = { x = 5, y = 0 },
     config = { extra = {
         cardsinhand = 0,
-        cards_amount = #(G.hand and G.hand.cards or {}),
+        cards_amount = #(G.hand and G.hand.cards),
         hand_size_value = 1
     } },
     loc_txt = {
