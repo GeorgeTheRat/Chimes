@@ -7245,22 +7245,23 @@
           "conditionGroups": [],
           "effects": [
             {
-              "id": "bf62927f-c09c-47ee-b166-0428cfc37995",
-              "type": "edit_cards",
-              "params": {
-                "enhancement": "random",
-                "seal": "none",
-                "edition": "none",
-                "suit": "none",
-                "rank": "none"
-              }
-            },
-            {
               "id": "cf13bd31-913a-4500-9a43-d8a8011cd496",
               "type": "edit_hand_size",
               "params": {
                 "operation": "subtract",
                 "value": 1
+              }
+            },
+            {
+              "id": "41d52340-3c02-4e1b-ac97-c81f7008c67b",
+              "type": "edit_cards_in_hand",
+              "params": {
+                "amount": 1,
+                "enhancement": "none",
+                "seal": "none",
+                "edition": "none",
+                "suit": "none",
+                "rank": "none"
               }
             }
           ],
@@ -9922,5 +9923,5 @@
   "editions": [],
   "vouchers": [],
   "version": "1.0.0",
-  "exportedAt": "2025-10-04T18:44:08.736Z"
+  "exportedAt": "2025-10-04T18:46:27.380Z"
 }
