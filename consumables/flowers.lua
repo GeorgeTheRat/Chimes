@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'flowers',
     set = 'lenormand',
-    pos = { x = 1, y = 1 },
+    pos = { x = 2, y = 1 },
     config = { extra = {
         edition_amount = 1
     } },

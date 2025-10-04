@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'ship',
     set = 'lenormand',
-    pos = { x = 6, y = 2 },
+    pos = { x = 8, y = 2 },
     config = { extra = {
         cardsindeck = 0,
         currenthandsize = 0
