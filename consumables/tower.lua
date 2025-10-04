@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'tower',
     set = 'lenormand',
-    pos = { x = 2, y = 3 },
+    pos = { x = 1, y = 3 },
     config = { extra = {
         perma_bonus_value = 2
     } },
