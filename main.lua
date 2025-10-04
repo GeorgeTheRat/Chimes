@@ -57,7 +57,7 @@ local function load_jokers_folder()
 end
 
 
-local consumableIndexList = {25,7,28,16,34,6,29,8,13,27,35,3,5,14,2,30,31,11,33,15,24,10,22,26,4,19,21,18,20,32,23,17,12,1,9}
+local consumableIndexList = {24,6,27,15,33,28,7,12,26,34,3,5,13,2,29,30,10,32,14,23,9,21,25,4,18,20,17,19,31,22,16,11,1,8}
 
 local function load_consumables_folder()
     local mod_path = SMODS.current_mod.path

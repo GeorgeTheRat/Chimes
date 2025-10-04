@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'tree',
     set = 'lenormand',
-    pos = { x = 3, y = 3 },
+    pos = { x = 2, y = 3 },
     config = { extra = {
         cardsremovedfromdeck = 0
     } },
