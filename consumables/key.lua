@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'key',
     set = 'lenormand',
-    pos = { x = 7, y = 1 },
+    pos = { x = 6, y = 1 },
     loc_txt = {
         name = 'Key',
         text = {

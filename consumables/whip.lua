@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'whip',
     set = 'lenormand',
-    pos = { x = 5, y = 3 },
+    pos = { x = 4, y = 3 },
     config = { extra = {
         destroy_count = 2
     } },

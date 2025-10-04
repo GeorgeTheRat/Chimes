@@ -1,7 +1,7 @@
 SMODS.Consumable {
     key = 'stars',
     set = 'lenormand',
-    pos = { x = 0, y = 3 },
+    pos = { x = 9, y = 2 },
     config = { extra = {
         blindsskipped = 0,
         levels = 1
