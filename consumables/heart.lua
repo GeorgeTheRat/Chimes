@@ -37,7 +37,7 @@ SMODS.Consumable {
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
                     end
                     return true
-            
+    end        
     for i = 1, 1 do
             G.E_MANAGER:add_event(Event({
             trigger = 'after',
