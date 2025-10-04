@@ -1,27 +1,28 @@
-SMODS.Joker{ --New Joker
+SMODS.Joker{ --Train Ticket
     key = "newjoker",
     config = {
         extra = {
         }
     },
     loc_txt = {
-        ['name'] = 'New Joker',
+        ['name'] = 'Train Ticket',
         ['text'] = {
-            [1] = 'A {C:blue}custom{} joker with {C:red}unique{} effects.'
+            [1] = '{C:red}+2{} Discards when',
+            [2] = '{C:attention}Third{} hand is played'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 1,
-        y = 2
+        x = 0,
+        y = 4
     },
     display_size = {
         w = 71 * 1, 
         h = 95 * 1
     },
-    cost = 4,
+    cost = 5,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,

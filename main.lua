@@ -42,7 +42,7 @@ local NFS = require("nativefs")
 to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
-local jokerIndexList = {45,1,2,3,4,5,7,10,11,12,13,14,15,17,21,22,24,25,26,27,28,29,30,31,33,34,38,39,40,41,43,44,18,20,19,36,32,23,6,16,37,35,8,42,9}
+local jokerIndexList = {46,1,2,3,5,7,10,11,12,13,14,15,17,21,22,25,27,28,29,31,38,40,42,44,45,18,20,19,36,32,23,6,16,37,35,8,43,9,39,34,24,4,30,26,33,41}
 
 local function load_jokers_folder()
     local mod_path = SMODS.current_mod.path
@@ -57,7 +57,7 @@ local function load_jokers_folder()
 end
 
 
-local consumableIndexList = {35,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34}
+local consumableIndexList = {34,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33}
 
 local function load_consumables_folder()
     local mod_path = SMODS.current_mod.path
@@ -129,7 +129,8 @@ SMODS.ObjectType({
         ["j_solo_keychain"] = true,
         ["j_solo_koi"] = true,
         ["j_solo_motherboard"] = true,
-        ["j_solo_onigiri"] = true
+        ["j_solo_onigiri"] = true,
+        ["j_solo_newjoker"] = true
     },
 })
 
