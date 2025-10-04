@@ -10,7 +10,7 @@ SMODS.ConsumableType {
         ['c_solo_birds'] = true,
         ['c_solo_book'] = true,
         ['c_solo_child'] = true,
-        ['c_solo_clouds'] = true,
+        ['c_solo_cloudsthirty'] = true,
         ['c_solo_clover'] = true,
         ['c_solo_coffin'] = true,
         ['c_solo_cross'] = true,

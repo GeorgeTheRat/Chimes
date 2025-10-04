@@ -12,7 +12,7 @@ SMODS.Enhancement {
     },
     atlas = 'CustomEnhancements',
     any_suit = false,
-    replace_base_card = false,
+    replace_base_card = true,
     no_rank = true,
     no_suit = true,
     always_scores = true,
