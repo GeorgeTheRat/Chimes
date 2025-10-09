@@ -1,0 +1,18 @@
+{
+  "id": "chimes",
+  "name": "Chimes",
+  "author": [
+    "GeorgeTheRat",
+    "Glitchkat10"
+  ],
+  "description": "A mod that balances vanilla content",
+  "prefix": "chm",
+  "main_file": "main.lua",
+  "version": "0.9.0",
+  "priority": 67,
+  "badge_colour": "4f6367",
+  "badge_text_colour": "FFFFFF",
+  "dependencies": [
+    "Steamodded (>=1.0.0~BETA-0711a)"
+  ]
+}
