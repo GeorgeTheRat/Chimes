@@ -1,1 +1,2 @@
-A mod made for balatro that aims to be balanced but still have new and interesting ideas to bring to the game, with great art
+A Balatro mod that aims to add vanilla-like content with great art.
+Currently being refactored and updated by Glitchkat10. Expect multiple pieces of content to be "added" as the mod receives commits.
