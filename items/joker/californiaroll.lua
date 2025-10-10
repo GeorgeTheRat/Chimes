@@ -3,44 +3,35 @@ SMODS.Joker {
     name = "California Roll",
     config = {
         extra = {
-            a = 5,
+            create = 5,
             respect = 0
         }
     },
-    loc_txt = {
-        ["name"] = "California Roll",
-        ["text"] = {
-            [1] = "Create {C:attention}#1# {}random {C:attention}Jokers{} and",
-            [2] = "consumables when this {C:attention}Joker{} is sold",
-            [3] = "Decrease by {C:attention}1{} and create a {C:attention}Tag{}, {C:attention}Joker{}, and",
-            [4] = "consumable when a{C:attention} playing card{} is added to deck"
-        },
-        ["unlock"] = {
-            [1] = "Unlocked by default."
-        }
-    },
-    pos = {
-        x = 5,
-        y = 0
-    },
+    pos = { x = 5, y = 0 },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
     eternal_compat = false,
-    perishable_compat = true,
-    unlocked = true,
-    discovered = true,
     atlas = "joker",
-    pools = {
-        ["chm_ushi"] = true
-    },
+    pools = { ["chm_sushi"] = true },
     loc_vars = function(self, info_queue, card)
-
         return {
-            vars = {card.ability.extra.a}
+            vars = {
+                card.ability.extra.create
+            }
         }
     end,
     calculate = function(self, card, context)
+        if context.selling_self then
+            local jokers_to_create = card.ability.extra.create
+            G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
+            for i = 1, math.ceil(jokers_to_create) do
+                SMODS.add_card({ set = "Joker" })
+            end
+        end
+    end
+}
+--[[
         if context.playing_card_added then
             if (card.ability.extra.a or 0) ~= 0 then
                 return {
@@ -1086,3 +1077,4 @@ SMODS.Joker {
         end
     end
 }
+]]

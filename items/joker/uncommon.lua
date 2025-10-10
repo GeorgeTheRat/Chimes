@@ -28,6 +28,9 @@ SMODS.Joker{
     rarity = 2,
     blueprint_compat = true,
     atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.repetitions } }
+    end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card:get_id() == 14 and next(context.poker_hands["Three of a Kind"]) then
             return {
@@ -192,24 +195,27 @@ SMODS.Joker{
 SMODS.Joker{
     key = "elites",
     name = "Elites",
+    config = { extra = { create = 1 } },
     pos = { x = 9, y = 0 },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
     atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.create } }
+    end,
     calculate = function(self, card, context)
-        if context.setting_blind and G.GAME.blind.boss then
-            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-            local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_joker")
-            card:add_to_deck()
-            card:start_materialize()
-            G.jokers:emplace(card)
+        if context.setting_blind and G.GAME.blind.boss and #G.jokers.cards < G.jokers.config.card_limit then
+            for i = 1, card.ability.extra.create do
+                SMODS.add_card({ set = "Joker", rarity = 3 })
+            end
         end
     end
 }
 
 SMODS.Joker {
     key = "fungi",
+    name = "Fungi",
     pos = { x = 1, y = 1 },
     cost = 6,
     rarity = 2,
@@ -253,6 +259,7 @@ SMODS.Joker {
 
 SMODS.Joker {
     key = "garlic",
+    name = "Garlic",
     config = { extra = { gargle = 2.5 } },
     pos = { x = 2, y = 1 },
     cost = 5,
@@ -311,6 +318,7 @@ SMODS.Joker {
 
 SMODS.Joker {
     key = "ghost_costume",
+    name = "Ghost Costume",
     config = {
         extra = {
             odds = 13,
@@ -376,6 +384,187 @@ SMODS.Joker {
                         end
                         return true
                     end
+                }
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "hand_roll",
+    name = "Hand Roll",
+    config = {
+        extra = {
+            plushands = 4,
+            plusdollars = 4,
+            plushands_mod = 1,
+            plusdollars_mod = 1
+        }
+    },
+    pos = { x = 5, y = 1 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = false,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = { card.ability.extra.plushands, card.ability.extra.plusdollars, card.ability.extra.plushands_mod, card.ability.extra.plusdollars_mod }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.setting_blind then
+            G.GAME.current_round.hands_left = G.GAME.current_round.hands_left + card.ability.extra.plushands
+            return {
+                message = "+" .. tostring(card.ability.extra.plushands),
+                colour = G.C.BLUE
+            }
+        end
+        if context.end_of_round and not context.game_over and context.main_eval and not context.blueprint then
+            return {
+                dollars = G.GAME.current_round.hands_left * card.ability.extra.plusdollars,
+                extra = {
+                    func = function()
+                        if card.ability.extra.plushands > 1 or card.ability.extra.plusdollars > 1 then
+                            card.ability.extra.plushands = math.max(0, (card.ability.extra.plushands) - 1)
+                            card.ability.extra.plusdollars = math.max(0, (card.ability.extra.plusdollars) - 1)
+                            return true
+                        else
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    play_sound("tarot1")
+                                    card.T.r = -0.2
+                                    card:juice_up(0.3, 0.4)
+                                    card.states.drag.is = true
+                                    card.children.center.pinch.x = true
+                                    G.E_MANAGER:add_event(Event({
+                                        trigger = "after",
+                                        delay = 0.3,
+                                        blockable = false,
+                                        func = function()
+                                            G.jokers:remove_card(card)
+                                            card:remove()
+                                            card = nil
+                                            return true
+                                        end,
+                                    }))
+                                    return true
+                                end,
+                            }))
+                        end
+                    end,
+                    message = "-" .. tostring(card.ability.extra.plushands_mod),
+                    colour = G.C.RED,
+                    extra = {
+                        message = "-$" .. tostring(card.ability.extra.plusdollars_mod),
+                        colour = G.C.RED
+                    }
+                }
+            }
+        end
+    end
+}
+--[[
+SMODS.Joker{
+    key = "maki_roll",
+    name = "Maki Roll",
+    config = {
+        extra = {
+            
+        }
+    },
+    pos = { x = 8, y = 1 },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = false,
+    atlas = "joker",
+    pools = { ["chm_sushi"] = true },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {  } }
+    end,
+    calculate = function(self, card, context)
+    end
+}
+--]]
+
+SMODS.Joker {
+    key = "monster_costume",
+    name = "Monster Costume",
+    config = {
+        extra = {
+            edititionion = 1,
+            odds = 5,
+            dollars = 10,
+            costumes2 = 0,
+            respect = 0
+        }
+    },
+    pos = { x = 0, y = 2 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    pools = { ["chm_costumes"] = true },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_chm_monstercostume')
+        return {
+            vars = {
+                card.ability.extra.edititionion,
+                card.ability.extra.costumes2,
+                card.ability.extra.respect,
+                numerator,
+                denominator
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if SMODS.pseudorandom_probability(card, "j_chm_monstercostume", 1, card.ability.extra.odds) then
+                local enhancement_pool = {}
+                for _, enhancement in pairs(G.P_CENTER_POOLS.Enhanced) do
+                    if enhancement.key ~= "m_stone" then
+                        enhancement_pool[#enhancement_pool + 1] = enhancement
+                    end
+                end
+                local random_enhancement = pseudorandom_element(enhancement_pool, "edit_card_enhancement")
+                context.other_card:set_ability(random_enhancement)
+                card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+                    message = "Card Modified!",
+                    colour = G.C.BLUE
+                })
+            end
+        end
+        if context.selling_self and not context.blueprint then
+            return {
+                dollars = -card.ability.extra.dollars,
+                extra = {
+                    func = function()
+                        local created_joker = false
+                        if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                            created_joker = true
+                            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    local joker_card = SMODS.add_card({
+                                        set = "chm_ostumes2"
+                                    })
+                                    if joker_card then
+                                    end
+                                    G.GAME.joker_buffer = 0
+                                    return true
+                                end
+                            }))
+                        end
+                        if created_joker then
+                            card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+                                message = localize("k_plus_joker"),
+                                colour = G.C.BLUE
+                            })
+                        end
+                        return true
+                    end,
+                    colour = G.C.BLUE
                 }
             }
         end

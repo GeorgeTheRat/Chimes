@@ -1,5 +1,6 @@
-SMODS.Joker{ --Makisu
+SMODS.Joker{
     key = "makisu",
+    name = "Makisu",
     config = {
         extra = {
             sushi = 0,

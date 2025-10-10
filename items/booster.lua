@@ -1,18 +1,10 @@
 SMODS.Booster {
-    key = "mega_Lenormand_pack",
-    loc_txt = {
-        name = "Mega Lenormand Pack",
-        text = {
-            "Choose 2 of up to 4",
-            "Lenormand cards to be used immediately"
-        },
-        group_name = "Mega Lenormand Pack"
-    },
-    config = { extra = 4, choose = 2 },
-    cost = 8,
-    weight = 0.4,
+    key = "lenormand_pack",
+    name = "Lenormand Pack",
+    config = { extra = 2, choose = 1 },
+    weight = 0.8,
     atlas = "booster",
-    pos = { x = 0, y = 0 },
+    pos = { x = 2, y = 0 },
     draw_hand = true,
     discovered = true,
     loc_vars = function(self, info_queue, card)
@@ -27,8 +19,10 @@ SMODS.Booster {
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = "chm_mega_Lenormand_pack"
+            key_append = "chm_lenormand_pack"
         }
+    end,
+    ease_background_colour = function(self)
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
@@ -47,17 +41,9 @@ SMODS.Booster {
     end,
 }
 
-
 SMODS.Booster {
-    key = "jumbo_Lenormand_pack",
-    loc_txt = {
-        name = "Jumbo Lenormand Pack",
-        text = {
-            "Choose 1 of up to 4",
-            "Lenormand cards to be used immediately"
-        },
-        group_name = "Jumbo Lenormand Pack"
-    },
+    key = "jumbo_lenormand_pack",
+    name = "Jumbo Lenormand Pack",
     config = { extra = 4, choose = 1 },
     cost = 6,
     weight = 0.6,
@@ -77,7 +63,7 @@ SMODS.Booster {
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = "chm_jumbo_Lenormand_pack"
+            key_append = "chm_jumbo_lenormand_pack"
         }
     end,
     particles = function(self)
@@ -97,21 +83,14 @@ SMODS.Booster {
     end,
 }
 
-
 SMODS.Booster {
-    key = "Lenormand_pack",
-    loc_txt = {
-        name = "Lenormand Pack",
-        text = {
-            "Choose 1 of up to 2",
-            "Lenormand cards to be used immediately"
-        },
-        group_name = "Lenormand Pack"
-    },
-    config = { extra = 2, choose = 1 },
-    weight = 0.8,
+    key = "mega_lenormand_pack",
+    name = "Mega Lenormand Pack",
+    config = { extra = 4, choose = 2 },
+    cost = 8,
+    weight = 0.4,
     atlas = "booster",
-    pos = { x = 2, y = 0 },
+    pos = { x = 0, y = 0 },
     draw_hand = true,
     discovered = true,
     loc_vars = function(self, info_queue, card)
@@ -126,10 +105,8 @@ SMODS.Booster {
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = "chm_Lenormand_pack"
+            key_append = "chm_mega_lenormand_pack"
         }
-    end,
-    ease_background_colour = function(self)
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
