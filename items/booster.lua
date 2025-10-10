@@ -6,7 +6,6 @@ SMODS.Booster {
     atlas = "booster",
     pos = { x = 2, y = 0 },
     draw_hand = true,
-    discovered = true,
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
         return {
@@ -23,6 +22,8 @@ SMODS.Booster {
         }
     end,
     ease_background_colour = function(self)
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Lenormand)
+		ease_background_colour({ new_colour = G.C.SET.Lenormand, special_colour = G.C.BLACK, contrast = 2 })
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
@@ -50,7 +51,6 @@ SMODS.Booster {
     atlas = "booster",
     pos = { x = 1, y = 0 },
     draw_hand = true,
-    discovered = true,
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
         return {
@@ -65,6 +65,10 @@ SMODS.Booster {
             soulable = true,
             key_append = "chm_jumbo_lenormand_pack"
         }
+    end,
+    ease_background_colour = function(self)
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Lenormand)
+		ease_background_colour({ new_colour = G.C.SET.Lenormand, special_colour = G.C.BLACK, contrast = 2 })
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
@@ -92,7 +96,6 @@ SMODS.Booster {
     atlas = "booster",
     pos = { x = 0, y = 0 },
     draw_hand = true,
-    discovered = true,
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
         return {
@@ -107,6 +110,10 @@ SMODS.Booster {
             soulable = true,
             key_append = "chm_mega_lenormand_pack"
         }
+    end,
+    ease_background_colour = function(self)
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Lenormand)
+		ease_background_colour({ new_colour = G.C.SET.Lenormand, special_colour = G.C.BLACK, contrast = 2 })
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
