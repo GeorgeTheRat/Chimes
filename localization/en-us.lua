@@ -239,23 +239,23 @@ return {
             c_chm_whip = {
 				name = "Whip",
 				text = {
-					"Destroy {C:attention}2{} random cards in hand",
-					"and {C:attention}1 {}selected card"
+					"Destroy {C:attention}#1#{} random card#<s>1# in hand",
+					"and {C:attention}#2#{} selected card#<s>2#"
 				}
 			},
 			c_chm_birds = {
 				name = "Birds",
 				text = {
 					"Apply {C:dark_edition}Foil{} to",
-					"up to {C:attention}2",
-					"selected cards"
+					"up to {C:attention}#1#",
+					"selected card#<s>1#"
 				}
 			},
 			c_chm_child = {
 				name = "Child",
 				text = {
-					"Enhances up to {C:attention}2",
-					"selected cards into",
+					"Enhances up to {C:attention}#1#",
+					"selected card#<s>1# into",
 					"{C:attention}Doodle Cards"
 				}
 			},
@@ -272,17 +272,17 @@ return {
 			c_chm_bear = {
 				name = "Bear",
 				text = {
-					"Lose {C:red}-$20{} for",
-					"every {C:money}$25{} owned",
+					"Lose {C:red}-$#1#{} for",
+					"every {C:money}$#2#{} owned",
 					"{C:attention}Quadruple{} {C:money}$"
 				}
 			},
 			c_chm_stars = {
 				name = "Stars",
 				text = {
-					"Level up a random {C:attention}poker hand{} once",
+					"Level up a random {C:attention}poker hand #1#{} time",
 					"for every {C:attention}blind{} skipped this run",
-					"{C:inactive}(Currently #1#{})"
+					"{C:inactive}(Currently {C:attention}#2#{C:inactive})"
 				}
 			},
 			c_chm_stork = {
@@ -291,7 +291,7 @@ return {
 					"Add {C:attention}Enhanced Cards{} equal",
 					"to {C:attention}double{} the number of",
 					"{C:attention}consumables{} owned to hand",
-					"{C:inactive}(#1#{})"
+					"{C:inactive}(Currently {C:attention}#1#{C:inactive})"
 				}
 			},
 			c_chm_dog = {
@@ -392,16 +392,16 @@ return {
 			c_chm_sun = {
 				name = "Sun",
 				text = {
-					"If {C:attention}1{} card is selected, convert to an {C:attention}Ace{},",
-					"if {C:attention}2{} cards are selected, convert to {C:attention}2 2s{},",
-					"and if {C:attention}3{} cards are selected, convert to {C:attention}3 3s{}"
+					"If {C:attention}#1#{} card is selected, convert to an {C:attention}Ace{},",
+					"if {C:attention}#2#{} cards are selected, convert to {C:attention}2s{},",
+					"and if {C:attention}#3#{} cards are selected, convert to {C:attention}3s{}"
 				}
 			},
 			c_chm_moon = {
 				name = "Moon",
 				text = {
-					"Enhances up to {C:attention}2",
-					"selected cards into",
+					"Enhances up to {C:attention}#1#",
+					"selected card#<s>1# into",
 					"{C:attention}Old Cards"
 				}
 			},
@@ -427,8 +427,8 @@ return {
             c_chm_anchor = {
 				name = "Anchor",
 				text = {
-					"Enhances up to {C:attention}2",
-					"selected cards into",
+					"Enhances up to {C:attention}#1#",
+					"selected card#<s>1# into",
 					"{C:attention}Polished Cards"
 				}
 			},

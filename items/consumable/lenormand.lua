@@ -140,7 +140,11 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
-        return { vars = { (G.hand.config.card_limit or 8) } }
+        return {
+            vars = {
+                G.hand.config.card_limit or 8
+            }
+        }
     end,
     can_use = function(self, card)
         return true
@@ -158,7 +162,7 @@ SMODS.Consumable {
             end
         )
         pseudoshuffle(temp_hand, "c_chm_ship")
-        for i = 1, (G.hand.config.card_limit or 8) do
+        for i = 1, G.hand.config.card_limit or 8 do
             destroyed_cards[#destroyed_cards + 1] = temp_hand[i]
         end
         G.E_MANAGER:add_event(Event({
@@ -631,17 +635,26 @@ SMODS.Consumable {
     pos = { x = 3, y = 3 },
     config = {
         extra = {
-            destroy_count = 2
+            destroy_count = 2,
+            max_highlighted = 1
         }
     },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.destroy_count,
+                card.ability.extra.max_highlighted
+            }
+        }
+    end,
     can_use = function(self, card)
-        return (#G.hand.highlighted == 1)
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted 
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if #G.hand.highlighted == 1 then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -669,7 +682,7 @@ SMODS.Consumable {
                 return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card
             end)
             pseudoshuffle(temp_hand, "c_chm_whip")
-            for i = 1, 2 do
+            for i = 1, card.ability.extra.destroy_count do
                 destroyed_cards[#destroyed_cards + 1] = temp_hand[i]
             end
             G.E_MANAGER:add_event(Event({
@@ -692,14 +705,22 @@ SMODS.Consumable {
     name = "Birds",
     set = "Lenormand",
     pos = { x = 2, y = 0 },
+    config = {
+        extra = {
+            max_highlighted = 2
+        }
+    },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.max_highlighted } }
+    end,
     can_use = function(self, card)
-        return ((#G.hand.highlighted == 1 or #G.hand.highlighted == 2))
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if (#G.hand.highlighted == 1 or #G.hand.highlighted == 2) then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -764,18 +785,19 @@ SMODS.Consumable {
     name = "Child",
     set = "Lenormand",
     pos = { x = 4, y = 0 },
+    config = { extra = { max_highlighted = 2 } },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_doodle
-        return { vars = {  } }
+        return { vars = { card.ability.extra.max_highlighted } }
     end,
     can_use = function(self, card)
-        return ((#G.hand.highlighted <= 2 and #G.hand.highlighted >= 1))
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if (#G.hand.highlighted <= 2 and #G.hand.highlighted >= 1) then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -843,7 +865,7 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     can_use = function(self, card)
-        return (G.GAME.blind.in_blind) or (not (G.GAME.blind.in_blind))
+        return (G.GAME.blind.in_blind and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit) or (not G.GAME.blind.in_blind and G.consumeables.config.card_limit - #G.consumeables.cards > 0)
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
@@ -936,20 +958,33 @@ SMODS.Consumable {
     name = "Bear",
     set = "Lenormand",
     pos = { x = 1, y = 0 },
-    config = { extra = { dollars = 20 } },
+    config = {
+        extra = {
+            losedollars = 20,
+            fordollars = 25
+        }
+    },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.losedollars,
+                card.ability.extra.fordollars
+            }
+        }
+    end,
     can_use = function(self, card)
         return true
     end,
     use = function(self, card, area, copier)
-        if to_number(G.GAME.dollars) >= 25 then
+        if to_number(G.GAME.dollars) >= card.ability.extra.fordollars then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
                 func = function()
                     card:juice_up(0.3, 0.5)
-                    ease_dollars(-(math.floor(to_number(G.GAME.dollars) / 25) * card.ability.extra.dollars), true)
+                    ease_dollars(-(math.floor(to_number(G.GAME.dollars) / card.ability.extra.fordollars) * card.ability.extra.losedollars), true)
                     return true
                 end
             }))
@@ -974,25 +1009,23 @@ SMODS.Consumable {
     name = "Stars",
     set = "Lenormand",
     pos = { x = 8, y = 2 },
-    config = {
-        extra = {
-            blindsskipped = 0,
-            levels = 1
-        }
-    },
+    config = { extra = { levels = 1 } },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {(G.GAME.skips or 0)}
+            vars = {
+                card.ability.extra.levels,
+                G.GAME.skips or 0
+            }
         }
     end,
     can_use = function(self, card)
-        return (#G.hand.highlighted == 100)
+        return true
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        for i = 1, G.GAME.skips do
+        for i = 1, G.GAME.skips or 0 do
             update_hand_text({
                 sound = "button",
                 volume = 0.7,
@@ -1051,7 +1084,7 @@ SMODS.Consumable {
                 pitch = 0.9,
                 delay = 0
             }, {
-                level = "+" .. tostring(1)
+                level = "+" .. tostring(card.ability.extra.levels)
             })
             delay(1.3)
             local hand_pool = {}
@@ -1059,7 +1092,7 @@ SMODS.Consumable {
                 table.insert(hand_pool, hand_key)
             end
             local random_hand = pseudorandom_element(hand_pool, "random_hand_levelup")
-            level_up_hand(card, random_hand, true, 1)
+            level_up_hand(card, random_hand, true, card.ability.extra.levels)
             update_hand_text({
                 sound = "button",
                 volume = 0.7,
@@ -1072,21 +1105,6 @@ SMODS.Consumable {
                 level = G.GAME.hands[random_hand].level
             })
             delay(1.3)
-        end
-        if #G.hand.highlighted == 100 then
-            G.E_MANAGER:add_event(Event({
-                trigger = "after",
-                delay = 0.4,
-                func = function()
-                    card_eval_status_text(used_card, "extra", nil, nil, nil, {
-                        message = "+" .. tostring(G.GAME.skips) .. " $",
-                        colour = G.C.MONEY
-                    })
-                    ease_dollars(G.GAME.skips, true)
-                    return true
-                end
-            }))
-            delay(0.6)
         end
     end
 }
@@ -1101,7 +1119,7 @@ SMODS.Consumable {
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {((#(G.consumeables and G.consumeables.cards or {}) or 0)) * 2}
+            vars = { ((#(G.consumeables and G.consumeables.cards or {}) or 0)) * 2 }
         }
     end,
     can_use = function(self, card)
@@ -2026,14 +2044,31 @@ SMODS.Consumable {
     name = "Sun",
     set = "Lenormand",
     pos = { x = 0, y = 3 },
+    config = {
+        extra = {
+            highlight1 = 1,
+            highlight2 = 2,
+            highlight3 = 3
+        }
+    },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_old
+        return {
+            vars = {
+                card.ability.extra.highlight1,
+                card.ability.extra.highlight2,
+                card.ability.extra.highlight3
+            }
+        }
+    end,
     can_use = function(self, card)
-        return (#G.hand.highlighted == 1) or (#G.hand.highlighted == 2) or (#G.hand.highlighted == 3)
+        return G.hand and #G.hand.highlighted > 0 and ((#G.hand.highlighted == card.ability.extra.highlight1) or (#G.hand.highlighted == card.ability.extra.highlight2) or (#G.hand.highlighted == card.ability.extra.highlight3))
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if #G.hand.highlighted == 1 then
+        if #G.hand.highlighted == card.ability.extra.highlight1 then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -2090,7 +2125,7 @@ SMODS.Consumable {
             }))
             delay(0.5)
         end
-        if #G.hand.highlighted == 2 then
+        if #G.hand.highlighted == card.ability.extra.highlight2 then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -2147,7 +2182,7 @@ SMODS.Consumable {
             }))
             delay(0.5)
         end
-        if #G.hand.highlighted == 3 then
+        if #G.hand.highlighted == card.ability.extra.highlight3 then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -2212,18 +2247,19 @@ SMODS.Consumable {
     name = "Moon",
     set = "Lenormand",
     pos = { x = 1, y = 2 },
+    config = { extra = { max_highlighted = 2 } },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_old
-        return { vars = {  } }
+        return { vars = { card.ability.extra.max_highlighted } }
     end,
     can_use = function(self, card)
-        return (#G.hand.highlighted <= 2)
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if #G.hand.highlighted <= 2 then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -2366,6 +2402,36 @@ SMODS.Consumable {
     end
 }
 
+local function foilcardsindeck()
+    local count = 0
+    for _, card in ipairs(G.playing_cards or {}) do
+        if card.edition and card.edition.foil then
+            count = count + 1 
+        end
+    end
+    return count
+end
+
+local function holographiccardsindeck()
+    local count = 0
+    for _, card in ipairs(G.playing_cards or {}) do
+        if card.edition and card.edition.holo then
+            count = count + 1 
+        end
+    end
+    return count
+end
+
+local function polychromecardsindeck()
+    local count = 0
+    for _, card in ipairs(G.playing_cards or {}) do
+        if card.edition and card.edition.polychrome then
+            count = count + 1 
+        end
+    end
+    return count
+end
+
 SMODS.Consumable {
     key = "fish",
     name = "Fish",
@@ -2373,16 +2439,25 @@ SMODS.Consumable {
     pos = { x = 0, y = 1 },
     config = {
         extra = {
-            foilcardsindeck = 0,
-            holographiccardsindeck = 0,
-            polychromecardsindeck = 0,
             cards_amount = 1
         }
     },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
-        return {vars = {((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if card.edition and card.edition.foil then count = count + 1 end end; return count end)()) * 3, ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if card.edition and card.edition.holo then count = count + 1 end end; return count end)()) * 5, ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if card.edition and card.edition.polychrome then count = count + 1 end end; return count end)()) * 7}}
+        return {
+            vars = {
+                ((function()
+                    return foilcardsindeck() * 3
+                end)()),
+                ((function()
+                    return holographiccardsindeck() * 5
+                end)()),
+                ((function()
+                    return polychromecardsindeck() * 7
+                end)()),
+            }
+        }
     end,
     can_use = function(self, card)
         return true
@@ -2465,13 +2540,7 @@ SMODS.Consumable {
                 card:juice_up(0.3, 0.5)
                 ease_dollars(
                     function()
-                        local count = 0
-                        for _, card in ipairs(G.playing_cards or {}) do
-                            if card.edition and card.edition.foil then
-                                count = count + 1
-                            end
-                        end
-                        return count * 3
+                        return foilcardsindeck() * 3
                     end, true)
                 return true
             end
@@ -2495,13 +2564,7 @@ SMODS.Consumable {
                 card:juice_up(0.3, 0.5)
                 ease_dollars(
                     function()
-                        local count = 0
-                        for _, card in ipairs(G.playing_cards or {}) do
-                            if card.edition and card.edition.holo then
-                                count = count + 1
-                            end
-                        end
-                        return count * 5
+                        return holographiccardsindeck() * 5
                     end, true)
                 return true
             end
@@ -2525,13 +2588,7 @@ SMODS.Consumable {
                 card:juice_up(0.3, 0.5)
                 ease_dollars(
                     function()
-                        local count = 0
-                        for _, card in ipairs(G.playing_cards or {}) do
-                            if card.edition and card.edition.polychrome then
-                                count = count + 1
-                            end
-                        end
-                        return count * 7
+                        return polychromecardsindeck() * 7
                     end, true)
                 return true
             end
@@ -2546,18 +2603,23 @@ SMODS.Consumable {
     name = "Anchor",
     set = "Lenormand",
     pos = { x = 0, y = 0 },
+    config = {
+        extra = {
+            max_highlighted = 2
+        }
+    },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_polished
-        return { vars = {  } }
+        return { vars = { card.ability.extra.max_highlighted } }
     end,
     can_use = function(self, card)
-        return ((#G.hand.highlighted <= 2 and #G.hand.highlighted >= 1))
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if (#G.hand.highlighted <= 2 and #G.hand.highlighted >= 1) then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -2625,7 +2687,7 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     can_use = function(self, card)
-        return true
+        return G.jokers and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
