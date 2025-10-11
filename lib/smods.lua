@@ -41,9 +41,9 @@ SMODS.ConsumableType({
     key = "Lenormand",
     primary_colour = { 0.933, 0.827, 0.624, 1 },
     secondary_colour = { 0.683, 0.577, 0.374, 1 },
-    collection_rows = { 4, 4 },
+    collection_rows = { 6, 6 },
     shop_rate = 2,
-    default = "c_chm_anchor"
+    default = "c_chm_rider"
 })
 
 SMODS.ObjectType({

@@ -173,8 +173,8 @@ return {
 			c_chm_clover = {
 				name = "Clover",
 				text = {
-					"Enhances {C:attention}#1#",
-					"selected card#<s>1#{} into a",
+					"Enhances up to {C:attention}#1#",
+					"selected card#<s>1# into a",
 					"{C:attention}Vine Card"
 				}
 			},
@@ -190,16 +190,16 @@ return {
 				name = "House",
 				text = {
 					"Add a {C:attention}permanent{} bonus",
-					"{C:blue}+30{} held in hand",
-					"Chips to up to {C:attention}2{} selected cards"
+					"{C:blue}+#1#{} held in hand",
+					"Chips to up to {C:attention}#2#{} selected card#<s>2#"
 				}
 			},
 			c_chm_tree = {
 				name = "Tree",
 				text = {
-					"Earn {C:money}$3{} for each card below",
-					"{C:attention}52{} in your full deck",
-					"{C:inactive}(Currently {C:money}+$#1#{C:inactive})"
+					"Earn {C:money}$#1#{} for each card below",
+					"{C:attention}#2#{} in your full deck",
+					"{C:inactive}(Currently {C:money}+$#3#{C:inactive})"
 				}
 			},
 			-- clouds
@@ -214,9 +214,9 @@ return {
 			c_chm_coffin = {
 				name = "Coffin",
 				text = {
-					"{C:red}Destroy{} {C:attention}3{} random",
+					"{C:red}Destroy{} {C:attention}#1#{} random",
 					"cards in hand,",
-					"create {C:attention}2{} cards",
+					"create {C:attention}#2#{} cards",
 					"with random {C:dark_edition}Editions"
 				}
 			},
@@ -231,9 +231,9 @@ return {
 			c_chm_scythe = {
 				name = "Scythe",
 				text = {
-					"Destroy {C:attention}1{} card in hand for",
-					"every {C:money}$10{} you have",
-					"{C:inactive}(Currently #1#{})"
+					"Destroy {C:attention}#1#{} card in hand for",
+					"every {C:money}$#2#{} you have",
+					"{C:inactive}(Currently {C:attention}#3#{C:inactive})"
 				}
 			},
             c_chm_whip = {
@@ -277,28 +277,53 @@ return {
 					"{C:attention}Quadruple{} {C:money}$"
 				}
 			},
-            c_chm_anchor = {
-				name = "Anchor",
+			c_chm_stars = {
+				name = "Stars",
 				text = {
-					"Enhances {C:attention}2",
-					"selected cards into",
-					"{C:attention}Polished Cards"
+					"Level up a random {C:attention}poker hand{} once",
+					"for every {C:attention}blind{} skipped this run",
+					"{C:inactive}(Currently #1#{})"
 				}
 			},
-			c_chm_book = {
-				name = "Book",
+			c_chm_stork = {
+				name = "Stork",
 				text = {
-					"Enhances {C:attention}1",
-					"selected card into a",
-					"{C:attention}Literature Card"
+					"Add {C:attention}Enhanced Cards{} equal",
+					"to {C:attention}double{} the number of",
+					"{C:attention}consumables{} owned to hand",
+					"{C:inactive}(#1#{})"
 				}
 			},
-			c_chm_cross = {
-				name = "Cross",
+			c_chm_dog = {
+				name = "Dog",
 				text = {
-					"Create a random {C:green}Uncommon{} {C:attention}Joker",
-					"and a random {C:blue}Common{} {C:attention}Joker",
-					"{C:inactive}(Must have room)"
+					"Add the {C:attention}rank{} of the",
+					"lowest ranked card in",
+					"hand to the bonus",
+					"held in hand {C:red}+Mult",
+					"of {C:attention}1{} selected card"
+				}
+			},
+			c_chm_tower = {
+				name = "Tower",
+				text = {
+					"Add a permanent {C:mult}+2{} Mult",
+					"to up to {C:attention}4{} selected cards"
+				}
+			},
+			c_chm_garden = {
+				name = "Garden",
+				text = {
+					"Earn {C:attention}5X{} the value",
+					"of the {C:attention}lowest ranked",
+					"card in hand as {C:money}$"
+				}
+			},
+			c_chm_mountain = {
+				name = "Mountain",
+				text = {
+					"{C:attention}+1{} {C:attention}Voucher{} and {C:attention}Booster Pack {}slots,",
+					"{C:red}-2{} hand size"
 				}
 			},
 			c_chm_crossroads = {
@@ -310,14 +335,82 @@ return {
 					"create {C:attention}3{} copies of it"
 				}
 			},
-			c_chm_dog = {
-				name = "Dog",
+			c_chm_mice = {
+				name = "Mice",
 				text = {
-					"Add the {C:attention}rank{} of the",
-					"lowest ranked card in",
-					"hand to the bonus",
-					"held in hand {C:red}+Mult",
-					"of {C:attention}1{} selected card"
+					"Enhances up to {C:attention}2",
+					"selected cards into",
+					"{C:attention}Rotten Cards"
+				}
+			},
+			-- the heart
+			c_chm_ring = {
+				name = "Ring",
+				text = {
+					"Create an copy of up to {C:attention}2{} selected playing cards",
+					"{C:red}Remove{} both of their {C:enhanced}Enhancements{}"
+				}
+			},
+			c_chm_book = {
+				name = "Book",
+				text = {
+					"Enhances {C:attention}1",
+					"selected card into a",
+					"{C:attention}Literature Card"
+				}
+			},
+			c_chm_letter = {
+				name = "Letter",
+				text = {
+					"Remove the {C:dark_edition}Edition{} and {C:enhanced}Enhancement{}",
+					"from up to {C:attention}2{} selected cards",
+					"Add random {C:attention}seals{} to both"
+				}
+			},
+			c_chm_man = {
+				name = "Man",
+				text = {
+					"Apply random",
+					"{C:attention}Enhancements{} to up",
+					"to {C:attention}3{} selected cards"
+				}
+			},
+			c_chm_lady = {
+				name = "Lady",
+				text = {
+					"Randomize {C:attention}rank{}",
+					"of up to {C:attention}4{}",
+					"selected cards"
+				}
+			},
+			c_chm_lily = {
+				name = "Lily",
+				text = {
+					"Create a {C:attention}Coupon Tag{} and a {C:attention}D6 Tag{}"
+				}
+			},
+			c_chm_sun = {
+				name = "Sun",
+				text = {
+					"If {C:attention}1{} card is selected, convert to an {C:attention}Ace{},",
+					"if {C:attention}2{} cards are selected, convert to {C:attention}2 2s{},",
+					"and if {C:attention}3{} cards are selected, convert to {C:attention}3 3s{}"
+				}
+			},
+			c_chm_moon = {
+				name = "Moon",
+				text = {
+					"Enhances up to {C:attention}2",
+					"selected cards into",
+					"{C:attention}Old Cards"
+				}
+			},
+			c_chm_key = {
+				name = "Key",
+				text = {
+					"Enhances {C:attention}1",
+					"selected card into a",
+					"{C:attention}Mechanical Card"
 				}
 			},
 			c_chm_fish = {
@@ -331,14 +424,23 @@ return {
 					"{C:inactive}(Currently {C:money}$#1#{C:inactive}, {C:money}$#2#{C:inactive}, and {C:money}$#3#{C:inactive})"
 				}
 			},
-			c_chm_garden = {
-				name = "Garden",
+            c_chm_anchor = {
+				name = "Anchor",
 				text = {
-					"Earn {C:attention}5X{} the value",
-					"of the {C:attention}lowest ranked",
-					"card in hand as {C:money}$"
+					"Enhances up to {C:attention}2",
+					"selected cards into",
+					"{C:attention}Polished Cards"
 				}
-			}
+			},
+			c_chm_cross = {
+				name = "Cross",
+				text = {
+					"Create a random {C:green}Uncommon{} {C:attention}Joker",
+					"and a random {C:blue}Common{} {C:attention}Joker",
+					"{C:inactive}(Must have room)"
+				}
+			},
+
         },
 		Enhanced = {
 			m_chm_doodle = {
