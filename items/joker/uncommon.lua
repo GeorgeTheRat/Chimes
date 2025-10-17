@@ -570,3 +570,103 @@ SMODS.Joker {
         end
     end
 }
+
+SMODS.Joker {
+    key = "motherboard",
+    config = {
+        extra = {
+            chips = 0,
+            chips_mod = 10,
+            chips_mod_2 = 15
+        }
+    },
+    pos = { x = 1, y = 2 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips,
+                card.ability.extra.chips_mod,
+                card.ability.extra.chips_mod_2
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+        if context.pseudorandom_result then
+            if context.result then
+                card.ability.extra.chips = math.max(0, (card.ability.extra.chips) - card.ability.extra.chips_mod)
+            else
+                card.ability.extra.chips = (card.ability.extra.chips) - card.ability.extra.chips_mod_2
+            end
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "onigiri",
+    name = "Onigiri",
+    config = {
+        extra = {
+            chips = 75,
+            chips_mod = 15,
+            voucher_slots = 1
+        }
+    },
+    pos = { x = 2, y = 2 },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    atlas = "joker",
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = -card.ability.extra.chips
+            }
+        end
+        if context.pre_discard and not context.blueprint then
+            if card.ability.extra.chips <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound("tarot1")
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = "after",
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.jokers:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true
+                            end,
+                        }))
+                        return true
+                    end,
+                }))
+                return {
+                    message = localize("k_eaten"),
+                    colour = G.C.FILTER,
+                }
+            else
+                card.ability.extra.chips = math.max(0, (card.ability.extra.chips) - card.ability.extra.chips_mod)
+            end
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        SMODS.change_voucher_limit(card.ability.extra.voucher_slots)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        SMODS.change_voucher_limit(-card.ability.extra.voucher_slots)
+    end
+}

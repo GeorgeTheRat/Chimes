@@ -52,6 +52,14 @@ return {
 					"consumable when a {C:attention}playing card{} is added to deck"
 				}
 			},
+			j_chm_makisu = {
+				name = "Makisu",
+				text = {
+					"Create a random {C:attention}Sushi Joker",
+					"when a {C:attention}consumable{} is used during {C:attention}Boss Blind",
+					"{C:inactive}(Must have room)"
+				}
+			},
 			j_chm_chocolate_strawberry = {
 				name = "Chocolate Strawberry",
 				text = {
@@ -151,6 +159,23 @@ return {
 					"{C:attention}Wild Card{} is discarded"
 				}
 			},
+			j_chm_motherboard = {
+				name = "Motherboard",
+				text = {
+					"{C:blue}+#1#{} Chips,",
+					"this {C:attention}Joker{} gains {C:blue}+#2#{} Chips",
+					"when a {C:attention}listed {C:green}probability{} fails",
+					"and loses {C:red}-#3#{} Chips when",
+					"a {C:attention}listed {C:green}probability{} succeeds"
+				}
+			},
+			j_chm_train_ticket = {
+				name = "Train Ticket",
+				text = {
+					"{C:red}+#1#{} discards when",
+					"{C:attention}third{} hand is played"
+				}
+			},
 			j_chm_monster_costume = {
 				name = "Monster Costume",
 				text = {
@@ -159,6 +184,24 @@ return {
 					"random {C:attention}Enhancement{} applied to them,",
 					"{C:red}-$10{} and create another",
 					"{C:attention}Costume Joker{} when sold"
+				}
+			},
+			j_chm_onigiri = {
+				name = "Onigiri",
+				text = {
+					"{C:red}-#1#{} Chips",
+					"This Joker gains {C:blue}+#2#{} Chips",
+					"when a {C:red}discard{} is used,",
+					"{C:attention}+#1#{} Voucher slot"
+				}
+			},
+			j_chm_orchid = {
+				name = "Orchid",
+				text = {
+					"Each {C:spades}Spade{} card held in hand",
+					"has a {C:green}#1# in #2#{} chance to create",
+					"a random {C:spectral}Spectral{} card",
+					"{C:inactive}(Must have room)"
 				}
 			}
 		},

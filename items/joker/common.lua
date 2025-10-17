@@ -248,3 +248,70 @@ SMODS.Joker{
 }
 ]]
 
+SMODS.Joker {
+    key = "makisu",
+    name = "Makisu",
+    pos = { x = 9, y = 1 },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    atlas = "joker",
+    calculate = function(self, card, context)
+        if context.using_consumeable then
+            if G.GAME.blind.boss then
+                return {
+                    func = function()
+                        local created_joker = false
+                        if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                            created_joker = true
+                            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    local joker_card = SMODS.add_card({
+                                        set = "chmsushi"
+                                    })
+                                    if joker_card then
+                                        G.GAME.joker_buffer = 0
+                                    end
+                                    return true
+                                end
+                            }))
+                        end
+                        if created_joker then
+                            card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+                                message = localize("k_plus_joker"),
+                                colour = G.C.BLUE
+                            })
+                        end
+                        return true
+                    end
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "train_ticket",
+    name = "Train Ticket",
+    config = { extra = { discards = 2 } },
+    pos = { x = 0, y = 4 },
+    cost = 5,
+    rarity = 1,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.discards } }
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            if G.GAME.current_round.hands_played == 2 then
+                ease_discard(card.ability.extra.discards)
+                return {
+                    message = "+" .. card.ability.extra.discards .. " Discards",
+                    colour = G.C.RED
+                }
+            end
+        end
+    end
+}
