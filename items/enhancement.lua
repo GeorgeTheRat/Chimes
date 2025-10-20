@@ -81,10 +81,9 @@ SMODS.Enhancement {
     name = "Mechanical",
     pos = { x = 2, y = 0 },
     config = {
+        x_mult = 1,
         extra = {
-            xmult_mod = 0.4,
-            xmult_mod_2 = 0.05,
-            xmult = 1.5
+            x_mult_mod = 0.5
         }
     },
     atlas = "enhancement",
@@ -95,20 +94,20 @@ SMODS.Enhancement {
     always_scores = false,
     weight = 5,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.xmult_mod, card.ability.extra.xmult_mod_2, card.ability.extra.xmult } }
+        return { vars = { card.ability.x_mult, card.ability.extra.x_mult_mod } }
     end,
     calculate = function(self, card, context)
-        if context.main_scoring and context.cardarea == G.play then
-            card.ability.extra.xmult = math.max(1, (card.ability.extra.xmult) - card.ability.extra.xmult_mod_2)
+        if context.discard and context.other_card == card then
+            card.ability.x_mult = card.ability.x_mult + card.ability.extra.x_mult_mod
             return {
-                message = "Downgrade!",
+                message = "Upgrade!",
                 colour = G.C.RED
             }
         end
-        if context.end_of_round and context.cardarea == G.hand and context.other_card == card and context.individual then
-            card.ability.extra.xmult = (card.ability.extra.xmult) + card.ability.extra.xmult_mod
+        if context.after and context.cardarea == G.play and card.ability.x_mult ~= 1 then
+            card.ability.x_mult = 1
             return {
-                message = "Upgrade!",
+                message = "Reset!",
                 colour = G.C.RED
             }
         end
@@ -128,7 +127,7 @@ SMODS.Enhancement {
     always_scores = false,
     weight = 5,
     calculate = function(self, card, context)
-        if context.discard then
+        if context.discard and context.other_card == card then
             local target_hand
                 local available_hands = {}
                 for hand, value in pairs(G.GAME.hands) do
@@ -182,10 +181,8 @@ SMODS.Enhancement {
         return { vars = { card.ability.extra.card_draw } }
     end,
     calculate = function(self, card, context)
-        if context.discard then
-            if G.GAME.blind.in_blind then
-                SMODS.draw_cards(card.ability.extra.card_draw)
-            end
+        if context.discard and context.other_card == card then
+            SMODS.draw_cards(card.ability.extra.card_draw)
             return {
                 message = "+" .. tostring(card.ability.extra.card_draw) .. " Cards Drawn",
                 colour = G.C.BLUE

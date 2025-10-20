@@ -625,6 +625,15 @@ SMODS.Joker {
     rarity = 1,
     blueprint_compat = true,
     atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips,
+                card.ability.extra.chips_mod,
+                card.ability.extra.voucher_slots
+            }
+        }
+    end,
     calculate = function(self, card, context)
         if context.joker_main then
             return {
@@ -668,5 +677,61 @@ SMODS.Joker {
     end,
     remove_from_deck = function(self, card, from_debuff)
         SMODS.change_voucher_limit(-card.ability.extra.voucher_slots)
+    end
+}
+
+SMODS.Joker {
+    key = "paper",
+    config = {
+        extra = {
+            chips = 200,
+            mult = -15
+        }
+    },
+    pos = { x = 5, y = 2 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips,
+                card.ability.extra.mult
+            } 
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips,
+                extra = {
+                    mult = card.ability.extra.mult
+                }
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "polishedjoker",
+    config = { extra = { discards = 1 } },
+    pos = { x = 6, y = 2 },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.discards } }
+    end,
+    calculate = function(self, card, context)
+        if context.discard then
+            if SMODS.get_enhancements(context.other_card)["m_chm_polished"] then
+                G.GAME.current_round.discards_left = G.GAME.current_round.discards_left + card.ability.extra.discards
+                return {
+                    message = "+" .. tostring(card.ability.extra.discards) .. " Discard",
+                }
+            end
+        end
     end
 }

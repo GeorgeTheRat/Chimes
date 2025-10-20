@@ -2324,18 +2324,19 @@ SMODS.Consumable {
     name = "Key",
     set = "Lenormand",
     pos = { x = 5, y = 1 },
+    config = { extra = { max_highlighted = 1 } },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_key
-        return { vars = {  } }
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_mechanical
+        return { vars = { card.ability.extra.max_highlighted } }
     end,
     can_use = function(self, card)
-        return (#G.hand.highlighted == 1)
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if #G.hand.highlighted == 1 then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -2364,14 +2365,7 @@ SMODS.Consumable {
                     trigger = "after",
                     delay = 0.1,
                     func = function()
-                        local cen_pool = {}
-                        for _, enhancement_center in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                            if enhancement_center.key ~= "m_stone" then
-                                cen_pool[#cen_pool + 1] = enhancement_center
-                            end
-                        end
-                        local enhancement = pseudorandom_element(cen_pool, "random_enhance")
-                        G.hand.highlighted[i]:set_ability(enhancement)
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS["m_chm_mechanical"])
                         return true
                     end
                 }))

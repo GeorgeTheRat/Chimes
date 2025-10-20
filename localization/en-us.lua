@@ -192,7 +192,7 @@ return {
 					"{C:red}-#1#{} Chips",
 					"This Joker gains {C:blue}+#2#{} Chips",
 					"when a {C:red}discard{} is used,",
-					"{C:attention}+#1#{} Voucher slot"
+					"{C:attention}+#3#{} Voucher slot"
 				}
 			},
 			j_chm_orchid = {
@@ -202,6 +202,28 @@ return {
 					"has a {C:green}#1# in #2#{} chance to create",
 					"a random {C:spectral}Spectral{} card",
 					"{C:inactive}(Must have room)"
+				}
+			},
+			j_chm_overgrownjoker = {
+				name = "Overgrown Joker",
+				text = {
+					"{C:attention}+#1#{} consumable slots,",
+					"halve all {C:attention}listed {C:green}probabilities{} on {C:attention}Vine Cards",
+					"{C:inactive}(Must have room)"
+				}
+			},
+			j_chm_paper = {
+				name = "Paper",
+				text = {
+					"{C:chips}+#1#{} Chips",
+					"{C:mult}-#2#{} Mult"
+				}
+			},
+			j_chm_polishedjoker = {
+				name = "Polished Joker",
+				text = {
+					"Gain a temporary {C:red}discard{} when",
+					"a {C:attention}Polished Card{} is discarded"
 				}
 			}
 		},
@@ -451,8 +473,8 @@ return {
 			c_chm_key = {
 				name = "Key",
 				text = {
-					"Enhances {C:attention}1",
-					"selected card into a",
+					"Enhances {C:attention}#1#",
+					"selected card#<s>1# into a",
 					"{C:attention}Mechanical Card"
 				}
 			},
@@ -483,7 +505,6 @@ return {
 					"{C:inactive}(Must have room)"
 				}
 			},
-
         },
 		Enhanced = {
 			m_chm_doodle = {
@@ -507,10 +528,9 @@ return {
 			m_chm_mechanical = {
 				name = "Mechanical",
 				text = {
-					"Gains {X:red,C:white}X#1#{} Mult when held",
-					"in hand at end of round",
-					"Decreases by {X:red,C:white}X#2#{} Mult when scored",
-					"{C:inactive}(Currently {X:red,C:white}X#3#{C:inactive} Mult)"
+					"{C:white,X:mult}X#1#{} Mult",
+					"Increases by {C:white,X:mult}X#2#{} Mult when discarded",
+					"Resets after hand played"
 				}
 			},
 			m_chm_old = {
@@ -518,7 +538,7 @@ return {
 				text = {
 					"Levels up a random",
 					"{C:attention}poker hand{} by {C:attention}2{} levels",
-					"when {C:red}discarded"
+					"when {C:attention}discarded"
 				}
 			},
 			m_chm_overgrown = {
@@ -531,7 +551,7 @@ return {
 				name = "Polished",
 				text = {
 					"Draw {C:attention}#1#{} additional cards",
-					"when {C:red}discarded"
+					"when {C:attention}discarded"
 				}
 			},
 			m_chm_rotten = {
