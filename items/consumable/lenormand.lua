@@ -3,7 +3,7 @@ SMODS.Consumable {
     name = "Rider",
     set = "Lenormand",
     pos = { x = 3, y = 2 },
-    config = { extra = { tags = 2, dollars = 35 } },
+    config = { extra = { tags = 2, dollars = 25 } },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
