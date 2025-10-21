@@ -714,24 +714,14 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = "polishedjoker",
-    config = { extra = { discards = 1 } },
+    key = "wallbang",
+    name = "Wallbang",
     pos = { x = 6, y = 2 },
-    cost = 6,
+    cost = 5,
     rarity = 2,
-    blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.discards } }
-    end,
-    calculate = function(self, card, context)
-        if context.discard then
-            if SMODS.get_enhancements(context.other_card)["m_chm_polished"] then
-                G.GAME.current_round.discards_left = G.GAME.current_round.discards_left + card.ability.extra.discards
-                return {
-                    message = "+" .. tostring(card.ability.extra.discards) .. " Discard",
-                }
-            end
-        end
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_ricochet
+        return { vars = {  } }
     end
 }

@@ -219,11 +219,11 @@ return {
 					"{C:mult}-#2#{} Mult"
 				}
 			},
-			j_chm_polishedjoker = {
-				name = "Polished Joker",
+			j_chm_wallbang = {
+				name = "Wallbang",
 				text = {
-					"Gain a temporary {C:red}discard{} when",
-					"a {C:attention}Polished Card{} is discarded"
+					"{C:attention}Ricochet{} cards additionally",
+					"upgrade when held in hand"
 				}
 			}
 		},
@@ -495,7 +495,7 @@ return {
 				text = {
 					"Enhances up to {C:attention}#1#",
 					"selected card#<s>1# into",
-					"{C:attention}Polished Cards"
+					"{C:attention}Ricochet Cards"
 				}
 			},
 			c_chm_cross = {
@@ -548,11 +548,13 @@ return {
 					"{C:blue}+#1#{} Chip#<s>1#{}"
 				}
 			},
-			m_chm_polished = {
-				name = "Polished",
+			m_chm_ricochet = {
+				name = "Ricochet",
 				text = {
-					"Draw {C:attention}#1#{} additional cards",
-					"when {C:attention}discarded"
+					"{C:chips}+#1#{} Chips every {C:attention}#2# {C:inactive}(#3#){} times discarded or scored",
+					"{C:mult}+#4#{} Mult every {C:attention}#5# {C:inactive}(#6#){} times discarded or scored",
+					"{C:money}+$#7#{} every {C:attention}#8# {C:inactive}(#9#){} times discarded or scored",
+					"{C:white,X:mult}X#10#{} Mult every {C:attention}#11# {C:inactive}(#12#){} times discarded or scored"
 				}
 			},
 			m_chm_rotten = {

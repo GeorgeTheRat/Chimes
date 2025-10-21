@@ -2613,7 +2613,7 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_polished
+        info_queue[#info_queue + 1] = G.P_CENTERS.ricochet
         return { vars = { card.ability.extra.max_highlighted } }
     end,
     can_use = function(self, card)
@@ -2650,7 +2650,7 @@ SMODS.Consumable {
                     trigger = "after",
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_ability(G.P_CENTERS["m_chm_polished"])            
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS["m_chm_ricochet"])            
                         return true
                     end
                 }))
