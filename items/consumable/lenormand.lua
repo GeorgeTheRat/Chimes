@@ -39,11 +39,7 @@ SMODS.Consumable {
             trigger = "after",
             delay = 0.4,
             func = function()
-                card_eval_status_text(used_card, "extra", nil, nil, nil, {
-                    message = "-$" .. tostring(card.ability.extra.dollars),
-                    colour = G.C.RED
-                })
-                ease_dollars(-math.min(G.GAME.dollars, card.ability.extra.dollars), true)
+                ease_dollars(card.ability.extra.dollars, true)
                 return true
             end
         }))
@@ -142,12 +138,12 @@ SMODS.Consumable {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                G.hand.config.card_limit or 8
+                (G.hand and G.hand.config and G.hand.config.card_limit) or 8
             }
         }
     end,
     can_use = function(self, card)
-        return true
+        return G.hand
     end,
     use = function(self, card, area, copier)
         local destroyed_cards = {}
@@ -162,7 +158,7 @@ SMODS.Consumable {
             end
         )
         pseudoshuffle(temp_hand, "c_chm_ship")
-        for i = 1, G.hand.config.card_limit or 8 do
+        for i = 1, (G.hand.config.card_limit or 8) do
             destroyed_cards[#destroyed_cards + 1] = temp_hand[i]
         end
         G.E_MANAGER:add_event(Event({
@@ -306,7 +302,7 @@ SMODS.Consumable {
             vars = {
                 card.ability.extra.dollars,
                 G.GAME.starting_deck_size or 52,
-                (G.playing_cards and (G.GAME.starting_deck_size - #G.playing_cards) or 0) * card.ability.extra.dollars
+                math.max((G.playing_cards and (G.GAME.starting_deck_size - #G.playing_cards) or 0) * card.ability.extra.dollars, 0)
             }
         }
     end,
@@ -321,7 +317,7 @@ SMODS.Consumable {
             func = function()
                 play_sound("timpani")
                 used_card:juice_up(0.3, 0.5)
-                ease_dollars((G.playing_cards and (G.GAME.starting_deck_size - #G.playing_cards) or 0) * card.ability.extra.dollars, true)
+                ease_dollars(math.max(0, (G.playing_cards and (G.GAME.starting_deck_size - #G.playing_cards) or 0) * card.ability.extra.dollars), true)
                 return true
             end
         }))
@@ -1365,13 +1361,20 @@ SMODS.Consumable {
     pos = { x = 2, y = 2 },
     config = {
         extra = {
-            booster_slots_value = 1,
-            voucher_slots_value = 1,
-            hand_size_value = 1
+            booster_voucher_value = 1,
+            hand_size_value = -1
         }
     },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.booster_voucher_value,
+                card.ability.extra.hand_size_value
+            }
+        }
+    end,
     can_use = function(self, card)
         return true
     end,
@@ -1381,12 +1384,11 @@ SMODS.Consumable {
             trigger = "after",
             delay = 0.4,
             func = function()
-                card_eval_status_text(used_card, "extra", nil, nil, nil, {
-                    message = "+" .. tostring(1) .. " Booster Slots",
+                SMODS.change_booster_limit(card.ability.extra.booster_voucher_value)
+                return {
+                    message = "+" .. tostring(card.ability.extra.booster_voucher_value) .. " Booster Slots",
                     colour = G.C.BLUE
-                })
-                SMODS.change_booster_limit(1)
-                return true
+                }
             end
         }))
         delay(0.6)
@@ -1394,12 +1396,11 @@ SMODS.Consumable {
             trigger = "after",
             delay = 0.4,
             func = function()
-                card_eval_status_text(used_card, "extra", nil, nil, nil, {
-                    message = "+" .. tostring(1) .. " Voucher Slots",
+                SMODS.change_voucher_limit(card.ability.extra.booster_voucher_value)
+                return {
+                    message = "+" .. tostring(card.ability.extra.booster_voucher_value) .. " Voucher Slots",
                     colour = G.C.BLUE
-                })
-                SMODS.change_voucher_limit(1)
-                return true
+                }
             end
         }))
         delay(0.6)
@@ -1407,12 +1408,11 @@ SMODS.Consumable {
             trigger = "after",
             delay = 0.4,
             func = function()
-                card_eval_status_text(used_card, "extra", nil, nil, nil, {
-                    message = "-" .. tostring(1) .. " Hand Size",
+                G.hand:change_size(card.ability.extra.hand_size_value)
+                return {
+                    message = "-" .. tostring(card.ability.extra.hand_size_value) .. " Hand Size",
                     colour = G.C.RED
-                })
-                G.hand:change_size(-1)
-                return true
+                }
             end
         }))
         delay(0.6)
@@ -1745,16 +1745,20 @@ SMODS.Consumable {
 SMODS.Consumable {
     key = "letter",
     name = "Letter",
+    config = { extra = { max_highlighted = 3 } },
     set = "Lenormand",
     pos = { x = 7, y = 1 },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.max_highlighted } }
+    end,
     can_use = function(self, card)
-        return (#G.hand.highlighted <= 2)
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if #G.hand.highlighted <= 2 then
+        if #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -1839,16 +1843,20 @@ SMODS.Consumable {
 SMODS.Consumable {
     key = "man",
     name = "Man",
+    config = { extra = { max_highlighted = 3 } },
     set = "Lenormand",
     pos = { x = 9, y = 1 },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.max_highlighted } }
+    end,
     can_use = function(self, card)
-        return ((#G.hand.highlighted >= 1 or #G.hand.highlighted <= 3))
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if (#G.hand.highlighted >= 1 or #G.hand.highlighted <= 3) then
+        if #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,

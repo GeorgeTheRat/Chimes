@@ -31,7 +31,7 @@ return {
 				text = {
 					"Each {C:hearts}Heart{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"a random {C:lenormand}Lenormand{} card"
+					"{C:attention}#3#{} random {C:lenormand}Lenormand{} card#<s>3#"
 				}
 			},
 			j_chm_brain = {
@@ -200,7 +200,7 @@ return {
 				text = {
 					"Each {C:spades}Spade{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"a random {C:spectral}Spectral{} card",
+					"{C:attention}#3#{} random {C:spectral}Spectral{} card#<s>3#",
 					"{C:inactive}(Must have room)"
 				}
 			},
@@ -387,8 +387,9 @@ return {
 			c_chm_mountain = {
 				name = "Mountain",
 				text = {
-					"{C:attention}+1{} {C:attention}Voucher{} and {C:attention}Booster Pack {}slots,",
-					"{C:red}-2{} hand size"
+					"{C:attention}+#1#{} {C:attention}Voucher{} and",
+					"{C:attention}Booster Pack{} slots,",
+					"{C:red}-#2#{} hand size"
 				}
 			},
 			c_chm_crossroads = {
@@ -428,8 +429,8 @@ return {
 				name = "Letter",
 				text = {
 					"Remove the {C:dark_edition}Edition{} and {C:enhanced}Enhancement{}",
-					"from up to {C:attention}2{} selected cards",
-					"Add random {C:attention}seals{} to both"
+					"from up to {C:attention}#1#{} selected card#<s>1#,",
+					"then add random {C:attention}seals{} to each"
 				}
 			},
 			c_chm_man = {
@@ -437,7 +438,7 @@ return {
 				text = {
 					"Apply random",
 					"{C:attention}Enhancements{} to up",
-					"to {C:attention}3{} selected cards"
+					"to {C:attention}#1#{} selected cards"
 				}
 			},
 			c_chm_lady = {
@@ -544,7 +545,7 @@ return {
 			m_chm_overgrown = {
 				name = "Overgrown",
 				text = {
-					"{C:blue}+5{} Chips"
+					"{C:blue}+#1#{} Chip#<s>1#{}"
 				}
 			},
 			m_chm_polished = {
@@ -578,8 +579,7 @@ return {
 					"Choose {C:attention}1{} of up to",
 					"{C:attention}2{} {C:lenormand}Lenormand{} cards to",
 					"be used immediately"
-				},
-				group_name = "Lenormand Pack"
+				}
 			},
 			p_chm_jumbo_lenormand_pack = {
 				name = "Jumbo Lenormand Pack",
@@ -587,8 +587,7 @@ return {
 					"Choose {C:attention}1{} of up to",
 					"{C:attention}4{} {C:lenormand}Lenormand{} cards to",
 					"be used immediately"
-				},
-				group_name = "Jumbo Lenormand Pack"
+				}
 			},
 			p_chm_mega_lenormand_pack = {
 				name = "Mega Lenormand Pack",
@@ -596,13 +595,13 @@ return {
 					"Choose {C:attention}2{} of up to",
 					"{C:attention}4{} {C:lenormand}Lenormand{} cards to",
 					"be used immediately"
-				},
-				group_name = "Mega Lenormand Pack"
+				}
 			}
 		}
 	},
 	misc = {
 		dictionary = {
+			lenormand = "Lenormand Pack",
 			b_lenormand_cards = "Lenormand Cards",
 			k_lenormand = "Lenormand",
 		}

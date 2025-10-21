@@ -12,11 +12,6 @@ SMODS.Enhancement {
         }
     },
     atlas = "enhancement",
-    any_suit = false,
-    replace_base_card = false,
-    no_rank = false,
-    no_suit = false,
-    always_scores = false,
     weight = 5,
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "m_chm_oodle")
@@ -46,7 +41,6 @@ SMODS.Enhancement {
     pos = { x = 1, y = 0 },
     config = { extra = { chips = 20, chips_mod = 20 } },
     atlas = "enhancement",
-    any_suit = false,
     replace_base_card = true,
     no_rank = true,
     no_suit = true,
@@ -87,11 +81,6 @@ SMODS.Enhancement {
         }
     },
     atlas = "enhancement",
-    any_suit = false,
-    replace_base_card = false,
-    no_rank = false,
-    no_suit = false,
-    always_scores = false,
     weight = 5,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.x_mult, card.ability.extra.x_mult_mod } }
@@ -120,11 +109,6 @@ SMODS.Enhancement {
     pos = { x = 3, y = 0 },
     config = { extra = { levels = 2 } },
     atlas = "enhancement",
-    any_suit = false,
-    replace_base_card = false,
-    no_rank = false,
-    no_suit = false,
-    always_scores = false,
     weight = 5,
     calculate = function(self, card, context)
         if context.discard and context.other_card == card then
@@ -150,18 +134,13 @@ SMODS.Enhancement {
     pos = { x = 4, y = 0 },
     config = { chips = 5 },
     atlas = "enhancement",
-    any_suit = false,
     replace_base_card = true,
     no_rank = true,
     no_suit = true,
     always_scores = true,
     weight = 0,
-    calculate = function(self, card, context)
-        if context.main_scoring and context.cardarea == G.hand then
-            return {
-                chips = card.ability.extra.chips
-            }
-        end
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.chips } }
     end
 }
 
@@ -171,11 +150,6 @@ SMODS.Enhancement {
     pos = { x = 5, y = 0 },
     config = { extra = { card_draw = 2 } },
     atlas = "enhancement",
-    any_suit = false,
-    replace_base_card = false,
-    no_rank = false,
-    no_suit = false,
-    always_scores = false,
     weight = 5,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.card_draw } }
@@ -202,12 +176,10 @@ SMODS.Enhancement {
         }
     },
     atlas = "enhancement",
-    any_suit = false,
-    replace_base_card = false,
-    no_rank = false,
-    no_suit = false,
-    always_scores = false,
     weight = 5,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.x_mult, card.ability.extra.dollars } }
+    end,
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
             return {
@@ -229,11 +201,6 @@ SMODS.Enhancement {
         }
     },
     atlas = "enhancement",
-    any_suit = false,
-    replace_base_card = false,
-    no_rank = true,
-    no_suit = true,
-    always_scores = false,
     weight = 3,
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "m_chm_vine")

@@ -2,7 +2,9 @@ SMODS.Booster {
     key = "lenormand_pack",
     name = "Lenormand Pack",
     config = { extra = 2, choose = 1 },
+    group_key = "lenormand",
     weight = 0.8,
+    kind = "lenormand",
     atlas = "booster",
     pos = { x = 2, y = 0 },
     draw_hand = true,
@@ -39,15 +41,17 @@ SMODS.Booster {
         })
         G.booster_pack_sparkles.fade_alpha = 1
         G.booster_pack_sparkles:fade(1, 0)
-    end,
+    end
 }
 
 SMODS.Booster {
     key = "jumbo_lenormand_pack",
     name = "Jumbo Lenormand Pack",
     config = { extra = 4, choose = 1 },
+    group_key = "lenormand",
     cost = 6,
     weight = 0.6,
+    kind = "lenormand",
     atlas = "booster",
     pos = { x = 1, y = 0 },
     draw_hand = true,
@@ -84,15 +88,17 @@ SMODS.Booster {
         })
         G.booster_pack_sparkles.fade_alpha = 1
         G.booster_pack_sparkles:fade(1, 0)
-    end,
+    end
 }
 
 SMODS.Booster {
     key = "mega_lenormand_pack",
     name = "Mega Lenormand Pack",
     config = { extra = 4, choose = 2 },
+    group_key = "lenormand",
     cost = 8,
     weight = 0.4,
+    kind = "lenormand",
     atlas = "booster",
     pos = { x = 0, y = 0 },
     draw_hand = true,
@@ -129,5 +135,5 @@ SMODS.Booster {
         })
         G.booster_pack_sparkles.fade_alpha = 1
         G.booster_pack_sparkles:fade(1, 0)
-    end,
+    end
 }
