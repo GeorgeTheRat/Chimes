@@ -192,7 +192,8 @@ return {
 					"{C:red}-#1#{} Chips",
 					"This Joker gains {C:blue}+#2#{} Chips",
 					"when a {C:red}discard{} is used,",
-					"{C:attention}+#3#{} Voucher slot"
+					"and is destroyed at {C:chips}+#3#{} Chips",
+					"{C:attention}+#4#{} Voucher slot"
 				}
 			},
 			j_chm_orchid = {

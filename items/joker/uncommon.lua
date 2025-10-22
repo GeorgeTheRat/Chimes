@@ -615,14 +615,15 @@ SMODS.Joker {
     name = "Onigiri",
     config = {
         extra = {
-            chips = 75,
+            chips = -75,
             chips_mod = 15,
+            chips_destruction = 0,
             voucher_slots = 1
         }
     },
     pos = { x = 2, y = 2 },
     cost = 4,
-    rarity = 1,
+    rarity = 2,
     blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
@@ -630,6 +631,7 @@ SMODS.Joker {
             vars = {
                 card.ability.extra.chips,
                 card.ability.extra.chips_mod,
+                card.ability.extra.chips_destruction,
                 card.ability.extra.voucher_slots
             }
         }
@@ -637,11 +639,11 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                chips = -card.ability.extra.chips
+                chips = card.ability.extra.chips
             }
         end
         if context.pre_discard and not context.blueprint then
-            if card.ability.extra.chips <= 0 then
+            if (card.ability.extra.chips + card.ability.extra.chips_mod) >= card.ability.extra.chips_destruction then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound("tarot1")
@@ -668,7 +670,7 @@ SMODS.Joker {
                     colour = G.C.FILTER,
                 }
             else
-                card.ability.extra.chips = math.max(0, (card.ability.extra.chips) - card.ability.extra.chips_mod)
+                card.ability.extra.chips = (card.ability.extra.chips) + card.ability.extra.chips_mod
             end
         end
     end,
