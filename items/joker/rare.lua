@@ -1,3 +1,55 @@
+SMODS.Joker {
+    key = "starflower",
+    name = "Starflower",
+    config = {
+        extra = {
+            odds = 10,
+            create = 1
+        }
+    },
+    pos = { x = 3, y = 3 },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_starflower")
+        return {
+            vars = {
+                numerator,
+                denominator,
+                card.ability.extra.create
+            } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Diamonds") then
+            for i = 1, math.ceil(card.ability.extra.create) do
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.4,
+                    func = function()
+                        if G.consumeables.config.card_limit - #G.consumeables.cards >= 0 then
+                            play_sound("timpani")
+                            card:juice_up(0.3, 0.5)
+                            SMODS.add_card({
+                                set = "Tarot",
+                                negative = true,
+                                key_append = "j_chm_starflower"
+                            })
+                            return {
+                                message = "+" .. tostring(card.ability.extra.create) .. " Tarot" .. (card.ability.extra.create > 1 and "s" or ""),
+                                colour = G.C.SECONDARY_SET.Tarot,
+                                card = context.other_card
+                            }
+                        end
+                        return true 
+                    end
+                }))
+            end
+        end
+    end
+}
+
 SMODS.Joker{
     key = "bonsai",
     name = "Bonsai",
@@ -24,22 +76,28 @@ SMODS.Joker{
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and context.other_card:is_suit("Hearts") and SMODS.pseudorandom_probability(card, "j_chm_bonsai", 1, card.ability.extra.odds) then
-            for i = 1, math.min(card.ability.extra.create, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            for i = 1, math.ceil(card.ability.extra.create) do
                 G.E_MANAGER:add_event(Event({
                     trigger = "after",
                     delay = 0.4,
                     func = function()
-                        play_sound("timpani")
-                        card:juice_up(0.3, 0.5)
-                        SMODS.add_card({ set = "Lenormand" })
+                        if #G.consumeables.cards < G.consumeables.config.card_limit then
+                            play_sound("timpani")
+                            card:juice_up(0.3, 0.5)
+                            SMODS.add_card({
+                                set = "Lenormand",
+                                key_append = "j_chm_bonsai"
+                            })
+                            return {
+                                message = "+" .. tostring(card.ability.extra.create) .. " Lenormand" .. (card.ability.extra.create > 1 and "s" or ""),
+                                colour = G.C.SECONDARY_SET.Lenormand,
+                                card = context.other_card
+                            }
+                        end
                         return true 
                     end
                 }))
             end
-            return {
-                message = "+" .. tostring(card.ability.extra.create) .. " Lenormand",
-                colour = G.C.SECONDARY_SET.Lenormand
-            }
         end
     end
 }
@@ -69,22 +127,108 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Spades") and #G.consumeables.cards < G.consumeables.config.card_limit and SMODS.pseudorandom_probability(card, "j_chm_orchid", 1, card.ability.extra.odds) then
-            G.E_MANAGER:add_event(Event({
-                trigger = "after",
-                delay = 0.4,
-                func = function()
-                    SMODS.add_card({
-                        set = "Spectral",
-                        key_append = "chm_orchid"
-                    })
-                    return true
-                end
-            }))
-            return {
-                message = localize("k_plus_spectral"),
-                colour = G.C.SECONDARY_SET.Spectral
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Spades") and SMODS.pseudorandom_probability(card, "j_chm_orchid", 1, card.ability.extra.odds) then
+            for i = 1, math.ceil(card.ability.extra.create) do
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.4,
+                    func = function()
+                        if #G.consumeables.cards < G.consumeables.config.card_limit then
+                            SMODS.add_card({
+                                set = "Spectral",
+                                key_append = "j_chm_orchid"
+                            })
+                            return {
+                                message = "+" .. tostring(card.ability.extra.create) .. " Spectral" .. (card.ability.extra.create > 1 and "s" or ""),
+                                colour = G.C.SECONDARY_SET.Spectral,
+                                card = context.other_card
+                            }
+                        end
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
+
+-- function for topiary
+local function get_planet_pool()
+    if not G.GAME.topiary_planet_pool then
+        G.GAME.topiary_planet_pool = {}
+        for k, v in pairs(G.P_CENTER_POOLS.Consumeables) do
+            if v.set == "Planet" then
+                table.insert(G.GAME.topiary_planet_pool, v)
+            end
+        end
+    end
+    return G.GAME.topiary_planet_pool
+end
+
+SMODS.Joker{
+    key = "topiary",
+    name = "Topiary",
+    config = {
+        extra = {
+            odds = 10,
+            create = 1
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_topiary")
+        return {
+            vars = { 
+                numerator,
+                denominator,
+                card.ability.extra.create
             }
+        }
+    end,
+    pos = { x = 8, y = 3 },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    atlas = "joker",
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Clubs") and SMODS.pseudorandom_probability(card, "j_chm_topiary", 1, card.ability.extra.odds) then
+            G.GAME.topiary_planet_index = G.GAME.topiary_planet_index or 1 -- start planet index
+            local planet_pool = get_planet_pool()
+            if #planet_pool > 0 then
+                for i = 1, math.ceil(card.ability.extra.create) do
+                    if G.GAME.topiary_planet_index < 1 or G.GAME.topiary_planet_index > #planet_pool then
+                        G.GAME.topiary_planet_index = 1
+                    end
+                    local planet_data = planet_pool[G.GAME.topiary_planet_index]
+                    if planet_data and type(planet_data) == "table" and planet_data.key then
+                        local key = planet_data.key
+                        G.E_MANAGER:add_event(Event({
+                            trigger = "after",
+                            delay = 0.4,
+                            func = function()
+                                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                                    play_sound("timpani")
+                                    local success, planet = pcall(create_card, "Consumeable", G.consumeables, nil, nil, nil, nil, key, "topiary")
+                                    if success and planet and type(planet) == "table" then
+                                        if planet.add_to_deck then pcall(planet.add_to_deck, planet) end
+                                        if G.consumeables and G.consumeables.emplace then
+                                            pcall(function() G.consumeables:emplace(planet) end)
+                                        end
+                                        card:juice_up(0.3, 0.5)
+                                        return true
+                                    end
+                                    return {
+                                        message = "+" .. tostring(card.ability.extra.create) .. " Planet" .. (card.ability.extra.create > 1 and "s" or ""),
+                                        colour = G.C.SECONDARY_SET.Planet,
+                                        card = context.other_card
+                                    }
+                                end
+                                return true
+                            end
+                        }))
+                        G.GAME.topiary_planet_index = G.GAME.topiary_planet_index + 1
+                    end
+                end
+            end
         end
     end
 }
@@ -107,3 +251,4 @@ SMODS.Joker {
         G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
     end
 }
+

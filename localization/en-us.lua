@@ -26,14 +26,6 @@ return {
 					"create a {C:attention}Boss Tag"
 				}
 			},
-			j_chm_bonsai = {
-				name = "Bonsai",
-				text = {
-					"Each {C:hearts}Heart{} card held in hand",
-					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:lenormand}Lenormand{} card#<s>3#"
-				}
-			},
 			j_chm_brain = {
 				name = "Brain",
 				text = {
@@ -46,10 +38,12 @@ return {
 			j_chm_california_roll = {
 				name = "California Roll",
 				text = {
-					"Create {C:attention}#1#{} random {C:attention}Jokers{} and",
-					"consumables when this {C:attention}Joker{} is sold",
-					"Decrease by {C:attention}1{} and create a {C:attention}Tag{}, {C:attention}Joker{}, and",
-					"consumable when a {C:attention}playing card{} is added to deck"
+					"Create {C:attention}#1#{} random ",
+					"{C:attention}Joker#<s>1# and {C:attention}consumable#<s>1#{}",
+					"when this Joker is sold",
+					"Decrease by {C:red}-#2#{} and create a",
+					"{C:attention}Tag{}, {C:attention}Joker{}, and {C:attention}consumable",
+					"when a {C:attention}playing card{} is added to deck"
 				}
 			},
 			j_chm_makisu = {
@@ -196,20 +190,12 @@ return {
 					"{C:attention}+#4#{} Voucher slot"
 				}
 			},
-			j_chm_orchid = {
-				name = "Orchid",
-				text = {
-					"Each {C:spades}Spade{} card held in hand",
-					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:spectral}Spectral{} card#<s>3#",
-					"{C:inactive}(Must have room)"
-				}
-			},
 			j_chm_overgrownjoker = {
 				name = "Overgrown Joker",
 				text = {
 					"{C:attention}+#1#{} consumable slots,",
-					"halve all {C:attention}listed {C:green}probabilities{} on {C:attention}Vine Cards",
+					"halve all {C:attention}listed {C:green,E:1}probabilities{}",
+					"on {C:attention}Vine Cards",
 					"{C:inactive}(Must have room)"
 				}
 			},
@@ -225,6 +211,43 @@ return {
 				text = {
 					"{C:attention}Ricochet{} cards additionally",
 					"upgrade when held in hand"
+				}
+			},
+			j_chm_starflower = {
+				name = "Starflower",
+				text = {
+					"Each {C:diamonds}Diamond{} card held in hand",
+					"has a {C:green}#1# in #2#{} chance to create",
+					"{C:attention}#3#{} random {C:dark_edition}Negative {C:tarot}Tarot{} card#<s>3#",
+					"{C:inactive}(Must have room)"
+				}
+			},
+			j_chm_bonsai = {
+				name = "Bonsai",
+				text = {
+					"Each {C:hearts}Heart{} card held in hand",
+					"has a {C:green}#1# in #2#{} chance to create",
+					"{C:attention}#3#{} random {C:dark_edition}Negative {C:tarot}Tarot{} card#<s>3#",
+					"{C:inactive}(Must have room)"
+				}
+			},
+			j_chm_orchid = {
+				name = "Orchid",
+				text = {
+					"Each {C:spades}Spade{} card held in hand",
+					"has a {C:green}#1# in #2#{} chance to create",
+					"{C:attention}#3#{} random {C:spectral}Spectral{} card#<s>3#",
+					"{C:inactive}(Must have room)"
+				}
+			},
+			j_chm_topiary = {
+				name = "Topiary Tree",
+				text = {
+					"Each {C:clubs}Club{} card held in hand",
+					"has a {C:green}#1# in #2#{} chance to create",
+					"{C:attention}#3#{} {C:planet}Planet{} card#<s>3# in {C:green,E:1}collection order",
+					"{C:inactive,s:0.8}(ex: Mercury, Venus, Mars, etc.)",
+					"{C:inactive}(Must have room)"
 				}
 			}
 		},
@@ -390,7 +413,7 @@ return {
 				text = {
 					"{C:attention}+#1#{} {C:attention}Voucher{} and",
 					"{C:attention}Booster Pack{} slots,",
-					"{C:red}-#2#{} hand size"
+					"{C:red}#2#{} hand size"
 				}
 			},
 			c_chm_crossroads = {

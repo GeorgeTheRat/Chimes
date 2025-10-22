@@ -187,10 +187,10 @@ SMODS.Enhancement {
     calculate = function(self, card, context)
         -- reset counters that have reached their triggers
         local function reset_counters()
-            local counters = {'chip', 'mult', 'dollars', 'xmult'}
+            local counters = {"chip", "mult", "dollars", "xmult"}
             for _, counter_type in ipairs(counters) do
-                local counter_key = counter_type .. '_counter'
-                local trigger_key = counter_type .. '_trigger'
+                local counter_key = counter_type .. "_counter"
+                local trigger_key = counter_type .. "_trigger"
                 if card.ability.extra[counter_key] >= card.ability.extra[trigger_key] then
                     card.ability.extra[counter_key] = 0
                 end
