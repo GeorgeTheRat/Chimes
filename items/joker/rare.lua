@@ -1,6 +1,6 @@
 SMODS.Joker {
-    key = "starflower",
-    name = "Starflower",
+    key = "celosia",
+    name = "Celosia",
     config = {
         extra = {
             odds = 10,
@@ -13,7 +13,7 @@ SMODS.Joker {
     blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_starflower")
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_celosia")
         return {
             vars = {
                 numerator,
@@ -34,7 +34,7 @@ SMODS.Joker {
                             SMODS.add_card({
                                 set = "Tarot",
                                 negative = true,
-                                key_append = "j_chm_starflower"
+                                key_append = "j_chm_celosia"
                             })
                             return {
                                 message = "+" .. tostring(card.ability.extra.create) .. " Tarot" .. (card.ability.extra.create > 1 and "s" or ""),
@@ -166,8 +166,8 @@ local function get_planet_pool()
 end
 
 SMODS.Joker{
-    key = "topiary",
-    name = "Topiary",
+    key = "botton_pon",
+    name = "Botton Pon",
     config = {
         extra = {
             odds = 10,
@@ -175,7 +175,7 @@ SMODS.Joker{
         }
     },
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_topiary")
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_botton_pon")
         return {
             vars = { 
                 numerator,
@@ -190,7 +190,7 @@ SMODS.Joker{
     blueprint_compat = true,
     atlas = "joker",
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Clubs") and SMODS.pseudorandom_probability(card, "j_chm_topiary", 1, card.ability.extra.odds) then
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Clubs") and SMODS.pseudorandom_probability(card, "j_chm_botton_pon", 1, card.ability.extra.odds) then
             G.GAME.topiary_planet_index = G.GAME.topiary_planet_index or 1 -- start planet index
             local planet_pool = get_planet_pool()
             if #planet_pool > 0 then

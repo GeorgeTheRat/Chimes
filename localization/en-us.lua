@@ -213,8 +213,8 @@ return {
 					"upgrade when held in hand"
 				}
 			},
-			j_chm_starflower = {
-				name = "Starflower",
+			j_chm_celosia = {
+				name = "Celosia",
 				text = {
 					"Each {C:diamonds}Diamond{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
@@ -240,8 +240,8 @@ return {
 					"{C:inactive}(Must have room)"
 				}
 			},
-			j_chm_topiary = {
-				name = "Topiary Tree",
+			j_chm_botton_pon= {
+				name = "Botton Pon",
 				text = {
 					"Each {C:clubs}Club{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
