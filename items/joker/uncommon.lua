@@ -683,11 +683,46 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = "paper",
+    key = "rock",
+    name = "Rock",
     config = {
         extra = {
-            chips = 200,
-            mult = -15
+            chips = -100,
+            xmult = 3
+        }
+    },
+    pos = { x = 9, y = 2 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips,
+                card.ability.extra.xmult
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips,
+                extra = {
+                    xmult = card.ability.extra.xmult
+                }
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "paper",
+    name = "Paper",
+    config = {
+        extra = {
+            mult = -15,
+            chips = 200
         }
     },
     pos = { x = 5, y = 2 },
@@ -698,15 +733,49 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.chips,
-                card.ability.extra.mult
+                card.ability.extra.mult,
+                card.ability.extra.chips
             } 
         }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                chips = card.ability.extra.chips,
+                mult = card.ability.extra.mult,
+                extra = {
+                    chips = card.ability.extra.chips
+                }
+            }
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "scissors",
+    name = "Scissors",
+    config = {
+        extra = {
+            Xmult = 0.5,
+            mult = 40
+        }
+    },
+    pos = { x = 2, y = 3 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.Xmult,
+                card.ability.extra.mult
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                Xmult = card.ability.extra.Xmult,
                 extra = {
                     mult = card.ability.extra.mult
                 }

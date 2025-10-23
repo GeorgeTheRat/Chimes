@@ -33,24 +33,24 @@ SMODS.Joker {
                             card:juice_up(0.3, 0.5)
                             SMODS.add_card({
                                 set = "Tarot",
-                                negative = true,
+                                edition = "negative",
                                 key_append = "j_chm_celosia"
                             })
-                            return {
-                                message = "+" .. tostring(card.ability.extra.create) .. " Tarot" .. (card.ability.extra.create > 1 and "s" or ""),
-                                colour = G.C.SECONDARY_SET.Tarot,
-                                card = context.other_card
-                            }
                         end
                         return true 
                     end
                 }))
             end
+            return {
+                message = "+" .. tostring(card.ability.extra.create) .. " Tarot" .. (card.ability.extra.create > 1 and "s" or ""),
+                colour = G.C.SECONDARY_SET.Tarot,
+                card = context.other_card
+            }
         end
     end
 }
 
-SMODS.Joker{
+SMODS.Joker {
     key = "bonsai",
     name = "Bonsai",
     config = {
@@ -88,16 +88,16 @@ SMODS.Joker{
                                 set = "Lenormand",
                                 key_append = "j_chm_bonsai"
                             })
-                            return {
-                                message = "+" .. tostring(card.ability.extra.create) .. " Lenormand" .. (card.ability.extra.create > 1 and "s" or ""),
-                                colour = G.C.SECONDARY_SET.Lenormand,
-                                card = context.other_card
-                            }
                         end
                         return true 
                     end
                 }))
             end
+            return {
+                message = "+" .. tostring(card.ability.extra.create) .. " Lenormand" .. (card.ability.extra.create > 1 and "s" or ""),
+                colour = G.C.SECONDARY_SET.Lenormand,
+                card = context.other_card
+            }
         end
     end
 }
@@ -134,20 +134,22 @@ SMODS.Joker {
                     delay = 0.4,
                     func = function()
                         if #G.consumeables.cards < G.consumeables.config.card_limit then
+                            play_sound("timpani")
+                            card:juice_up(0.3, 0.5)
                             SMODS.add_card({
                                 set = "Spectral",
                                 key_append = "j_chm_orchid"
                             })
-                            return {
-                                message = "+" .. tostring(card.ability.extra.create) .. " Spectral" .. (card.ability.extra.create > 1 and "s" or ""),
-                                colour = G.C.SECONDARY_SET.Spectral,
-                                card = context.other_card
-                            }
                         end
                         return true
                     end
                 }))
             end
+            return {
+                message = "+" .. tostring(card.ability.extra.create) .. " Spectral" .. (card.ability.extra.create > 1 and "s" or ""),
+                colour = G.C.SECONDARY_SET.Spectral,
+                card = context.other_card
+            }
         end
     end
 }
@@ -216,16 +218,16 @@ SMODS.Joker{
                                         card:juice_up(0.3, 0.5)
                                         return true
                                     end
-                                    return {
-                                        message = "+" .. tostring(card.ability.extra.create) .. " Planet" .. (card.ability.extra.create > 1 and "s" or ""),
-                                        colour = G.C.SECONDARY_SET.Planet,
-                                        card = context.other_card
-                                    }
                                 end
                                 return true
                             end
                         }))
                         G.GAME.topiary_planet_index = G.GAME.topiary_planet_index + 1
+                        return {
+                            message = "+" .. tostring(card.ability.extra.create) .. " Planet" .. (card.ability.extra.create > 1 and "s" or ""),
+                            colour = G.C.SECONDARY_SET.Planet,
+                            card = context.other_card
+                        }
                     end
                 end
             end

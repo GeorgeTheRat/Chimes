@@ -38,8 +38,8 @@ return {
 			j_chm_california_roll = {
 				name = "California Roll",
 				text = {
-					"Create {C:attention}#1#{} random ",
-					"{C:attention}Joker#<s>1# and {C:attention}consumable#<s>1#{}",
+					"Create {C:attention}#1#{} random",
+					"{C:attention}Joker#<s>1#{} and {C:attention}consumable#<s>1#",
 					"when this Joker is sold",
 					"Decrease by {C:red}-#2#{} and create a",
 					"{C:attention}Tag{}, {C:attention}Joker{}, and {C:attention}consumable",
@@ -50,7 +50,8 @@ return {
 				name = "Makisu",
 				text = {
 					"Create a random {C:attention}Sushi Joker",
-					"when a {C:attention}consumable{} is used during {C:attention}Boss Blind",
+					"when a {C:attention}consumable{} is used",
+					"during a {C:attention}Boss Blind",
 					"{C:inactive}(Must have room)"
 				}
 			},
@@ -112,7 +113,7 @@ return {
 			j_chm_ghost_costume = {
 				name = "Ghost Costume",
 				text = {
-					"{C:green}#1# in #2#{} to apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
+					"{C:green}#1# in #2#{} chance to apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
 					"or {C:dark_edition}Polychrome{} to scored cards,",
 					"{C:red}-$#3#{} and create another",
 					"{C:attention}Costume Joker{} when sold"
@@ -157,10 +158,10 @@ return {
 				name = "Motherboard",
 				text = {
 					"{C:blue}+#1#{} Chips,",
-					"this {C:attention}Joker{} gains {C:blue}+#2#{} Chips",
-					"when a {C:attention}listed {C:green}probability{} fails",
+					"this Joker gains {C:blue}+#2#{} Chips",
+					"when a {C:attention}listed {C:green,E:1}probability{} fails",
 					"and loses {C:red}-#3#{} Chips when",
-					"a {C:attention}listed {C:green}probability{} succeeds"
+					"a {C:attention}listed {C:green,E:1}probability{} succeeds"
 				}
 			},
 			j_chm_train_ticket = {
@@ -183,10 +184,10 @@ return {
 			j_chm_onigiri = {
 				name = "Onigiri",
 				text = {
-					"{C:red}-#1#{} Chips",
+					"{C:red}#1#{} Chips",
 					"This Joker gains {C:blue}+#2#{} Chips",
-					"when a {C:red}discard{} is used,",
-					"and is destroyed at {C:chips}+#3#{} Chips",
+					"per discard, and is",
+					"destroyed at {C:chips}+#3#{} Chips",
 					"{C:attention}+#4#{} Voucher slot"
 				}
 			},
@@ -197,13 +198,6 @@ return {
 					"halve all {C:attention}listed {C:green,E:1}probabilities{}",
 					"on {C:attention}Vine Cards",
 					"{C:inactive}(Must have room)"
-				}
-			},
-			j_chm_paper = {
-				name = "Paper",
-				text = {
-					"{C:chips}+#1#{} Chips",
-					"{C:mult}-#2#{} Mult"
 				}
 			},
 			j_chm_wallbang = {
@@ -227,7 +221,7 @@ return {
 				text = {
 					"Each {C:hearts}Heart{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:dark_edition}Negative {C:tarot}Tarot{} card#<s>3#",
+					"{C:attention}#3#{} random {C:lenormand}Lenormand{} card#<s>3#",
 					"{C:inactive}(Must have room)"
 				}
 			},
@@ -246,8 +240,36 @@ return {
 					"Each {C:clubs}Club{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
 					"{C:attention}#3#{} {C:planet}Planet{} card#<s>3# in {C:green,E:1}collection order",
-					"{C:inactive,s:0.8}(ex: Mercury, Venus, Mars, etc.)",
+					"{C:inactive,s:0.8}(ex: Mercury, Venus, Earth, Mars, etc.)",
 					"{C:inactive}(Must have room)"
+				}
+			},
+			j_chm_rock = {
+				name = "Rock",
+				text = {
+					"{C:chips}#1#{} Chips",
+					"{C:white,X:mult}X#2#{} Mult"
+				}
+			},
+			j_chm_paper = {
+				name = "Paper",
+				text = {
+					"{C:mult}#1#{} Mult",
+					"{C:chips}+#2#{} Chips",
+				}
+			},
+			j_chm_scissors = {
+				name = "Scissors",
+				text = {
+					"{C:white,X:mult}X#1#{} Mult",
+					"{C:red}+#2#{} Mult"
+				}
+			},
+			j_chm_rotten = {
+				name = "Rotten Joker",
+				text = {
+					"{C:attention}Rotten Cards{} give {C:white,X:mult}X#1#{} Mult",
+					"and {C:money}$#2#{} when scored"
 				}
 			}
 		},

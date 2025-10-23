@@ -315,3 +315,37 @@ SMODS.Joker{
         end
     end
 }
+
+SMODS.Joker {
+    key = "rotten",
+    name = "Rotten",
+    config = {
+        extra = {
+            xmult = 0.75,
+            dollars = 6
+        }
+    },
+    pos = { x = 0, y = 3 },
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.xmult,
+                card.ability.extra.dollars
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and SMODS.get_enhancements(context.other_card)["m_chm_rotten"] == true then
+            return {
+                xmult = card.ability.extra.xmult,
+                extra = {
+                    dollars = card.ability.extra.dollars
+                }
+            }
+        end
+    end
+}
