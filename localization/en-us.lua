@@ -333,6 +333,41 @@ return {
 					"{C:hearts}Heart{} or {C:diamonds}Diamond{} suit held in hand",
 					"{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}"
 				}
+			},
+			j_chm_punk = {
+				name = "Punk Joker",
+				text = {
+					"This Joker gains {C:blue}+#1#{} Chips when a",
+					"{C:spades}Spade{} or {C:clubs}Club{} card is destroyed",
+					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+				}
+			},
+			j_chm_takonigiri = {
+				name = "Tako Nigiri",
+				text = {
+					"Sell this {C:attention}Joker{} to create {C:attention}#1# {}{C:rare}Rare{} {C:attention}Jokers{}",
+					"if there is space for {C:attention}all{} of them",
+					"Decreases by {C:attention}1{} at when a {C:attention}Boss Blind{} is defeated",
+					"At {C:attention}0{} create a random {C:legendary}Legendary{} {C:attention}Joker{}"
+				}
+			},
+			j_chm_tamago = {
+				name = "Tamago",
+				text = {
+					"Sell this card to gain {C:money}$#1#{}",
+					"Decrease by {C:red}-$#2#{} and increase {C:attention}sell value",
+					"of the {C:attention}Joker{} to the right by {C:money}$#3#",
+					"whenever a {C:attention}Blind{} is skipped"
+				}
+			},
+			j_chm_pumpkincostume = {
+				name = "Pumpkin Costume",
+				text = {
+					"{C:green}#1# in #2#{} chance to apply a",
+					"random {C:attention}Seal{} to scored cards",
+					"{C:red}-$#3#{} and create another",
+					"{C:attention}Costume Joker{} when sold"
+				}
 			}
 		},
         Lenormand = {

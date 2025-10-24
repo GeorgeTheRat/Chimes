@@ -1,5 +1,6 @@
-SMODS.Joker{ --Tobiko
+SMODS.Joker {
     key = "tobiko",
+    name = "Tobiko",
     config = {
         extra = {
             rerrooll = 4,
@@ -23,13 +24,7 @@ SMODS.Joker{ --Tobiko
             [1] = "Unlocked by default."
         }
     },
-    pos = {
-        x = 6,
-        y = 3
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
+    pos = { x = 6, y = 3
     },
     cost = 5,
     rarity = 2,
@@ -39,45 +34,55 @@ SMODS.Joker{ --Tobiko
     unlocked = true,
     discovered = true,
     atlas = "joker",
-    pools = { ["chm_sushi"] = true },
+    pools = {
+        ["chm_sushi"] = true
+    },
 
     loc_vars = function(self, info_queue, card)
-        
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_tobiko") 
-        return {vars = {card.ability.extra.rerrooll, card.ability.extra.all_jokers, card.ability.extra.explode, card.ability.extra.y, new_numerator, new_denominator}}
+
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+            "j_chm_tobiko")
+        return {
+            vars = {card.ability.extra.rerrooll, card.ability.extra.all_jokers, card.ability.extra.explode,
+                    card.ability.extra.y, new_numerator, new_denominator}
+        }
     end,
 
     calculate = function(self, card, context)
-        if context.reroll_shop  then
+        if context.reroll_shop then
             if card.ability.extra.rerrooll == 0 then
                 return {
                     func = function()
-                card:explode()
-                return true
-            end,
+                        card:explode()
+                        return true
+                    end,
                     message = "Eaten!"
                 }
             elseif true then
-                if SMODS.pseudorandom_probability(card, "group_0_dfa28d46", 1, card.ability.extra.odds, "j_chm_tobiko", false) then
-              SMODS.calculate_effect({func = function()
-                    card.ability.extra.rerrooll = math.max(0, (card.ability.extra.rerrooll) - 1)
-                    return true
-                end}, card)
-          end
+                if SMODS.pseudorandom_probability(card, "group_0_dfa28d46", 1, card.ability.extra.odds, "j_chm_tobiko",
+                    false) then
+                    SMODS.calculate_effect({
+                        func = function()
+                            card.ability.extra.rerrooll = math.max(0, (card.ability.extra.rerrooll) - 1)
+                            return true
+                        end
+                    }, card)
+                end
             end
         end
-        if context.selling_self  then
-                return {
-                    func = function()for i, target_card in ipairs(G.jokers.cards) do
-                if target_card.set_cost then
-            target_joker.ability.extra_value = card.ability.extra.sell_value
-            target_joker:set_cost()
-            end
-        end
+        if context.selling_self then
+            return {
+                func = function()
+                    for i, target_card in ipairs(G.jokers.cards) do
+                        if target_card.set_cost then
+                            target_joker.ability.extra_value = card.ability.extra.sell_value
+                            target_joker:set_cost()
+                        end
+                    end
                     return true
                 end,
-                    message = "All Jokers Sell Value: $"..tostring(card.ability.extra.sell_value)
-                }
+                message = "All Jokers Sell Value: $" .. tostring(card.ability.extra.sell_value)
+            }
         end
     end,
 
