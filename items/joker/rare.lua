@@ -13,6 +13,7 @@ SMODS.Joker {
     blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_celosia")
         return {
             vars = {
@@ -209,7 +210,7 @@ SMODS.Joker{
                             func = function()
                                 if #G.consumeables.cards < G.consumeables.config.card_limit then
                                     play_sound("timpani")
-                                    local success, planet = pcall(create_card, "Consumeable", G.consumeables, nil, nil, nil, nil, key, "topiary")
+                                    local success, planet = pcall(create_card, "Consumeable", G.consumeables, nil, nil, nil, nil, key, "j_chm_topiary")
                                     if success and planet and type(planet) == "table" then
                                         if planet.add_to_deck then pcall(planet.add_to_deck, planet) end
                                         if G.consumeables and G.consumeables.emplace then
@@ -254,3 +255,54 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "togarashi",
+    config = {
+        extra = {
+            mult1 = 3,
+            mult2_mod = 2,
+            mult2 = 0,
+        }
+    },
+    pos = { x = 7, y = 3 },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.mult1,
+                card.ability.extra.mult2_mod,
+                card.ability.extra.mult2
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            local red_cards = 0
+            for _, v in ipairs(G.hand.cards) do
+                if v:is_suit("Hearts") or v:is_suit("Diamonds") then
+                    red_cards = red_cards + card.ability.extra.mult2_mod
+                end
+            end
+            if red_cards > 0 then
+                card.ability.extra.mult2 = card.ability.extra.mult2 + red_cards
+                return {
+                    message = "Upgrade!",
+                    colour = G.C.MULT
+                }
+            end
+        end
+        if context.individual and context.cardarea == G.play and (context.other_card:is_suit("Hearts") or context.other_card:is_suit("Diamonds")) then
+            return {
+                mult = -card.ability.extra.mult1,
+            }
+        end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult2,
+            }
+        end
+    end
+}

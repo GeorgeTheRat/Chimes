@@ -216,7 +216,12 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.perma_bonus_value } }
+        return {
+            vars = {
+                card.ability.extra.perma_bonus_value,
+                card.ability.extra.max_highlighted
+            }
+        }
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted 
@@ -322,6 +327,121 @@ SMODS.Consumable {
             end
         }))
         delay(0.6)
+    end
+}
+
+SMODS.Consumable {
+    key = "clouds",
+    name = "Clouds",
+    set = "Lenormand",
+    pos = { x = 4, y = 3 },
+    config = {
+        extra = {
+            create_enhancement = 1,
+            create_edition = 1,
+            create_seal = 1
+        }
+    },
+    cost = 4,
+    atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.create_enhancement,
+                card.ability.extra.create_edition,
+                card.ability.extra.create_seal
+            }
+        }
+    end,
+    can_use = function(self, card)
+        return G.hand
+    end,
+    use = function(self, card, area, copier)
+        local used_card = copier or card
+        G.E_MANAGER:add_event(Event({
+            trigger = "after",
+            delay = 0.7,
+            func = function()
+                local cards = {}
+                local card_ranks = {}
+                local card_suits = {}
+                for i = 1, 3 do
+                    local valid_rank = false
+                    local new_rank
+                    while not valid_rank do
+                        new_rank = pseudorandom_element(SMODS.Ranks, "clouds_rank_"..i).card_key
+                        valid_rank = true
+                        for _, rank in ipairs(card_ranks) do
+                            if rank == new_rank then
+                                valid_rank = false
+                                break
+                            end
+                        end
+                        if valid_rank then
+                            table.insert(card_ranks, new_rank)
+                        end
+                    end
+                end
+                for i = 1, 3 do
+                    local valid_suit = false
+                    local new_suit
+                    while not valid_suit do
+                        new_suit = pseudorandom_element(SMODS.Suits, "clouds_suit_"..i).card_key
+                        valid_suit = true
+                        for _, suit in ipairs(card_suits) do
+                            if suit == new_suit then
+                                valid_suit = false
+                                break
+                            end
+                        end
+                        if valid_suit then
+                            table.insert(card_suits, new_suit)
+                        end
+                    end
+                end
+                local card1 = SMODS.add_card({
+                    set = "Base",
+                    rank = card_ranks[1],
+                    suit = card_suits[1]
+                })
+                if card1 then
+                    local enhancement = SMODS.poll_enhancement({mod = 10, guaranteed = true})
+                    if enhancement then
+                        card1:set_ability(enhancement)
+                    end
+                    table.insert(cards, card1)
+                end
+                local card2 = SMODS.add_card({
+                    set = "Base",
+                    rank = card_ranks[2],
+                    suit = card_suits[2]
+                })
+                if card2 then
+                    local edition = poll_edition("clouds_edition", nil, true, true, 
+                        {"e_polychrome", "e_holo", "e_foil"})
+                    card2:set_edition(edition, true)
+                    table.insert(cards, card2)
+                end
+                local card3 = SMODS.add_card({
+                    set = "Base",
+                    rank = card_ranks[3],
+                    suit = card_suits[3]
+                })
+                if card3 then
+                    local seal = SMODS.poll_seal({mod = 10, guaranteed = true})
+                    if seal then
+                        card3:set_seal(seal, true)
+                    end
+                    table.insert(cards, card3)
+                end
+                SMODS.calculate_context({
+                    playing_card_added = true,
+                    cards = cards
+                })
+                return true
+            end
+        }))
+        delay(0.3)
     end
 }
 
@@ -709,6 +829,7 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
         return { vars = { card.ability.extra.max_highlighted } }
     end,
     can_use = function(self, card)
@@ -1017,7 +1138,7 @@ SMODS.Consumable {
         }
     end,
     can_use = function(self, card)
-        return true
+        return G.GAME.skips ~= 0
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
@@ -1500,15 +1621,24 @@ SMODS.Consumable {
 SMODS.Consumable {
     key = "mice",
     set = "Lenormand",
+    config = { extra = { max_highlighted = 2 } },
     pos = { x = 0, y = 2 },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_rotten
+        return {
+            vars = { 
+                card.ability.extra.max_highlighted
+            }
+        }
+    end,
     can_use = function(self, card)
-        return ((#G.hand.highlighted <= 2 and #G.hand.highlighted >= 1))
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if (#G.hand.highlighted <= 2 and #G.hand.highlighted >= 1) then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
@@ -1537,7 +1667,7 @@ SMODS.Consumable {
                     trigger = "after",
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_ability(G.P_CENTERS["m_chm_otten"])
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS["m_chm_rotten"])
                         return true
                     end
                 }))
@@ -1573,21 +1703,29 @@ SMODS.Consumable {
     name = "Ring",
     set = "Lenormand",
     pos = { x = 4, y = 2 },
-    config = { extra = { copy_cards_amount = 1 } },
+    config = { extra = { copy = 1, max_highlighted = 2 } },
     cost = 4,
     atlas = "consumable",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = { 
+                card.ability.extra.copy,
+                card.ability.extra.max_highlighted
+            }
+        }
+    end,
     can_use = function(self, card)
-        return ((#G.hand.highlighted <= 2 and #G.hand.highlighted >= 1))
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if (#G.hand.highlighted <= 2 and #G.hand.highlighted >= 1) then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local _first_materialize = nil
                     local new_cards = {}
                     for _, selected_card in pairs(G.hand.highlighted) do
-                        for i = 1, card.ability.extra.copy_cards_amount do
+                        for i = 1, card.ability.extra.copy do
                             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                             local copied_card = copy_card(selected_card, nil, nil, G.playing_card)
                             copied_card:add_to_deck()
@@ -1669,6 +1807,7 @@ SMODS.Consumable {
 SMODS.Consumable {
     key = "book",
     name = "Book",
+    config = { extra = { max_highlighted = 1 } },
     set = "Lenormand",
     pos = { x = 3, y = 0 },
     cost = 4,
@@ -1678,11 +1817,11 @@ SMODS.Consumable {
         return { vars = {  } }
     end,
     can_use = function(self, card)
-        return (#G.hand.highlighted == 1)
+        return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if #G.hand.highlighted == 1 then
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,

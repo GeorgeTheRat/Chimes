@@ -1,5 +1,6 @@
-SMODS.Joker{ --Pumpkin Costume
+SMODS.Joker {
     key = "pumpkincostume",
+    name = "Pumpkin Costume",
     config = {
         extra = {
             edititionion = 1,
@@ -25,7 +26,7 @@ SMODS.Joker{ --Pumpkin Costume
         y = 2
     },
     display_size = {
-        w = 71 * 1, 
+        w = 71 * 1,
         h = 95 * 1
     },
     cost = 5,
@@ -36,55 +37,72 @@ SMODS.Joker{ --Pumpkin Costume
     unlocked = true,
     discovered = true,
     atlas = "joker",
-    pools = { ["chm_costumes1"] = true, ["chm_costumes2"] = true },
+    pools = {
+        ["chm_costumes"] = true,
+    },
 
     loc_vars = function(self, info_queue, card)
-        
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_pumpkincostume") 
-        return {vars = {card.ability.extra.edititionion, card.ability.extra.costumes, card.ability.extra.respect, new_numerator, new_denominator}}
+
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+            "j_chm_pumpkincostume")
+        return {
+            vars = {card.ability.extra.edititionion, card.ability.extra.costumes, card.ability.extra.respect,
+                    new_numerator, new_denominator}
+        }
     end,
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play  then
+        if context.individual and context.cardarea == G.play then
             if true then
-                if SMODS.pseudorandom_probability(card, "group_0_94b68a9b", 1, card.ability.extra.odds, "j_chm_pumpkincostume", false) then
-              local random_seal = SMODS.poll_seal({mod = 10, guaranteed = true})
-                if random_seal then
-                    context.other_card:set_seal(random_seal, true)
+                if SMODS.pseudorandom_probability(card, "group_0_94b68a9b", 1, card.ability.extra.odds,
+                    "j_chm_pumpkincostume", false) then
+                    local random_seal = SMODS.poll_seal({
+                        mod = 10,
+                        guaranteed = true
+                    })
+                    if random_seal then
+                        context.other_card:set_seal(random_seal, true)
+                    end
+                    card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+                        message = "Card Modified!",
+                        colour = G.C.BLUE
+                    })
                 end
-                        card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {message = "Card Modified!", colour = G.C.BLUE})
-          end
             end
         end
-        if context.selling_self  then
-                return {
-                    dollars = -card.ability.extra.dollars,
-                    extra = {
-                        func = function()
-            local created_joker = false
-    if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-        created_joker = true
-        G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    local joker_card = SMODS.add_card({ set = "chm_costumes" })
-                    if joker_card then
-                        
-                        
-                    end
-                    G.GAME.joker_buffer = 0
-                    return true
-                end
-            }))
-            end
-            if created_joker then
-                card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {message = localize("k_plus_joker"), colour = G.C.BLUE})
-            end
-            return true
-        end,
-                        colour = G.C.BLUE
-                        }
+        if context.selling_self then
+            return {
+                dollars = -card.ability.extra.dollars,
+                extra = {
+                    func = function()
+                        local created_joker = false
+                        if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                            created_joker = true
+                            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    local joker_card = SMODS.add_card({
+                                        set = "chm_costumes"
+                                    })
+                                    if joker_card then
+
+                                    end
+                                    G.GAME.joker_buffer = 0
+                                    return true
+                                end
+                            }))
+                        end
+                        if created_joker then
+                            card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+                                message = localize("k_plus_joker"),
+                                colour = G.C.BLUE
+                            })
+                        end
+                        return true
+                    end,
+                    colour = G.C.BLUE
                 }
+            }
         end
     end
 }

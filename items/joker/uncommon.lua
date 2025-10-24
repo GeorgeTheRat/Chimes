@@ -143,33 +143,9 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
-    key = "colored_pencils",
-    name = "Colored Pencils",
-    pos = { x = 7, y = 0 },
-    cost = 5,
-    rarity = 2,
-    blueprint_compat = true,
-    atlas = "joker",
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
-        return { vars = { } }
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if (#context.full_hand == 1 and G.GAME.current_round.hands_left == 0) then
-                context.other_card:set_edition("e_polychrome", true)
-                return {
-                    message = "Polychrome!",
-                    colour = G.C.DARK_EDTION
-                }
-            end
-        end
-    end
-}
-
-SMODS.Joker{
     key = "crayons",
     name = "Crayons",
+    config = { extra = { play_size = 3 } },
     pos = { x = 8, y = 0 },
     cost = 5,
     rarity = 2,
@@ -177,14 +153,73 @@ SMODS.Joker{
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
-        return { vars = { } }
+        return { vars = { 
+            card.ability.extra.play_size
+        }
+    }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play  then
-            if (#context.full_hand == 3 and G.GAME.current_round.hands_left == 0) then
+        if context.individual and context.cardarea == G.play then
+            if (#context.full_hand == card.ability.extra.play_size and G.GAME.current_round.hands_left == 0) then
                 context.other_card:set_edition("e_foil", true)
                 return {
                     message = "Foil!",
+                    colour = G.C.DARK_EDITION
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "watercolors",
+    config = {
+        extra = {
+            play_size = 2
+        }
+    },
+    pos = { x = 2, y = 4 },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+        return { vars = {  card.ability.extra.play_size }
+    }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if (#context.full_hand == card.ability.extra.play_size and G.GAME.current_round.hands_left == 0) then
+                context.other_card:set_edition("e_holo", true)
+                return {
+                    message = "Holographic!",
+                    colour = G.C.DARK_EDITION
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = "colored_pencils",
+    name = "Colored Pencils",
+    config = { extra = { play_size = 1 } },
+    pos = { x = 7, y = 0 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+        return { vars = { card.ability.extra.play_size } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if (#context.full_hand == card.ability.extra.play_size and G.GAME.current_round.hands_left == 0) then
+                context.other_card:set_edition("e_polychrome", true)
+                return {
+                    message = "Polychrome!",
                     colour = G.C.DARK_EDITION
                 }
             end
@@ -902,6 +937,200 @@ SMODS.Joker {
                     colour = G.C.ATTENTION
                 }
             end
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "toycar",
+    name = "Toy Car",
+    config = {
+        extra = {
+            dollars = 1,
+            dollars_mod = 1
+        }
+    },
+    pos = { x = 9, y = 3 },
+    cost = 7,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.dollars,
+                card.ability.extra.dollars_mod
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_mod
+            return {
+                message = "Upgrade!",
+                colour = G.C.MONEY
+            }
+        end
+        if context.skip_blind then
+            return {
+                dollars = card.ability.extra.dollars
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "waterfall",
+    name = "Waterfall",
+    config = { extra = { retriggers = 0 } },
+    pos = { x = 3, y = 4 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.retriggers } }
+    end,
+    calculate = function(self, card, context)
+        if context.after and context.scoring_name == "Two Pair" then
+            card.ability.extra.retriggers = card.ability.extra.retriggers + 1
+            return {
+                message = "Upgrade!",
+                colour = G.C.ATTENTION
+            }
+        end
+        if context.repetition then
+            if (
+                context.other_card:get_id() == 10 or
+                context.other_card:get_id() == 9 or
+                context.other_card:get_id() == 8 or
+                context.other_card:get_id() == 7 or
+                context.other_card:get_id() == 6
+            ) then
+                return {
+                    repetitions = card.ability.extra.retriggers,
+                    message = localize("k_again_ex")
+                }
+            end
+        end
+        if context.end_of_round and context.game_over == false and context.main_eval then
+            card.ability.extra.retriggers = 0
+            return {
+                message = "Reset!",
+                colour = G.C.ATTENTION
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "wine",
+    name = "Wine",
+    config = { extra = { joker_slots = 1 } },
+    pos = { x = 4, y = 4},
+    cost = 7,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = false,
+    unlocked = false,
+    discovered = false,
+    atlas = "joker",
+    in_pool = function(self, args)
+        return (
+            not args or
+            args.source ~= "buf" and args.source ~= "jud" or
+            args.source == "sho" or
+            args.source == "rif" or
+            args.source == "rta" or
+            args.source == "sou" or
+            args.source == "uta" or
+            args.source == "wra") and true
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self then
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    add_tag(Tag("tag_negative"))
+                    play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
+                    play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
+                    return true
+                end)
+            }))
+            return nil, true
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.joker_slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.joker_slots
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "modify_jokers" then
+            local count = 0
+            for _, joker in ipairs(G.jokers.cards) do
+                count = count + 1
+            end
+            if count >= to_big(9) then
+                return true
+            end
+        end
+        return false
+    end
+}
+G.FUNCS.check_for_buy_space = function(card)
+    if card.config.center.key == "j_chm_wine" then
+        return true
+    end
+    return G.FUNCS.check_for_buy_space(card)
+end
+G.FUNCS.can_select_card = function(e)
+    if e.config.ref_table.config.center.key == "j_chm_wine" then
+        e.config.colour = G.C.GREEN
+        e.config.button = "use_card"
+    else
+        G.FUNCS.can_select_card(e)
+    end
+end
+
+SMODS.Joker {
+    key = "wonders",
+    name = "Wonders",
+    config = {
+        extra = {
+            xmult = 1.3,
+            dollars = 1
+        }
+    },
+    pos = { x = 5, y = 4 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.xmult,
+                card.ability.extra.dollars
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 7 then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+        if context.individual and context.cardarea == G.hand and context.other_card:get_id() == 7 and not context.end_of_round then
+            local count = 0
+            for _, card in ipairs(G.hand and G.hand.cards or {}) do
+                if card.base.id == 7 then
+                    count = count + 1
+                end
+            end
+            return {
+                dollars = count * card.ability.extra.dollars
+            }
         end
     end
 }

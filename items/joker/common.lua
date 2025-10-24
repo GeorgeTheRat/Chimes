@@ -172,14 +172,25 @@ SMODS.Joker {
 SMODS.Joker {
     key = "keychain",
     name = "Keychain",
-    config = { extra = { tags = 1, tags_mod = 1, toggle = 1 } },
+    config = {
+        extra = {
+            tags = 1,
+            tags_mod = 1,
+            toggle = 1
+        }
+    },
     pos = { x = 6, y = 1 },
     cost = 4,
     rarity = 1,
     blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.tags, card.ability.extra.tags_mod } }
+        return {
+            vars = {
+                card.ability.extra.tags,
+                card.ability.extra.tags_mod
+            }
+        }
     end,
     calculate = function(self, card, context)
         if context.selling_self then
@@ -347,5 +358,34 @@ SMODS.Joker {
                 }
             }
         end
+    end
+}
+
+SMODS.Joker {
+    key = "trickster",
+    name = "Trickster",
+    config = { extra = { shop_size = 1 } },
+    pos = { x = 1, y = 4 },
+    cost = 4,
+    rarity = 1,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.shop_size } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                change_shop_size(card.ability.extra.shop_size)
+                return true
+            end
+        }))
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                change_shop_size(-card.ability.extra.shop_size)
+                return true
+            end
+        }))
     end
 }

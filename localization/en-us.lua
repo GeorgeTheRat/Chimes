@@ -78,6 +78,14 @@ return {
 					"apply {C:dark_edition}Foil{} to them"
 				}
 			},
+			j_chm_watercolors = {
+				name = "Watercolors",
+				text = {
+					"If {C:attention}last hand{} of round",
+					"has exactly {C:attention}2{} cards,",
+					"apply {C:dark_edition}Holographic{} to them"
+				}
+			},
 			j_chm_elites = {
 				name = "Elites",
 				text = {
@@ -133,7 +141,7 @@ return {
 				text = {
 					"{C:blue}+#1#{} hands when {C:attention}Blind{} is selected, earn",
 					"{C:money}$#2#{} for each hand remaining at end of round",
-					"Decreases by {C:red}-#3#{} hand and {C:red}-$#4#{} at end of round"
+					"Decreases by {C:blue}-#3#{} hand#<s>3# and {C:red}-$#4#{} at end of round"
 				}
 			},
 			j_chm_keychain = {
@@ -213,7 +221,6 @@ return {
 					"Each {C:diamonds}Diamond{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
 					"{C:attention}#3#{} random {C:dark_edition}Negative {C:tarot}Tarot{} card#<s>3#",
-					"{C:inactive}(Must have room)"
 				}
 			},
 			j_chm_bonsai = {
@@ -271,6 +278,61 @@ return {
 					"{C:attention}Rotten Cards{} give {C:white,X:mult}X#1#{} Mult",
 					"and {C:money}$#2#{} when scored"
 				}
+			},
+			j_chm_trickster = {
+				name = "Trickster",
+				text = {
+					"{C:attention}+#1#{} card slot",
+					"available in shop"
+				}
+			},
+			j_chm_toycar = {
+				name = "Toy Car",
+				text = {
+					"Earn {C:money}$#1#{} when a",
+					"{C:attention}Blind{} is skipped,",
+					"increases by {C:money}$#2#{}",
+					"at end of round"
+				}
+			},
+			j_chm_waterfall = {
+				name = "Waterfall",
+				text = {
+					"Retrigger each played",
+					"{C:attention}6{}, {C:attention}7{}, {C:attention}8{}, {C:attention}9{}, and {C:attention}10{} once for each",
+					"{C:attention}Two Pair{} played previously this round",
+					"{C:inactive}(Currently {C:attention}#1#{C:inactive} retriggers)"
+				}
+			},
+			j_chm_wine = {
+				name = "Wine",
+				text = {
+					"{C:dark_edition}+#1#{} Joker Slot",
+					"Sell this card to create",
+					"a free {C:attention}Negative Tag"
+				},
+				unlock = {
+					"Have at least",
+					"{C:attention,E:2}9{} Jokers at once"
+				}
+			},
+			j_chm_wonders = {
+				name = "Wonders",
+				text = {
+					"Played {C:attention}7s{} give {C:white,X:mult}X#1#{} Mult when scored",
+					"{C:attention}7s{} give {C:dollars}$#2#{} when held in hand",
+					"for every {C:attention}7{} in played hand"
+				}
+			},
+			j_chm_togarashi = {
+				name = "Togarashi",
+				text = {
+					"Played cards with {C:hearts}Heart{} or {C:diamonds}Diamond",
+					"suit give {C:mult}-#1#{} Mult when scored",
+					"This Joker gains {C:mult}+#2#{} Mult per card with",
+					"{C:hearts}Heart{} or {C:diamonds}Diamond{} suit held in hand",
+					"{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}"
+				}
 			}
 		},
         Lenormand = {
@@ -301,8 +363,8 @@ return {
 				name = "House",
 				text = {
 					"Add a {C:attention}permanent{} bonus",
-					"{C:blue}+#1#{} held in hand",
-					"Chips to up to {C:attention}#2#{} selected card#<s>2#"
+					"{C:blue}+#1#{} held in hand Chips",
+					"to up to {C:attention}#2#{} selected card#<s>2#"
 				}
 			},
 			c_chm_tree = {
@@ -313,7 +375,14 @@ return {
 					"{C:inactive}(Currently {C:money}+$#3#{C:inactive})"
 				}
 			},
-			-- clouds
+			c_chm_clouds = {
+				name = "Clouds",
+				text = {
+					"Create {C:attention}#1#{} card#<s>1# with a random {C:enhanced}Enhancement,",
+					"{C:attention}#2#{} card#<s>2# with a random {C:dark_edition}Edition,",
+					"and {C:attention}#3#{} card#<s>3# with a random {C:attention}Seal",
+				}
+			},
 			c_chm_snake = {
 				name = "Snake",
 				text = {
@@ -342,15 +411,16 @@ return {
 			c_chm_scythe = {
 				name = "Scythe",
 				text = {
-					"Destroy {C:attention}#1#{} card in hand for",
-					"every {C:money}$#2#{} you have",
+					"Destroy {C:attention}#1#{} random card#<s>1# in hand",
+					"per {C:money}$#2#{} you have",
 					"{C:inactive}(Currently {C:attention}#3#{C:inactive})"
 				}
 			},
             c_chm_whip = {
 				name = "Whip",
 				text = {
-					"Destroy {C:attention}#1#{} random card#<s>1# in hand",
+					"Destroy {C:attention}#1#{} random card#<s>1#",
+					"held in hand",
 					"and {C:attention}#2#{} selected card#<s>2#"
 				}
 			},
@@ -392,7 +462,7 @@ return {
 				name = "Stars",
 				text = {
 					"Level up a random {C:attention}poker hand #1#{} time",
-					"for every {C:attention}blind{} skipped this run",
+					"for each {C:attention}Blind{} skipped this run",
 					"{C:inactive}(Currently {C:attention}#2#{C:inactive})"
 				}
 			},
@@ -450,7 +520,7 @@ return {
 			c_chm_mice = {
 				name = "Mice",
 				text = {
-					"Enhances up to {C:attention}2",
+					"Enhances up to {C:attention}#1#",
 					"selected cards into",
 					"{C:attention}Rotten Cards"
 				}
@@ -459,14 +529,15 @@ return {
 			c_chm_ring = {
 				name = "Ring",
 				text = {
-					"Create an copy of up to {C:attention}2{} selected playing cards",
-					"{C:red}Remove{} both of their {C:enhanced}Enhancements{}"
+					"Create {C:attention}#1#{} copy of up to",
+					"{C:attention}#1#{} selected {C:attention}playing cards",
+					"Remove their {C:enhanced}Enhancements{}"
 				}
 			},
 			c_chm_book = {
 				name = "Book",
 				text = {
-					"Enhances {C:attention}1",
+					"Enhances {C:attention}#1#",
 					"selected card into a",
 					"{C:attention}Literature Card"
 				}
