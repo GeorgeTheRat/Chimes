@@ -295,7 +295,12 @@ SMODS.Joker {
 SMODS.Joker {
     key = "garlic",
     name = "Garlic",
-    config = { extra = { gargle = 2.5 } },
+    config = {
+        extra = {
+            xmult = 2.5,
+            xmult_mod = 0.1
+        }
+    },
     pos = { x = 2, y = 1 },
     cost = 5,
     rarity = 2,
@@ -303,18 +308,18 @@ SMODS.Joker {
     eternal_compat = false,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.gargle } }
+        return { vars = { card.ability.extra.xmult, card.ability.extra.xmult_mod } }
     end,
     calculate = function(self, card, context)
         if context.before then
-            if card.ability.extra.gargle > 1 then
+            if card.ability.extra.xmult > 1 then
                 local count = 0
                 for _, playing_card in pairs(context.full_hand or {}) do
                     if not next(SMODS.get_enhancements(playing_card)) then
                         count = count + 1
                     end
                 end
-                card.ability.extra.gargle = card.ability.extra.gargle - (count * 0.1)
+                card.ability.extra.xmult = card.ability.extra.xmult - (count * card.ability.extra.xmult_mod)
             else
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -338,14 +343,14 @@ SMODS.Joker {
                     end,
                 }))
                 return {
-                    message = localize("k_eaten"),
+                    message = "Eaten!",
                     colour = G.C.FILTER,
                 }
             end
         end
         if context.joker_main then
             return {
-                xmult = card.ability.extra.gargle
+                xmult = card.ability.extra.xmult
             }
         end
     end
@@ -1035,6 +1040,9 @@ SMODS.Joker {
     unlocked = false,
     discovered = false,
     atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.joker_slots } }
+    end,
     in_pool = function(self, args)
         return (
             not args or
@@ -1132,5 +1140,178 @@ SMODS.Joker {
                 dollars = count * card.ability.extra.dollars
             }
         end
+    end
+}
+
+SMODS.Joker {
+    key = "pumpkincostume",
+    name = "Pumpkin Costume",
+    config = {
+        extra = {
+            odds = 11,
+            dollars = 10,
+        }
+    },
+    pos = { x = 7, y = 2 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    pools = { ["chm_costumes"] = true, },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_pumpkincostume")
+        return {
+            vars = {
+                numerator,
+                denominator,
+                card.ability.extra.dollars
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            if SMODS.pseudorandom_probability(card, "j_chm_pumpkincostume", 1, card.ability.extra.odds) then
+                local random_seal = SMODS.poll_seal({
+                    mod = 10,
+                    guaranteed = true
+                })
+                if random_seal then
+                    context.other_card:set_seal(random_seal, true)
+                end
+                return {
+                    message = "Card Modified!",
+                    colour = G.C.BLUE
+                }
+            end
+        end
+        if context.selling_self then
+            return {
+                dollars = -card.ability.extra.dollars,
+                extra = {
+                    func = function()
+                        local created_joker = false
+                        if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                            created_joker = true
+                            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    local joker_card = SMODS.add_card({
+                                        set = "chm_costumes"
+                                    })
+                                    if joker_card then
+                                    end
+                                    G.GAME.joker_buffer = 0
+                                    return true
+                                end
+                            }))
+                        end
+                        if created_joker then
+                            return {
+                                message = localize("k_plus_joker"),
+                                colour = G.C.BLUE
+                            }
+                        end
+                        return true
+                    end,
+                    colour = G.C.BLUE
+                }
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "tobiko",
+    name = "Tobiko",
+    config = {
+        extra = {
+            rerolls = 4,
+            odds = 4,
+            reroll_mod = 1,
+            sell_value = 0,
+        }
+    },
+    pos = { x = 6, y = 3 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    pools = { ["chm_sushi"] = true },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_tobiko")
+        return {
+            vars = {
+                card.ability.extra.rerolls,
+                numerator,
+                denominator,
+                card.ability.extra.reroll_mod,
+                card.ability.extra.sell_value,
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.reroll_shop and SMODS.pseudorandom_probability(card, "tobiko_reroll_shop", 1, card.ability.extra.odds, "j_chm_tobiko", false) then
+            if card.ability.extra.rerolls <= card.ability.extra.rerolls - card.ability.extra.reroll_mod then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound("tarot1")
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = "after",
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.jokers:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true
+                            end,
+                        }))
+                        return true
+                    end,
+                }))
+                return {
+                    message = "Eaten!",
+                    colour = G.C.FILTER,
+                }
+            else
+                card.ability.extra.rerolls = math.max(0, card.ability.extra.rerolls - card.ability.extra.reroll_mod)
+                if G.jokers and G.jokers.cards then
+                    for _, j in ipairs(G.jokers.cards) do
+                        if j == card then
+                            SMODS.change_free_rerolls(-card.ability.extra.reroll_mod)
+                            break
+                        end
+                    end
+                end
+                return {
+                    message = "-" .. card.ability.extra.reroll_mod .. " Reroll" .. (card.ability.extra.reroll_mod > 1 and "s" or ""),
+                    colour = G.C.GREEN
+                }
+            end
+        end
+        if context.selling_self then
+            if G.jokers and G.jokers.cards then
+                for _, target_card in ipairs(G.jokers.cards) do
+                    if target_card ~= card and target_card.set_cost then
+                        target_card.ability.extra_value = card.ability.extra.sell_value
+                        target_card:set_cost()
+                    end
+                end
+            end
+            return {
+                message = "Sell Value Reset!",
+                colour = G.C.RED
+            }
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        SMODS.change_free_rerolls(card.ability.extra.rerolls)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        SMODS.change_free_rerolls(-(card.ability.extra.rerolls))
     end
 }

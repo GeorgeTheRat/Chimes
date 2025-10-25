@@ -329,7 +329,7 @@ SMODS.Joker{
 
 SMODS.Joker {
     key = "rotten",
-    name = "Rotten",
+    name = "Rotten Joker",
     config = {
         extra = {
             xmult = 0.75,
@@ -350,7 +350,7 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and SMODS.get_enhancements(context.other_card)["m_chm_rotten"] == true then
+        if context.individual and context.cardarea == G.play and SMODS.get_enhancements(context.other_card)["m_chm_rotten"] then
             return {
                 xmult = card.ability.extra.xmult,
                 extra = {
@@ -516,6 +516,79 @@ SMODS.Joker {
                     card.ability.extra.dollars = math.max(0, card.ability.extra.dollars - card.ability.extra.dollars_mod)
                 end
             end
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "salmonnigiri",
+    name = "Salmon Nigiri",
+    config = {
+        extra = {
+            mult = 12,
+            mult_mod = 1,
+            h_mult_mod = 1,
+        }
+    },
+    pos = { x = 1, y = 3 },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = false,
+    atlas = "joker",
+    pools = { ["chm_sushi"] = true },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.mult,
+                card.ability.extra.mult_mod,
+                card.ability.extra.h_mult_mod
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+        if context.after and card.ability.extra.mult - card.ability.extra.mult_mod <= 0 then
+            G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound("tarot1")
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = "after",
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                G.jokers:remove_card(card)
+                                card:remove()
+                                card = nil
+                                return true
+                            end,
+                        }))
+                        return true
+                    end,
+                }))
+                return {
+                    message = "Eaten!",
+                    colour = G.C.FILTER,
+                }
+        end
+        if context.individual and context.cardarea == G.play then
+            context.other_card.ability.perma_h_mult = context.other_card.ability.perma_h_mult + card.ability.extra.h_mult_mod
+            card.ability.extra.mult = math.max(0, (card.ability.extra.mult) - 1)
+            return {
+                extra = {
+                    message = localize("k_upgrade_ex"),
+                    colour = G.C.MULT
+                },
+                card = card
+            }
         end
     end
 }
