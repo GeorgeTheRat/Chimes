@@ -21,7 +21,7 @@ return {
 				name = "Batteries",
 				text = {
 					"Retrigger each played {C:attention}Ace",
-					"{C:attention}#1#{} additional <time,times>#1# if played hand",
+					"{C:attention}#1#{} additional time#<s>1# if played hand",
 					"contains a {C:attention}Three of a Kind{} and is {C:red}not",
 					"the most played {C:attention}poker hand"
 				}
@@ -371,13 +371,13 @@ return {
 					"{C:attention}Costume Joker{} when sold"
 				}
 			},
-			j_chm_salmonnigiri = {
+			j_chm_salmon_nigiri = {
 				name = "Salmon Nigiri",
 				text = {
-					"{C:mult}+#1#{} Mult, decreases by {C:red}-#2#",
-					"when a card is scored,",
-					"all cards permanently gain",
-					"{C:mult}+#3#{} bonus held in hand Mult when scored"
+					"{C:mult}+#1#{} Mult",
+					"decreases by {C:red}-#2# when a card is scored",
+					"All cards permanently gain {C:mult}+#3#",
+					"bonus held in hand Mult when scored"
 				}
 			},
 			j_chm_tobiko = {

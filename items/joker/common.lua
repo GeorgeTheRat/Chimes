@@ -312,7 +312,7 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = "salmonnigiri",
+    key = "salmon_nigiri",
     name = "Salmon Nigiri",
     config = {
         extra = {
