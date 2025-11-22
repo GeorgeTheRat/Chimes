@@ -82,6 +82,27 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
+    key = "california_roll",
+    name = "California Roll",
+    config = {
+        extra = {
+            create = 5,
+            decrease = 1
+        }
+    },
+    pos = { x = 7, y = 1 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return { vars = {  } }
+    end,
+    calculate = function(self, card, context)
+    end
+}
+
+SMODS.Joker{
     key = "chocolate_strawberry",
     name = "Chocolate Strawberry",
     config = { extra = { joker_slots = 4, joker_slots_mod = 1, context = 1 } },
@@ -143,6 +164,32 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
+    key = "colored_pencils",
+    name = "Colored Pencils",
+    config = { extra = { play_size = 1 } },
+    pos = { x = 7, y = 0 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+        return { vars = { card.ability.extra.play_size } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if (#context.full_hand == card.ability.extra.play_size and G.GAME.current_round.hands_left == 0) then
+                context.other_card:set_edition("e_polychrome", true)
+                return {
+                    message = "Polychrome!",
+                    colour = G.C.DARK_EDITION
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker{
     key = "crayons",
     name = "Crayons",
     config = { extra = { play_size = 3 } },
@@ -172,62 +219,6 @@ SMODS.Joker{
 }
 
 SMODS.Joker {
-    key = "watercolors",
-    config = {
-        extra = {
-            play_size = 2
-        }
-    },
-    pos = { x = 2, y = 4 },
-    cost = 6,
-    rarity = 2,
-    blueprint_compat = true,
-    atlas = "joker",
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
-        return { vars = {  card.ability.extra.play_size }
-    }
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if (#context.full_hand == card.ability.extra.play_size and G.GAME.current_round.hands_left == 0) then
-                context.other_card:set_edition("e_holo", true)
-                return {
-                    message = "Holographic!",
-                    colour = G.C.DARK_EDITION
-                }
-            end
-        end
-    end
-}
-
-SMODS.Joker{
-    key = "colored_pencils",
-    name = "Colored Pencils",
-    config = { extra = { play_size = 1 } },
-    pos = { x = 7, y = 0 },
-    cost = 5,
-    rarity = 2,
-    blueprint_compat = true,
-    atlas = "joker",
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
-        return { vars = { card.ability.extra.play_size } }
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if (#context.full_hand == card.ability.extra.play_size and G.GAME.current_round.hands_left == 0) then
-                context.other_card:set_edition("e_polychrome", true)
-                return {
-                    message = "Polychrome!",
-                    colour = G.C.DARK_EDITION
-                }
-            end
-        end
-    end
-}
-
-SMODS.Joker{
     key = "elites",
     name = "Elites",
     config = { extra = { create = 1 } },
@@ -504,29 +495,6 @@ SMODS.Joker {
         end
     end
 }
---[[
-SMODS.Joker{
-    key = "maki_roll",
-    name = "Maki Roll",
-    config = {
-        extra = {
-            
-        }
-    },
-    pos = { x = 8, y = 1 },
-    cost = 6,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = false,
-    atlas = "joker",
-    pools = { ["chm_sushi"] = true },
-    loc_vars = function(self, info_queue, card)
-        return { vars = {  } }
-    end,
-    calculate = function(self, card, context)
-    end
-}
---]]
 
 SMODS.Joker {
     key = "monster_costume",
@@ -603,8 +571,7 @@ SMODS.Joker {
                             })
                         end
                         return true
-                    end,
-                    colour = G.C.BLUE
+                    end
                 }
             }
         end

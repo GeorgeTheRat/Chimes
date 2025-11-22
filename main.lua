@@ -15,6 +15,7 @@ local files = {
     "items/enhancement",
     "lib/compat",
     "lib/no",
+    "lib/plural",
     "lib/random_consumable",
 }
 for i, v in pairs(files) do

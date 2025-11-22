@@ -1,6 +1,14 @@
 return {
 	descriptions = {
 		Joker = {
+			j_chm_bingo_card = {
+				name = "Bingo Card",
+				text = {
+					"Every {C:attention}#1#{} {C:inactive}(#2#) {}{C:attention}Blinds",
+					"defeated, earn {C:money}$#3#{} and",
+					"create a {C:attention}Boss Tag"
+				}
+			},
 			j_chm_alarm = {
 				name = "Alarm",
 				text = {
@@ -13,17 +21,9 @@ return {
 				name = "Batteries",
 				text = {
 					"Retrigger each played {C:attention}Ace",
-					"{C:attention}#1#{} additional time#<s>1# if played hand",
+					"{C:attention}#1#{} additional <time,times>#1# if played hand",
 					"contains a {C:attention}Three of a Kind{} and is {C:red}not",
 					"the most played {C:attention}poker hand"
-				}
-			},
-			j_chm_bingo_card = {
-				name = "Bingo Card",
-				text = {
-					"Every {C:attention}5{} {C:inactive}(#1#) {}{C:attention}Blinds",
-					"defeated, earn {C:money}$40{} and",
-					"create a {C:attention}Boss Tag"
 				}
 			},
 			j_chm_brain = {
@@ -38,8 +38,8 @@ return {
 			j_chm_california_roll = {
 				name = "California Roll",
 				text = {
-					"Create {C:attention}#1#{} random",
-					"{C:attention}Joker#<s>1#{} and {C:attention}consumable#<s>1#",
+					"Create {C:attention}#1#{}",
+					"{C:attention}Joker#<s>1#{} and {C:attention}Consumable#<s>1#",
 					"when this Joker is sold",
 					"Decrease by {C:red}-#2#{} and create a",
 					"{C:attention}Tag{}, {C:attention}Joker{}, and {C:attention}consumable",
@@ -94,7 +94,7 @@ return {
 					"{C:inactive}(Must have room)"
 				}
 			},
-			j_chm_figure1 = {
+			j_chm_figure_1 = {
 				name = "Figure 1",
 				text = {
 					"Played {C:attention}Literature",
@@ -141,7 +141,7 @@ return {
 				text = {
 					"{C:blue}+#1#{} hands when {C:attention}Blind{} is selected, earn",
 					"{C:money}$#2#{} for each hand remaining at end of round",
-					"Decreases by {C:blue}-#3#{} hand#<s>3# and {C:red}-$#4#{} at end of round"
+					"Decreases by {C:blue}-#3#{} <hand,hands>#3# and {C:red}-$#4#{} at end of round"
 				}
 			},
 			j_chm_keychain = {
@@ -156,9 +156,9 @@ return {
 			j_chm_koi = {
 				name = "Koi",
 				text = {
-					"Played cards gain {C:blue}+2{} {C:attention}held",
-					"in hand{} chips when scored,",
-					"increases by {C:attention}1{} when a",
+					"Played cards gain {C:blue}+2{} held",
+					"in hand Chips when scored,",
+					"increases by {C:attention}+1{} when a",
 					"{C:attention}Wild Card{} is discarded"
 				}
 			},
@@ -220,7 +220,7 @@ return {
 				text = {
 					"Each {C:diamonds}Diamond{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:dark_edition}Negative {C:tarot}Tarot{} card#<s>3#",
+					"{C:attention}#3#{} random {C:dark_edition}Negative {C:tarot}Tarot{} <card,cards>#3#",
 				}
 			},
 			j_chm_bonsai = {
@@ -228,7 +228,7 @@ return {
 				text = {
 					"Each {C:hearts}Heart{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:lenormand}Lenormand{} card#<s>3#",
+					"{C:attention}#3#{} random {C:lenormand}Lenormand{} <card,cards>#3#",
 					"{C:inactive}(Must have room)"
 				}
 			},
@@ -237,7 +237,7 @@ return {
 				text = {
 					"Each {C:spades}Spade{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:spectral}Spectral{} card#<s>3#",
+					"{C:attention}#3#{} random {C:spectral}Spectral{} <card,cards>#3#",
 					"{C:inactive}(Must have room)"
 				}
 			},
@@ -246,7 +246,7 @@ return {
 				text = {
 					"Each {C:clubs}Club{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} {C:planet}Planet{} card#<s>3# in {C:green,E:1}collection order",
+					"{C:attention}#3#{} {C:planet}Planet{} <card,cards>#3# in {C:green,E:1}collection order",
 					"{C:inactive,s:0.8}(ex: Mercury, Venus, Earth, Mars, etc.)",
 					"{C:inactive}(Must have room)"
 				}
@@ -275,8 +275,9 @@ return {
 			j_chm_rotten = {
 				name = "Rotten Joker",
 				text = {
-					"{C:attention}Rotten Cards{} additionally give",
-					"{C:white,X:mult}X#1#{} Mult and {C:money}$#2#{} when scored"
+					"{C:attention}Rotten Cards{} additionally",
+					"give {C:white,X:mult}X#1#{} Mult and",
+					"{C:money}$#2#{} when scored"
 				}
 			},
 			j_chm_trickster = {

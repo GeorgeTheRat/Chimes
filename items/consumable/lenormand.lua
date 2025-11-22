@@ -28,7 +28,7 @@ SMODS.Consumable {
         for i = 1, card.ability.extra.tags do
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local tag = Tag("investment")
+                    local tag = Tag("tag_boss")
                     tag:set_ability()
                     add_tag(tag)
                     play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
