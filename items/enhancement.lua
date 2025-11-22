@@ -187,7 +187,7 @@ SMODS.Enhancement {
     calculate = function(self, card, context)
         -- reset counters that have reached their triggers
         local function reset_counters()
-            local counters = {"chip", "mult", "dollars", "xmult"}
+            local counters = { "chip", "mult", "dollars", "xmult" }
             for _, counter_type in ipairs(counters) do
                 local counter_key = counter_type .. "_counter"
                 local trigger_key = counter_type .. "_trigger"
@@ -215,7 +215,6 @@ SMODS.Enhancement {
         -- main scoring to increment counters
         if context.main_scoring and context.cardarea == G.play then
             increment_counters()
-            
             local ret = {}
             if card.ability.extra.chip_counter >= card.ability.extra.chip_trigger then
                 card.ability.extra.chip_counter = 0
@@ -247,21 +246,34 @@ SMODS.Enhancement {
     pos = { x = 6, y = 0 },
     config = {
         extra = {
-            x_mult = 1.75,
+            xmult = 1.75,
             dollars = 3
         }
     },
     atlas = "enhancement",
     weight = 5,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.x_mult, card.ability.extra.dollars } }
+        return {
+            vars = {
+                card.ability.extra.xmult,
+                card.ability.extra.dollars
+            }
+        }
     end,
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
-            return {
-                xmult = card.ability.extra.x_mult,
-                dollars = -lenient_bignum(card.ability.extra.dollars)
-            }
+            local rotten_joker = SMODS.find_card("j_chm_rotten")[1]
+            if rotten_joker then
+                return {
+                    xmult = -rotten_joker.ability.extra.xmult,
+                    dollars = rotten_joker.ability.extra.dollars
+                }
+            else
+                return {
+                    xmult = card.ability.extra.xmult,
+                    dollars = -card.ability.extra.dollars
+                }
+            end
         end
     end
 }
@@ -306,6 +318,33 @@ SMODS.Enhancement {
         end
     end,
     update = function(self, card, dtt)
-        card.ability.extra.freeconsumableslots = (G.consumeables and G.consumeables.config.card_limit or 0 - #(G.consumeables and G.consumeables.cards or {}))
+        card.ability.extra.freeconsumableslots = (G.consumeables and G.consumeables.config.card_limit or 0) - #(G.consumeables and G.consumeables.cards or {})
+    end
+}
+
+
+SMODS.Voucher {
+    key = 'time_dialation',
+    pos = { x = 0, y = 0 },
+    config = { 
+        extra = {
+            ante_value = 1
+        } 
+    },
+    loc_txt = {
+        name = 'Time Dialation',
+        text = {
+            [1] = '{C:attention}+1{} Ante'
+        },
+    },
+    unlocked = true,
+    discovered = true,
+    no_collection = false,
+    can_repeat_soul = false,
+    atlas = 'Voucher',
+    redeem = function(self, card)
+        local mod = card.ability.extra.ante_value
+        ease_ante(mod)
+        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante + mod
     end
 }

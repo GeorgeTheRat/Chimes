@@ -10,13 +10,12 @@ local files = {
     "items/joker/common",
     "items/joker/uncommon",
     "items/joker/rare",
-    "items/joker/legendary",
     "items/booster",
     "items/enhancement",
     "lib/compat",
     "lib/no",
     "lib/plural",
-    "lib/random_consumable",
+    "lib/random_consumable"
 }
 for i, v in pairs(files) do
 	assert(SMODS.load_file(v..".lua"))()

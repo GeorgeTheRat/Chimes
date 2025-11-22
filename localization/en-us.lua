@@ -98,7 +98,7 @@ return {
 				name = "Figure 1",
 				text = {
 					"Played {C:attention}Literature",
-					"cards also give their",
+					"{C:attention}Cards{} also give their",
 					"{C:chips}+Chips{} when scored"
 				}
 			},
@@ -130,10 +130,10 @@ return {
 			j_chm_go_fish = {
 				name = "Go Fish",
 				text = {
-					"Whenever a {C:attention}5{} card hand that",
-					"has no {C:attention}#1#{} or {C:attention}#2#",
-					"is played, draw {C:attention}6{} cards to hand",
-					"{C:attention,s:0.8}Ranks{} {s:0.8}change at end of round"
+					"Draw {C:attention}6{} cards to hand if a",
+					"{C:attention}5{} card hand that has no",
+					"{C:attention}#1#{} or {C:attention}#2# is played",
+					"{s:0.8}Ranks change at end of round"
 				}
 			},
 			j_chm_hand_roll = {
@@ -275,7 +275,7 @@ return {
 			j_chm_rotten = {
 				name = "Rotten Joker",
 				text = {
-					"{C:attention}Rotten Cards{} additionally",
+					"{C:attention}Rotten Cards{} instead",
 					"give {C:white,X:mult}X#1#{} Mult and",
 					"{C:money}$#2#{} when scored"
 				}
@@ -338,8 +338,9 @@ return {
 			j_chm_punk = {
 				name = "Punk Joker",
 				text = {
-					"This Joker gains {C:blue}+#1#{} Chips when a",
-					"{C:spades}Spade{} or {C:clubs}Club{} card is destroyed",
+					"This Joker gains {C:blue}+#1#{} Chips",
+					"when a {C:spades}Spade{} or {C:clubs}Club{}",
+					"card is destroyed",
 					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
 				}
 			},
