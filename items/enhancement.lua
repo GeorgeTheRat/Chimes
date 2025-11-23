@@ -321,30 +321,3 @@ SMODS.Enhancement {
         card.ability.extra.freeconsumableslots = (G.consumeables and G.consumeables.config.card_limit or 0) - #(G.consumeables and G.consumeables.cards or {})
     end
 }
-
-
-SMODS.Voucher {
-    key = 'time_dialation',
-    pos = { x = 0, y = 0 },
-    config = { 
-        extra = {
-            ante_value = 1
-        } 
-    },
-    loc_txt = {
-        name = 'Time Dialation',
-        text = {
-            [1] = '{C:attention}+1{} Ante'
-        },
-    },
-    unlocked = true,
-    discovered = true,
-    no_collection = false,
-    can_repeat_soul = false,
-    atlas = 'Voucher',
-    redeem = function(self, card)
-        local mod = card.ability.extra.ante_value
-        ease_ante(mod)
-        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante + mod
-    end
-}
