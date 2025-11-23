@@ -582,9 +582,9 @@ SMODS.Joker {
     key = "motherboard",
     config = {
         extra = {
-            chips = 0,
             chips_mod = 10,
-            chips_mod_2 = 15
+            chips_mod_2 = 15,
+            chips = 0
         }
     },
     pos = { x = 1, y = 2 },
@@ -595,9 +595,9 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.chips,
                 card.ability.extra.chips_mod,
-                card.ability.extra.chips_mod_2
+                card.ability.extra.chips_mod_2,
+                card.ability.extra.chips
             }
         }
     end,
@@ -793,7 +793,7 @@ SMODS.Joker{
 
 SMODS.Joker {
     key = "wallbang",
-    name = "Wallbang",
+    name = "Wallbang Joker",
     pos = { x = 6, y = 2 },
     cost = 5,
     rarity = 2,
@@ -813,10 +813,9 @@ SMODS.Joker {
             decrease = 1
         }
     },
-    pos = { x = 5, y = 0 },
+    pos = { x = 6, y = 0 },
     cost = 6,
     rarity = 2,
-    blueprint_compat = true,
     eternal_compat = false,
     atlas = "joker",
     pools = { ["chm_sushi"] = true },

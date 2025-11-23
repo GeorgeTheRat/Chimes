@@ -113,8 +113,8 @@ return {
 			j_chm_garlic = {
 				name = "Garlic",
 				text = {
-					"{X:red,C:white}X#1#{} Mult, decreases",
-					"by {X:red,C:white}X#2#{} Mult for each {C:attention}Unenhanced",
+					"{X:red,C:white}X#1#{} Mult, decreases by",
+					"{X:red,C:white}X#2#{} Mult for each {C:attention}Unenhanced",
 					"card in played hand"
 				}
 			},
@@ -141,7 +141,7 @@ return {
 				text = {
 					"{C:blue}+#1#{} hands when {C:attention}Blind{} is selected, earn",
 					"{C:money}$#2#{} for each hand remaining at end of round",
-					"Decreases by {C:blue}-#3#{} <hand,hands>#3# and {C:red}-$#4#{} at end of round"
+					"Decreases by {C:blue}-#3#{} hand#<s>3# and {C:red}-$#4#{} at end of round"
 				}
 			},
 			j_chm_keychain = {
@@ -165,11 +165,11 @@ return {
 			j_chm_motherboard = {
 				name = "Motherboard",
 				text = {
-					"{C:blue}+#1#{} Chips,",
-					"this Joker gains {C:blue}+#2#{} Chips",
+					"This Joker gains {C:blue}+#1#{} Chips",
 					"when a {C:attention}listed {C:green,E:1}probability{} fails",
-					"and loses {C:red}-#3#{} Chips when",
-					"a {C:attention}listed {C:green,E:1}probability{} succeeds"
+					"and loses {C:red}-#2#{} Chips when",
+					"a {C:attention}listed {C:green,E:1}probability{} succeeds",
+					"{C:inactive}(Currently {C:blue}+#3#{C:inactive} Chips)"
 				}
 			},
 			j_chm_train_ticket = {
@@ -194,7 +194,7 @@ return {
 				text = {
 					"{C:red}#1#{} Chips",
 					"This Joker gains {C:blue}+#2#{} Chips",
-					"per discard, and is",
+					"per discard and is",
 					"destroyed at {C:chips}+#3#{} Chips",
 					"{C:attention}+#4#{} Voucher slot"
 				}
@@ -208,9 +208,9 @@ return {
 				}
 			},
 			j_chm_wallbang = {
-				name = "Wallbang",
+				name = "Wallbang Joker",
 				text = {
-					"{C:attention}Ricochet{} cards additionally",
+					"{C:attention}Ricochet Cards{} additionally",
 					"upgrade when held in hand"
 				}
 			},
@@ -307,7 +307,7 @@ return {
 			j_chm_wine = {
 				name = "Wine",
 				text = {
-					"{C:dark_edition}+#1#{} Joker Slot",
+					"{C:dark_edition}+#1#{} Joker slot",
 					"Sell this card to create",
 					"a free {C:attention}Negative Tag"
 				},
@@ -320,7 +320,7 @@ return {
 				name = "Wonders",
 				text = {
 					"Played {C:attention}7s{} give {C:white,X:mult}X#1#{} Mult when scored",
-					"{C:attention}7s{} give {C:dollars}$#2#{} when held in hand",
+					"{C:attention}7s{} give {C:money}$#2#{} when held in hand",
 					"for every {C:attention}7{} in played hand"
 				}
 			},
@@ -348,8 +348,8 @@ return {
 				text = {
 					"Sell this card to create {C:attention}#1# {C:rare}Rare {C:attention}Joker#<s>1#",
 					"if there is room for all of them",
-					"Decreases by {C:red}-#2# when a {C:attention}Boss Blind{} is defeated",
-					"At {C:attention}#3#{}, create a random {C:legendary}Legendary {C:attention}Joker"
+					"Decreases by {C:red}-#2#{} when a {C:attention}Boss Blind{} is defeated",
+					"At {C:attention}#3#{}, creates a random {C:legendary,E:1}Legendary {C:attention}Joker"
 				}
 			},
 			j_chm_tamago = {
@@ -374,7 +374,7 @@ return {
 				name = "Salmon Nigiri",
 				text = {
 					"{C:mult}+#1#{} Mult",
-					"decreases by {C:red}-#2# when a card is scored",
+					"decreases by {C:red}-#2#{} when a card is scored",
 					"All cards permanently gain {C:mult}+#3#",
 					"bonus held in hand Mult when scored"
 				}
@@ -384,9 +384,9 @@ return {
 				text = {
 					"{C:attention}+#1#{} free {C:green}Reroll#<s>1#",
 					"{C:green}#2# in #3#{} chance to decrease {C:green}Reroll",
-					"amount by {C:attention}#4#{} when the shop is {C:green}rerolled",
-					"When this {C:attention}Joker{} is sold,",
-					"set {C:attention}sell value{} of all other {C:attention}Jokers{} to {C:money}$#5#"
+					"amount by {C:red}-#4#{} when the shop is {C:green}rerolled",
+					"When this {C:attention}Joker{} is sold, set",
+					"{C:attention}sell value{} of all other {C:attention}Jokers{} to {C:money}$#5#"
 				}
 			}
 		},

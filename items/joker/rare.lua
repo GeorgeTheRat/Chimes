@@ -246,7 +246,7 @@ SMODS.Joker {
     blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_overgrown
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_vine
         return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
