@@ -1013,7 +1013,8 @@ SMODS.Joker {
     in_pool = function(self, args)
         return (
             not args or
-            args.source ~= "buf" and args.source ~= "jud" or
+            args.source ~= "buf" and
+            args.source ~= "jud" or
             args.source == "sho" or
             args.source == "rif" or
             args.source == "rta" or

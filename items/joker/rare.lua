@@ -237,7 +237,8 @@ SMODS.Joker{
 }
 
 SMODS.Joker {
-    key = "overgrownjoker",
+    key = "overgrown",
+    name = "Overgrown Joker",
     config = { extra = { slots = 3 } },
     pos = { x = 4, y = 2 },
     cost = 5,
@@ -245,6 +246,7 @@ SMODS.Joker {
     blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_overgrown
         return { vars = { card.ability.extra.slots } }
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -257,6 +259,7 @@ SMODS.Joker {
 
 SMODS.Joker {
     key = "togarashi",
+    name = "Togarashi",
     config = {
         extra = {
             mult1 = 3,
@@ -308,12 +311,12 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = "takonigiri",
+    key = "tako_nigiri",
     name = "Tako Nigiri",
     config = {
         extra = {
             create = 6,
-            create_mod = 0,
+            create_mod = 1,
             legendary = 0
         }
     },

@@ -199,13 +199,12 @@ return {
 					"{C:attention}+#4#{} Voucher slot"
 				}
 			},
-			j_chm_overgrownjoker = {
+			j_chm_overgrown = {
 				name = "Overgrown Joker",
 				text = {
 					"{C:attention}+#1#{} consumable slots,",
-					"halve all {C:attention}listed {C:green,E:1}probabilities{}",
-					"on {C:attention}Vine Cards",
-					"{C:inactive}(Must have room)"
+					"halve all {C:attention}listed",
+					"{C:green,E:1}probabilities{} on {C:attention}Vine Cards"
 				}
 			},
 			j_chm_wallbang = {
@@ -220,7 +219,7 @@ return {
 				text = {
 					"Each {C:diamonds}Diamond{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:dark_edition}Negative {C:tarot}Tarot{} <card,cards>#3#",
+					"{C:attention}#3#{} random {C:dark_edition}Negative {C:tarot}Tarot{} card#<s>3#",
 				}
 			},
 			j_chm_bonsai = {
@@ -228,7 +227,7 @@ return {
 				text = {
 					"Each {C:hearts}Heart{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:lenormand}Lenormand{} <card,cards>#3#",
+					"{C:attention}#3#{} random {C:lenormand}Lenormand{} card#<s>3#",
 					"{C:inactive}(Must have room)"
 				}
 			},
@@ -237,7 +236,7 @@ return {
 				text = {
 					"Each {C:spades}Spade{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} random {C:spectral}Spectral{} <card,cards>#3#",
+					"{C:attention}#3#{} random {C:spectral}Spectral{} card#<s>3#",
 					"{C:inactive}(Must have room)"
 				}
 			},
@@ -246,7 +245,7 @@ return {
 				text = {
 					"Each {C:clubs}Club{} card held in hand",
 					"has a {C:green}#1# in #2#{} chance to create",
-					"{C:attention}#3#{} {C:planet}Planet{} <card,cards>#3# in {C:green,E:1}collection order",
+					"{C:attention}#3#{} {C:planet}Planet{} card#<s>3# in {C:green,E:1}collection order",
 					"{C:inactive,s:0.8}(ex: Mercury, Venus, Earth, Mars, etc.)",
 					"{C:inactive}(Must have room)"
 				}
@@ -344,11 +343,11 @@ return {
 					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
 				}
 			},
-			j_chm_takonigiri = {
+			j_chm_tako_nigiri = {
 				name = "Tako Nigiri",
 				text = {
 					"Sell this card to create {C:attention}#1# {C:rare}Rare {C:attention}Joker#<s>1#",
-					"if there is space for {C:attention}all{} of them",
+					"if there is room for all of them",
 					"Decreases by {C:red}-#2# when a {C:attention}Boss Blind{} is defeated",
 					"At {C:attention}#3#{}, create a random {C:legendary}Legendary {C:attention}Joker"
 				}
