@@ -12,7 +12,7 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.investment
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_investment
         return {
             vars = {
                 card.ability.extra.tags,
@@ -1474,7 +1474,7 @@ SMODS.Consumable {
     pos = { x = 2, y = 2 },
     config = {
         extra = {
-            booster_voucher_value = 1,
+            booster_value = 1,
             hand_size_value = 1
         }
     },
@@ -1483,8 +1483,8 @@ SMODS.Consumable {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.booster_voucher_value,
-                card.ability.extra.hand_size_value
+                card.ability.extra.booster_value,
+                G.GAME.mountain_minus or 1 
             }
         }
     end,
@@ -1497,9 +1497,9 @@ SMODS.Consumable {
             trigger = "after",
             delay = 0.4,
             func = function()
-                SMODS.change_booster_limit(card.ability.extra.booster_voucher_value)
+                SMODS.change_booster_limit(card.ability.extra.booster_value)
                 return {
-                    message = "+" .. tostring(card.ability.extra.booster_voucher_value) .. " Booster Slots",
+                    message = "+" .. tostring(card.ability.extra.booster_value) .. " Booster Slots",
                     colour = G.C.BLUE
                 }
             end
@@ -1509,23 +1509,9 @@ SMODS.Consumable {
             trigger = "after",
             delay = 0.4,
             func = function()
-                SMODS.change_voucher_limit(card.ability.extra.booster_voucher_value)
-                return {
-                    message = "+" .. tostring(card.ability.extra.booster_voucher_value) .. " Voucher Slots",
-                    colour = G.C.BLUE
-                }
-            end
-        }))
-        delay(0.6)
-        G.E_MANAGER:add_event(Event({
-            trigger = "after",
-            delay = 0.4,
-            func = function()
-                G.hand:change_size(-card.ability.extra.hand_size_value)
-                return {
-                    message = "-" .. tostring(card.ability.extra.hand_size_value) .. " Hand Size",
-                    colour = G.C.RED
-                }
+                G.GAME.mountain_minus = G.GAME.mountain_minus or 1
+                G.hand:change_size(-G.GAME.mountain_minus)
+                G.GAME.mountain_minus = G.GAME.mountain_minus + 1
             end
         }))
         delay(0.6)
@@ -1806,7 +1792,7 @@ SMODS.Consumable {
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_literature
-        return { vars = {  } }
+        return { vars = { card.ability.extra.max_highlighted } }
     end,
     can_use = function(self, card)
         return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
@@ -2142,8 +2128,8 @@ SMODS.Consumable {
         return true
     end,
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.coupon
-        info_queue[#info_queue + 1] = G.P_CENTERS.d_six
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_coupon
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_d_six
         return { vars = {  } }
     end,
     use = function(self, card, area, copier)
@@ -2799,7 +2785,7 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.ricochet
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_ricochet
         return { vars = { card.ability.extra.max_highlighted } }
     end,
     can_use = function(self, card)

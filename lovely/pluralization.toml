@@ -3,9 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = -2
 
-# plural handler (annoyingly fragile overwrite)
-# also i pass the whole vars here, even though it's inefficient, just because it looks better
-# whatever
+# right from cryptid
 [[patches]]
 [patches.pattern]
 target = "functions/misc_functions.lua"

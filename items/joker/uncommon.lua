@@ -82,27 +82,6 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
-    key = "california_roll",
-    name = "California Roll",
-    config = {
-        extra = {
-            create = 5,
-            decrease = 1
-        }
-    },
-    pos = { x = 7, y = 1 },
-    cost = 5,
-    rarity = 2,
-    blueprint_compat = true,
-    atlas = "joker",
-    loc_vars = function(self, info_queue, card)
-        return { vars = {  } }
-    end,
-    calculate = function(self, card, context)
-    end
-}
-
-SMODS.Joker{
     key = "chocolate_strawberry",
     name = "Chocolate Strawberry",
     config = { extra = { joker_slots = 4, joker_slots_mod = 1, context = 1 } },
@@ -813,7 +792,7 @@ SMODS.Joker {
             decrease = 1
         }
     },
-    pos = { x = 6, y = 0 },
+    pos = { x = 5, y = 0 },
     cost = 6,
     rarity = 2,
     eternal_compat = false,
@@ -960,6 +939,7 @@ SMODS.Joker {
     blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.tag_negative
         return { vars = { card.ability.extra.retriggers } }
     end,
     calculate = function(self, card, context)
@@ -1007,6 +987,7 @@ SMODS.Joker {
     discovered = false,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_negative
         return { vars = { card.ability.extra.joker_slots } }
     end,
     in_pool = function(self, args)

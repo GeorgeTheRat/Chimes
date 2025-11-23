@@ -38,9 +38,8 @@ return {
 			j_chm_california_roll = {
 				name = "California Roll",
 				text = {
-					"Create {C:attention}#1#{}",
-					"{C:attention}Joker#<s>1#{} and {C:attention}Consumable#<s>1#",
-					"when this Joker is sold",
+					"Create {C:attention}#1#{} {C:attention}Joker#<s>1#{} and",
+					"{C:attention}consumable#<s>1#{} when this Joker is sold",
 					"Decrease by {C:red}-#2#{} and create a",
 					"{C:attention}Tag{}, {C:attention}Joker{}, and {C:attention}consumable",
 					"when a {C:attention}playing card{} is added to deck"
@@ -383,8 +382,8 @@ return {
 				name = "Tobiko",
 				text = {
 					"{C:attention}+#1#{} free {C:green}Reroll#<s>1#",
-					"{C:green}#2# in #3#{} chance to decrease {C:green}Reroll",
-					"amount by {C:red}-#4#{} when the shop is {C:green}rerolled",
+					"{C:green}#2# in #3#{} chance to decrease free {C:green}Reroll",
+					"amount by {C:red}-#4#{} per {C:attention}reroll{} in the shop",
 					"When this {C:attention}Joker{} is sold, set",
 					"{C:attention}sell value{} of all other {C:attention}Jokers{} to {C:money}$#5#"
 				}
@@ -458,7 +457,7 @@ return {
 			c_chm_flowers = {
 				name = "Flowers",
 				text = {
-					"Destroy {C:attention}#1#{} random {C:attention}Joker#<s>1#,",
+					"Destroy {C:attention}#1#{} random {C:attention}Joker#<s>1#{},",
 					"apply {C:dark_edition}Holographic{} to",
 					"{C:attention}#2#{} random {C:attention}Joker#<s>2#"
 				}
@@ -475,8 +474,8 @@ return {
 				name = "Whip",
 				text = {
 					"Destroy {C:attention}#1#{} random card#<s>1#",
-					"held in hand",
-					"and {C:attention}#2#{} selected card#<s>2#"
+					"held in hand and",
+					"{C:attention}#2#{} selected card#<s>2#"
 				}
 			},
 			c_chm_birds = {
@@ -558,8 +557,7 @@ return {
 			c_chm_mountain = {
 				name = "Mountain",
 				text = {
-					"{C:attention}+#1#{} {C:attention}Voucher{} and",
-					"{C:attention}Booster Pack{} slots,",
+					"{C:attention}+#1#{} {C:attention}Booster Pack{} slot#<s>1#",
 					"{C:red}-#2#{} hand size"
 				}
 			},
@@ -585,7 +583,7 @@ return {
 				name = "Ring",
 				text = {
 					"Create {C:attention}#1#{} copy of up to",
-					"{C:attention}#1#{} selected {C:attention}playing cards",
+					"{C:attention}#2#{} selected {C:attention}playing card#<s>2#",
 					"Remove their {C:enhanced}Enhancements{}"
 				}
 			},
@@ -594,7 +592,7 @@ return {
 				text = {
 					"Enhances {C:attention}#1#",
 					"selected card into a",
-					"{C:attention}Literature Card"
+					"{C:attention}Literature Card#<s>1#"
 				}
 			},
 			c_chm_letter = {
@@ -631,9 +629,9 @@ return {
 			c_chm_sun = {
 				name = "Sun",
 				text = {
-					"If {C:attention}#1#{} card is selected, convert them to an {C:attention}Ace{},",
-					"if {C:attention}#2#{} cards are selected, convert them {C:attention}2s{},",
-					"and if {C:attention}#3#{} cards are selected, convert them {C:attention}3s{}"
+					"If {C:attention}#1#{} card#<s>1# #<are,is>1# selected, convert #<them,it>1# to#<, an>1# {C:attention}Ace#<s,>1#{},",
+					"if {C:attention}#2#{} card#<s>2# #<are,is>2# selected, convert #<them,it>2# to#<, an>2# {C:attention}2#<s,>2#{},",
+					"and if {C:attention}#3#{} card#<s>3# #<are,is>3# selected, convert #<them,it>3# to#<, an>3# {C:attention}3#<s,>3#{},"
 				}
 			},
 			c_chm_moon = {
@@ -657,9 +655,9 @@ return {
 				text = {
 					"Apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome",
 					"to a random card in hand",
-					"Earn {C:money}$#1#{} for each {C:dark_edition}Foil{} card in deck,",
-					"{C:money}$#2#{} for each {C:dark_edition}Holographic{} card in deck,",
-					"and {C:money}$#3#{} for each {C:dark_edition}Polychrome{} card in deck",
+					"Earn {C:money}$#1#{} per {C:dark_edition}Foil{} card in deck,",
+					"{C:money}$#2#{} per {C:dark_edition}Holographic{} card in deck,",
+					"and {C:money}$#3#{} per {C:dark_edition}Polychrome{} card in deck",
 					"{C:inactive}(Currently {C:money}$#4#{C:inactive}, {C:money}$#5#{C:inactive}, and {C:money}$#6#{C:inactive})"
 				}
 			},
@@ -703,7 +701,8 @@ return {
 				name = "Mechanical",
 				text = {
 					"{C:white,X:mult}X#1#{} Mult",
-					"Increases by {C:white,X:mult}X#2#{} Mult when discarded",
+					"Increases by {C:white,X:mult}X#2#{} Mult",
+					"when {C:attention}discarded",
 					"Resets after hand played"
 				}
 			},
@@ -711,14 +710,15 @@ return {
 				name = "Old",
 				text = {
 					"Levels up a random",
-					"{C:attention}poker hand{} by {C:attention}2{} levels",
+					"{C:attention}poker hand{} by {C:attention}#1#{} level#<s>1#",
 					"when {C:attention}discarded"
 				}
 			},
 			m_chm_overgrown = {
 				name = "Overgrown",
 				text = {
-					"{C:blue}+#1#{} Chip#<s>1#{}"
+					"{C:blue}+#1#{} Chip#<s>1#{}",
+					"No rank or suit"
 				}
 			},
 			m_chm_ricochet = {
@@ -733,8 +733,8 @@ return {
 			m_chm_rotten = {
 				name = "Rotten",
 				text = {
-					"{X:red,C:white}X1.75{} Mult",
-					"{C:red}-$3{} when scored"
+					"{X:red,C:white}X#1#{} Mult",
+					"{C:red}-$#2#{} when scored"
 				}
 			},
 			m_chm_vine = {

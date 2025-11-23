@@ -110,6 +110,9 @@ SMODS.Enhancement {
     config = { extra = { levels = 2 } },
     atlas = "enhancement",
     weight = 5,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.levels } }
+    end,
     calculate = function(self, card, context)
         if context.discard and context.other_card == card then
             local target_hand
@@ -291,6 +294,7 @@ SMODS.Enhancement {
     atlas = "enhancement",
     weight = 3,
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_chm_overgrown
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "m_chm_vine")
         return { vars = { numerator, denominator } }
     end,
