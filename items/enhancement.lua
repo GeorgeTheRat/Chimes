@@ -19,17 +19,25 @@ SMODS.Enhancement {
     end,
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
-            if SMODS.pseudorandom_probability(card, "group_0_40a45d4f", 1, card.ability.extra.odds, "m_chm_oodle") then
-                SMODS.calculate_effect({mult = card.ability.extra.mult}, card)
+            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.odds) then
+                return {
+                    mult = card.ability.extra.mult
+                }
             end
-            if SMODS.pseudorandom_probability(card, "group_1_301a7a09", 1, card.ability.extra.odds, "m_chm_oodle") then
-                SMODS.calculate_effect({xmult = card.ability.extra.xmult}, card)
+            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.odds) then
+                return {
+                    xmult = card.ability.extra.xmult
+                }
             end
-            if SMODS.pseudorandom_probability(card, "group_2_8df4a760", 1, card.ability.extra.odds, "m_chm_oodle") then
-                SMODS.calculate_effect({chips = card.ability.extra.chips}, card)
+            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.odds) then
+                return {
+                    chips = card.ability.extra.chips
+                }
             end
-            if SMODS.pseudorandom_probability(card, "group_3_51890883", 1, card.ability.extra.odds, "m_chm_oodle") then
-                SMODS.calculate_effect({dollars = lenient_bignum(card.ability.extra.dollars)}, card)
+            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.odds) then
+                return {
+                    dollars = card.ability.extra.dollars
+                }
             end
         end
     end
@@ -39,7 +47,12 @@ SMODS.Enhancement {
     key = "literature",
     name = "Literature",
     pos = { x = 1, y = 0 },
-    config = { extra = { chips = 20, chips_mod = 20 } },
+    config = {
+        extra = {
+            chips = 20,
+            chips_mod = 10
+        }
+    },
     atlas = "enhancement",
     replace_base_card = true,
     no_rank = true,
@@ -47,7 +60,12 @@ SMODS.Enhancement {
     always_scores = true,
     weight = 5,
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.chips, card.ability.extra.chips_mod } }
+        return {
+            vars = {
+                card.ability.extra.chips,
+                card.ability.extra.chips_mod
+            }
+        }
     end, 
     calculate = function(self, card, context)
         if context.cardarea == G.hand and context.main_scoring then
@@ -57,14 +75,16 @@ SMODS.Enhancement {
         end
         if context.discard and context.other_card == card then
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+            return {
+                message = "Upgrade!",
+                colour = G.C.CHIPS
+            }
         end
         if context.main_scoring and context.cardarea == G.play then
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].config.center.key == "j_chm_figure1" then
-                    return { 
-                        chips = card.ability.extra.chips
-                    }
-                end
+            if next(SMODS.find_card("j_chm_figure_1")) then
+                return { 
+                    chips = card.ability.extra.chips
+                }
             end
         end
     end

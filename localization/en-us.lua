@@ -564,10 +564,9 @@ return {
 			c_chm_crossroads = {
 				name = "Crossroads",
 				text = {
-					"Select {C:attention}1{} card, {C:green}#1# in #2#",
+					"Select {C:attention}#1#{} card#<s>1#, {C:green}#2# in #3#",
 					"chance to destroy it",
-					"Otherwise, {C:green}#1# in #2#{} chance to",
-					"create {C:attention}3{} copies of it"
+					"Otherwise, create {C:attention}#6#{} copies of it",
 				}
 			},
 			c_chm_mice = {
@@ -606,17 +605,17 @@ return {
 			c_chm_man = {
 				name = "Man",
 				text = {
-					"Apply random",
-					"{C:attention}Enhancements{} to up",
-					"to {C:attention}#1#{} selected cards"
+					"Apply#< , a >1#random",
+					"{C:attention}Enhancement#<s>1#{} to #<up to>1#",
+					"{C:attention}#1#{} selected card#<s>1#"
 				}
 			},
 			c_chm_lady = {
 				name = "Lady",
 				text = {
-					"Randomize {C:attention}rank{}",
-					"of up to {C:attention}#1#{}",
-					"selected cards"
+					"Randomize {C:attention}rank#<s>1#{},",
+					"of #<up to>1# {C:attention}#1#{}",
+					"selected card#<s>1#"
 				}
 			},
 			c_chm_lily = {
@@ -629,9 +628,9 @@ return {
 			c_chm_sun = {
 				name = "Sun",
 				text = {
-					"If {C:attention}#1#{} card#<s>1# #<are,is>1# selected, convert #<them,it>1# to#<, an>1# {C:attention}Ace#<s,>1#{},",
-					"if {C:attention}#2#{} card#<s>2# #<are,is>2# selected, convert #<them,it>2# to#<, an>2# {C:attention}2#<s,>2#{},",
-					"and if {C:attention}#3#{} card#<s>3# #<are,is>3# selected, convert #<them,it>3# to#<, an>3# {C:attention}3#<s,>3#{},"
+					"If {C:attention}#1#{} card#<s>1# #<are,is>1# selected, convert #<them,it>1# to#< , an >1#{C:attention}Ace#<s>1#{},",
+					"if {C:attention}#2#{} card#<s>2# #<are,is>2# selected, convert #<them,it>2# to#< , an >2#{C:attention}2#<s>2#{},",
+					"and if {C:attention}#3#{} card#<s>3# #<are,is>3# selected, convert #<them,it>3# to#< , an >3#{C:attention}3#<s>3#{},"
 				}
 			},
 			c_chm_moon = {

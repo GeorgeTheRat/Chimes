@@ -1525,6 +1525,7 @@ SMODS.Consumable {
     pos = { x = 8, y = 0 },
     config = {
         extra = {
+            max_highlighted = 1,
             odds = 2,
             copy_cards_amount = 3
         }
@@ -1532,9 +1533,10 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "c_chmcrossroads")
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "c_chm_crossroads")
         return {
             vars = {
+                card.ability.extra.max_highlighted,
                 numerator,
                 denominator
             }
@@ -1546,7 +1548,7 @@ SMODS.Consumable {
     use = function(self, card, area, copier)
         local used_card = copier or card
         if #G.hand.highlighted == 1 then
-            if SMODS.pseudorandom_probability(card, "c_chmcrossroads", 1, card.ability.extra.odds) then
+            if SMODS.pseudorandom_probability(card, "c_chm_crossroads", 1, card.ability.extra.odds) then
                 G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
