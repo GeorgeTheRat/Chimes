@@ -360,7 +360,7 @@ return {
 					"whenever a {C:attention}Blind{} is skipped"
 				}
 			},
-			j_chm_pumpkincostume = {
+			j_chm_pumpkin_costume = {
 				name = "Pumpkin Costume",
 				text = {
 					"{C:green}#1# in #2#{} chance to apply a",
