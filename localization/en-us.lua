@@ -564,9 +564,10 @@ return {
 			c_chm_crossroads = {
 				name = "Crossroads",
 				text = {
-					"Select {C:attention}#1#{} card#<s>1#, {C:green}#2# in #3#",
-					"chance to destroy it",
-					"Otherwise, create {C:attention}#6#{} copies of it",
+					"Select#< up to>1# {C:attention}#1#{} card#<s>1#, {C:green}#2# in #3#",
+					"chance to destroy #<them,it>1#",
+					"Otherwise, create {C:attention}#4#{}",
+					"cop#<ies,y>4# of #<them,it>1#",
 				}
 			},
 			c_chm_mice = {

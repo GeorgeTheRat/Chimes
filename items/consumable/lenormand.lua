@@ -610,6 +610,7 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
         return {
             vars = {
                 card.ability.extra.destroy,
@@ -1498,10 +1499,9 @@ SMODS.Consumable {
             delay = 0.4,
             func = function()
                 SMODS.change_booster_limit(card.ability.extra.booster_value)
-                return {
-                    message = "+" .. tostring(card.ability.extra.booster_value) .. " Booster Slots",
-                    colour = G.C.BLUE
-                }
+                play_sound("tarot1")
+                card:juice_up(0.3, 0.5)
+                return true
             end
         }))
         delay(0.6)
@@ -1512,9 +1512,9 @@ SMODS.Consumable {
                 G.GAME.mountain_minus = G.GAME.mountain_minus or 1
                 G.hand:change_size(-G.GAME.mountain_minus)
                 G.GAME.mountain_minus = G.GAME.mountain_minus + 1
+                return true
             end
         }))
-        delay(0.6)
     end
 }
 
@@ -1538,7 +1538,8 @@ SMODS.Consumable {
             vars = {
                 card.ability.extra.max_highlighted,
                 numerator,
-                denominator
+                denominator,
+                card.ability.extra.copy_cards_amount
             }
         }
     end,
