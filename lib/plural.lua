@@ -1,10 +1,10 @@
 -- simple plural s function for localization
--- taken right from cryptid lol
+-- taken right from cryptid with a single change to support empty fields lol
 function Chimes.pluralize(str, vars)
     local inside = str:match("<(.-)>") -- finds args
     local _table = {}
     if inside then
-        for v in inside:gmatch("[^,]+") do -- adds args to array
+        for v in (inside .. ","):gmatch("([^,]*),") do -- adds args to array (capture empty fields too)
             table.insert(_table, v)
         end
         local num = vars[tonumber(string.match(str, ">(%d+)"))] -- gets reference variable

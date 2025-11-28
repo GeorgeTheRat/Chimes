@@ -149,7 +149,6 @@ SMODS.Joker{
     pos = { x = 7, y = 0 },
     cost = 5,
     rarity = 2,
-    blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
@@ -175,7 +174,6 @@ SMODS.Joker{
     pos = { x = 8, y = 0 },
     cost = 5,
     rarity = 2,
-    blueprint_compat = true,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
@@ -507,10 +505,10 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if SMODS.pseudorandom_probability(card, "j_chm_monstercostume", 1, card.ability.extra.odds) then
+            if SMODS.pseudorandom_probability(card, "j_chm_monster_costume", 1, card.ability.extra.odds) then
                 local enhancement_pool = {}
                 for _, enhancement in pairs(G.P_CENTER_POOLS.Enhanced) do
-                    if enhancement.key ~= "m_stone" then
+                    if not enhancement.overrides_base_rank then
                         enhancement_pool[#enhancement_pool + 1] = enhancement
                     end
                 end
@@ -978,7 +976,7 @@ SMODS.Joker {
 --     key = "wine",
 --     name = "Wine",
 --     config = { extra = { joker_slots = 1 } },
---     pos = { x = 4, y = 4},
+--     pos = { x = 4, y = 4 },
 --     cost = 7,
 --     rarity = 2,
 --     blueprint_compat = true,
@@ -1259,5 +1257,30 @@ SMODS.Joker {
     end,
     remove_from_deck = function(self, card, from_debuff)
         SMODS.change_free_rerolls(-(card.ability.extra.rerolls))
+    end
+}
+
+SMODS.Joker{
+    key = "watercolors",
+    name = "Watercolors",
+    config = { extra = { play_size = 2 } },
+    pos = { x = 2, y = 4 },
+    cost = 5,
+    rarity = 2,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+        return { vars = { card.ability.extra.play_size } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if (#context.full_hand == card.ability.extra.play_size and G.GAME.current_round.hands_left == 0) then
+                context.other_card:set_edition("e_holo", true)
+                return {
+                    message = "Holographic!",
+                    colour = G.C.DARK_EDITION
+                }
+            end
+        end
     end
 }

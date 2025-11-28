@@ -1,7 +1,10 @@
 SMODS.Booster {
     key = "lenormand_pack",
     name = "Lenormand Pack",
-    config = { extra = 2, choose = 1 },
+    config = {
+        choose = 1,
+        extra = 2
+    },
     group_key = "lenormand",
     weight = 0.8,
     kind = "lenormand",
@@ -11,16 +14,19 @@ SMODS.Booster {
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
         return {
-            vars = { cfg.choose, cfg.extra }
+            vars = {
+                cfg.choose,
+                cfg.extra
+            }
         }
     end,
     create_card = function(self, card, i)
         return {
-        set = "Lenormand",
+            set = "Lenormand",
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = "chm_lenormand_pack"
+            key_append = "p_chm_lenormand_pack"
         }
     end,
     ease_background_colour = function(self)
@@ -47,7 +53,10 @@ SMODS.Booster {
 SMODS.Booster {
     key = "jumbo_lenormand_pack",
     name = "Jumbo Lenormand Pack",
-    config = { extra = 4, choose = 1 },
+    config = {
+        choose = 1,
+        extra = 4
+    },
     group_key = "lenormand",
     cost = 6,
     weight = 0.6,
@@ -58,16 +67,19 @@ SMODS.Booster {
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
         return {
-            vars = { cfg.choose, cfg.extra }
+            vars = {
+                cfg.choose,
+                cfg.extra
+            }
         }
     end,
     create_card = function(self, card, i)
         return {
-        set = "Lenormand",
+            set = "Lenormand",
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = "chm_jumbo_lenormand_pack"
+            key_append = "p_chm_jumbo_lenormand_pack"
         }
     end,
     ease_background_colour = function(self)
@@ -94,7 +106,10 @@ SMODS.Booster {
 SMODS.Booster {
     key = "mega_lenormand_pack",
     name = "Mega Lenormand Pack",
-    config = { extra = 4, choose = 2 },
+    config = {
+        choose = 2,
+        extra = 4
+    },
     group_key = "lenormand",
     cost = 8,
     weight = 0.4,
@@ -105,16 +120,19 @@ SMODS.Booster {
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
         return {
-            vars = { cfg.choose, cfg.extra }
+            vars = {
+                cfg.choose,
+                cfg.extra
+            }
         }
     end,
     create_card = function(self, card, i)
         return {
-        set = "Lenormand",
+            set = "Lenormand",
             area = G.pack_cards,
             skip_materialize = true,
             soulable = true,
-            key_append = "chm_mega_lenormand_pack"
+            key_append = "p_chm_mega_lenormand_pack"
         }
     end,
     ease_background_colour = function(self)
