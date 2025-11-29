@@ -619,7 +619,7 @@ SMODS.Consumable {
         }
     end,
     can_use = function(self, card)
-        return true
+        return #G.jokers.cards > 0
     end,
     use = function(self, card, area, copier)
         local destructable_jokers = {}
@@ -637,7 +637,7 @@ SMODS.Consumable {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         card:juice_up(0.8, 0.8)
-                        joker_to_destroy:start_dissolve({G.C.RED}, nil, 1.6)
+                        joker_to_destroy:start_dissolve({ G.C.RED }, nil, 1.6)
                         return true
                     end
                 }))
@@ -647,10 +647,7 @@ SMODS.Consumable {
         local jokers_to_edition = {}
         local eligible_jokers = {}
         for _, joker in ipairs(G.jokers.cards) do
-                if joker ~= card and 
-                joker ~= joker_to_destroy and 
-                joker.ability.set == "Joker" and 
-                (not joker.edition or not joker.edition.holo) then
+            if joker ~= card and joker ~= joker_to_destroy and joker.ability.set == "Joker" and (not joker.edition or not joker.edition.holo) then
                 table.insert(eligible_jokers, joker)
             end
         end
@@ -664,27 +661,36 @@ SMODS.Consumable {
             for i = 1, max_editions do
                 table.insert(jokers_to_edition, temp_jokers[i])
             end
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = "after",
-            delay = 0.4,
-            func = function()
-                play_sound("timpani")
-                used_card:juice_up(0.3, 0.5)
-                return true
-            end
-        }))
-        for _, joker in ipairs(jokers_to_edition) do
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
-                delay = 0.2,
+                delay = 0.4,
                 func = function()
-                    joker:set_edition({ holo = true }, true)
+                    used_card:juice_up(0.3, 0.5)
                     return true
                 end
             }))
+            for _, joker in ipairs(jokers_to_edition) do
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.2,
+                    func = function()
+                        joker:set_edition({ holo = true }, true)
+                        return true
+                    end
+                }))
+            end
+            delay(0.6)
+        else
+            G.E_MANAGER:add_event(Event({
+                trigger = "after",
+                delay = 0.4,
+                func = function()
+                    used_card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+            delay(0.6)
         end
-        delay(0.6)
     end
 }
 

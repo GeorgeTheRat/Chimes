@@ -596,9 +596,9 @@ return {
 			c_chm_letter = {
 				name = "Letter",
 				text = {
-					"Remove the {C:dark_edition}Edition{} and {C:enhanced}Enhancement{}",
-					"from up to {C:attention}#1#{} selected card#<s>1#,",
-					"then add#< , a >1#random {C:attention}seal#<s>1#{} to #<each,it>1#"
+					"Remove the {C:dark_edition}Edition#<s>1#{} and {C:enhanced}Enhancement#<s>1#{}",
+					"from#< up to>1# {C:attention}#1#{} selected card#<s>1#,",
+					"then add#<, a>1# random {C:attention}seal#<s>1#{} to #<each,it>1#"
 				}
 			},
 			c_chm_man = {
