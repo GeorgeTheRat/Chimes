@@ -246,7 +246,7 @@ SMODS.Joker {
     name = "Punk Joker",
     config = {
         extra = {
-            chip_mod = 15,
+            chip_mod = 20,
             chips = 0
         }
     },
