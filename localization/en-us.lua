@@ -326,10 +326,10 @@ return {
 			j_chm_togarashi = {
 				name = "Togarashi",
 				text = {
-					"Played cards with {C:hearts}Heart{} or {C:diamonds}Diamond",
-					"suit give {C:mult}-#1#{} Mult when scored",
-					"This Joker gains {C:mult}+#2#{} Mult per card with",
+					"This Joker gains {C:mult}+#1#{} Mult per card with",
 					"{C:hearts}Heart{} or {C:diamonds}Diamond{} suit held in hand",
+					"This Joker loses {C:mult}-#2#{} Mult per card with",
+					"{C:hearts}Heart{} or {C:diamonds}Diamond{} suit played",
 					"{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}"
 				}
 			},

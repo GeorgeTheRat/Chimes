@@ -40,7 +40,7 @@ SMODS.Consumable {
             trigger = "after",
             delay = 0.4,
             func = function()
-                ease_dollars(card.ability.extra.dollars, true)
+                ease_dollars(-card.ability.extra.dollars, true)
                 return true
             end
         }))

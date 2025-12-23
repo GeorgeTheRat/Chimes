@@ -20,10 +20,11 @@ SMODS.Joker {
                 numerator,
                 denominator,
                 card.ability.extra.create
-            } }
+            }
+        }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Diamonds") then
+        if context.individual and context.cardarea == G.hand and context.other_card:is_suit("Diamonds") and SMODS.pseudorandom_probability(card, "j_chm_celosia", 1, card.ability.extra.odds) then
             for i = 1, math.ceil(card.ability.extra.create) do
                 G.E_MANAGER:add_event(Event({
                     trigger = "after",
@@ -34,8 +35,8 @@ SMODS.Joker {
                             card:juice_up(0.3, 0.5)
                             SMODS.add_card({
                                 set = "Tarot",
-                                edition = "negative",
-                                key_append = "j_chm_celosia"
+                                edition = "e_negative",
+                                key_append = "chm_celosia"
                             })
                         end
                         return true 
@@ -155,17 +156,16 @@ SMODS.Joker {
     end
 }
 
--- function for topiary
 local function get_planet_pool()
-    if not G.GAME.topiary_planet_pool then
-        G.GAME.topiary_planet_pool = {}
+    if not G.GAME.botton_pon_planet_pool then
+        G.GAME.botton_pon_planet_pool = {}
         for k, v in pairs(G.P_CENTER_POOLS.Consumeables) do
             if v.set == "Planet" then
-                table.insert(G.GAME.topiary_planet_pool, v)
+                table.insert(G.GAME.botton_pon_planet_pool, v)
             end
         end
     end
-    return G.GAME.topiary_planet_pool
+    return G.GAME.botton_pon_planet_pool
 end
 
 SMODS.Joker{
@@ -194,14 +194,14 @@ SMODS.Joker{
     atlas = "joker",
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_suit("Clubs") and SMODS.pseudorandom_probability(card, "j_chm_botton_pon", 1, card.ability.extra.odds) then
-            G.GAME.topiary_planet_index = G.GAME.topiary_planet_index or 1 -- start planet index
+            G.GAME.botton_pon_planet_index = G.GAME.botton_pon_planet_index or 1 -- start planet index
             local planet_pool = get_planet_pool()
             if #planet_pool > 0 then
                 for i = 1, math.ceil(card.ability.extra.create) do
-                    if G.GAME.topiary_planet_index < 1 or G.GAME.topiary_planet_index > #planet_pool then
-                        G.GAME.topiary_planet_index = 1
+                    if G.GAME.botton_pon_planet_index < 1 or G.GAME.botton_pon_planet_index > #planet_pool then
+                        G.GAME.botton_pon_planet_index = 1
                     end
-                    local planet_data = planet_pool[G.GAME.topiary_planet_index]
+                    local planet_data = planet_pool[G.GAME.botton_pon_planet_index]
                     if planet_data and type(planet_data) == "table" and planet_data.key then
                         local key = planet_data.key
                         G.E_MANAGER:add_event(Event({
@@ -210,7 +210,7 @@ SMODS.Joker{
                             func = function()
                                 if #G.consumeables.cards < G.consumeables.config.card_limit then
                                     play_sound("timpani")
-                                    local success, planet = pcall(create_card, "Consumeable", G.consumeables, nil, nil, nil, nil, key, "j_chm_topiary")
+                                    local success, planet = pcall(create_card, "Consumeable", G.consumeables, nil, nil, nil, nil, key, "j_chm_botton_pon")
                                     if success and planet and type(planet) == "table" then
                                         if planet.add_to_deck then pcall(planet.add_to_deck, planet) end
                                         if G.consumeables and G.consumeables.emplace then
@@ -223,7 +223,7 @@ SMODS.Joker{
                                 return true
                             end
                         }))
-                        G.GAME.topiary_planet_index = G.GAME.topiary_planet_index + 1
+                        G.GAME.botton_pon_planet_index = G.GAME.botton_pon_planet_index + 1
                         return {
                             message = "+" .. tostring(card.ability.extra.create) .. " Planet" .. (card.ability.extra.create > 1 and "s" or ""),
                             colour = G.C.SECONDARY_SET.Planet,
@@ -262,9 +262,9 @@ SMODS.Joker {
     name = "Togarashi",
     config = {
         extra = {
-            mult1 = 3,
-            mult2_mod = 2,
-            mult2 = 0,
+            mult_mod1 = 2,
+            mult_mod2 = 3,
+            mult = 0,
         }
     },
     pos = { x = 7, y = 3 },
@@ -275,36 +275,32 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.mult1,
-                card.ability.extra.mult2_mod,
-                card.ability.extra.mult2
+                card.ability.extra.mult_mod1,
+                card.ability.extra.mult_mod2,
+                card.ability.extra.mult
             }
         }
     end,
     calculate = function(self, card, context)
-        if context.before then
-            local red_cards = 0
-            for _, v in ipairs(G.hand.cards) do
-                if v:is_suit("Hearts") or v:is_suit("Diamonds") then
-                    red_cards = red_cards + card.ability.extra.mult2_mod
-                end
-            end
-            if red_cards > 0 then
-                card.ability.extra.mult2 = card.ability.extra.mult2 + red_cards
-                return {
-                    message = "Upgrade!",
-                    colour = G.C.MULT
-                }
-            end
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and (context.other_card:is_suit("Hearts") or context.other_card:is_suit("Diamonds")) then
+            card.ability.extra.mult = math.max(0, card.ability.extra.mult + card.ability.extra.mult_mod1)
+            return {
+                message = "Upgrade!",
+                colour = G.C.MULT,
+                card = context.other_card
+            }
         end
         if context.individual and context.cardarea == G.play and (context.other_card:is_suit("Hearts") or context.other_card:is_suit("Diamonds")) then
+            card.ability.extra.mult = math.max(0, card.ability.extra.mult - card.ability.extra.mult_mod2)
             return {
-                mult = -card.ability.extra.mult1,
+                message = "Downgrade!",
+                colour = G.C.MULT,
+                card = context.other_card
             }
         end
         if context.joker_main then
             return {
-                mult = card.ability.extra.mult2,
+                mult = card.ability.extra.mult,
             }
         end
     end
@@ -346,12 +342,6 @@ SMODS.Joker {
                                 set = "Joker",
                                 rarity = "Rare"
                             })
-                            if joker_card then
-                                card_eval_status_text(card, "extra", nil, nil, nil, {
-                                    message = localize("k_plus_joker"),
-                                    colour = G.C.BLUE
-                                })
-                            end
                             return true
                         end
                     }))
@@ -360,19 +350,13 @@ SMODS.Joker {
                     message = localize("k_plus_joker"),
                     colour = G.C.BLUE
                 }
-            elseif card.ability.extra.legendary <= 0 and available_slots > 0 then
+            elseif card.ability.extra.create <= 0 and available_slots > 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         local joker_card = SMODS.add_card({
                             set = "Joker",
                             rarity = "Legendary"
                         })
-                        if joker_card then
-                            card_eval_status_text(card, "extra", nil, nil, nil, {
-                                message = localize("k_plus_joker"),
-                                colour = G.C.BLUE
-                            })
-                        end
                         return true
                     end
                 }))
@@ -382,10 +366,12 @@ SMODS.Joker {
                 }
             end
         end
-        
-        if context.end_of_round and context.main_eval and G.GAME.blind.boss and not context.blueprint then
-            if (card.ability.extra.numby or 0) ~= 0 then
-                card.ability.extra.numby = math.max(0, card.ability.extra.numby - 1)
+        if context.end_of_round and not context.game_over and context.main_eval and context.beat_boss then
+            if (card.ability.extra.create or 0) ~= 0 then
+                card.ability.extra.create = math.max(0, card.ability.extra.create - card.abaility.extra.create_mod)
+                if card.ability.extra.create == 1 then
+                    card:jiggle()
+                end
             end
         end
     end
