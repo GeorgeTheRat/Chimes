@@ -4,9 +4,102 @@ return {
 			j_chm_bingo_card = {
 				name = "Bingo Card",
 				text = {
-					"Every {C:attention}#1#{} {C:inactive}(#2#) {}{C:attention}Blinds",
+					"Every {C:attention}#1#{} {C:inactive}[#2#]{} {C:attention}Blinds",
 					"defeated, earn {C:money}$#3#{} and",
 					"create a {C:attention}Boss Tag"
+				}
+			},
+			j_chm_figure_1 = {
+				name = "Figure 1",
+				text = {
+					"Played {C:attention}Literature",
+					"{C:attention}Cards{} also give their",
+					"{C:chips}+Chips{} when scored"
+				}
+			},
+			j_chm_go_fish = {
+				name = "Go Fish",
+				text = {
+					"Draw {C:attention}6{} cards to hand if a",
+					"{C:attention}5{} card hand that has no",
+					"{C:attention}#1#{} or {C:attention}#2# is played",
+					"{s:0.8}Ranks change at end of round"
+				}
+			},
+			j_chm_keychain = {
+				name = "Keychain",
+				text = {
+					"Create {C:attention}#1#{} random",
+					"{C:attention}Tag#<s>1#{} when sold",
+					"Increases by {C:attention}#2#{} when a",
+					"{C:attention}Tag{} is obtained"
+				}
+			},
+			j_chm_makisu = {
+				name = "Makisu",
+				text = {
+					"Create a random {C:attention}Sushi Joker",
+					"when a {C:attention}consumable{} is used",
+					"during a {C:attention}Boss Blind",
+					"{C:inactive}(Must have room)"
+				}
+			},
+			j_chm_onigiri = {
+				name = "Onigiri",
+				text = {
+					"{C:chips}+#1#{} Chips",
+					"This Joker loses {C:red}-#2#{} Chips",
+					"per discard",
+					"{C:attention}+#3#{} Voucher slot"
+				}
+			},
+			j_chm_punk = {
+				name = "Punk Joker",
+				text = {
+					"This Joker gains {C:blue}+#1#{} Chips",
+					"when a {C:spades}Spade{} or {C:clubs}Club{}",
+					"card is destroyed",
+					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+				}
+			},
+			j_chm_rotten = {
+				name = "Rotten Joker",
+				text = {
+					"{C:attention}Rotten Cards{} instead",
+					"give {C:white,X:mult}X#1#{} Mult and",
+					"{C:money}$#2#{} when scored"
+				}
+			},
+			j_chm_salmon_nigiri = {
+				name = "Salmon Nigiri",
+				text = {
+					"{C:mult}+#1#{} Mult",
+					"decreases by {C:red}-#2#{} when a card is scored",
+					"All cards permanently gain {C:mult}+#3#",
+					"bonus held in hand Mult when scored"
+				}
+			},
+			j_chm_tamago = {
+				name = "Tamago",
+				text = {
+					"Sell this card to gain {C:money}$#1#{}",
+					"Decrease by {C:red}-$#2#{} and increase {C:attention}sell value",
+					"of the {C:attention}Joker{} to the right by {C:money}$#3#",
+					"whenever a {C:attention}Blind{} is skipped"
+				}
+			},
+			j_chm_train_ticket = {
+				name = "Train Ticket",
+				text = {
+					"{C:red}+#1#{} discards when",
+					"{C:attention}third{} hand is played"
+				}
+			},
+			j_chm_trickster = {
+				name = "Trickster",
+				text = {
+					"{C:attention}+#1#{} card slot",
+					"available in shop"
 				}
 			},
 			j_chm_alarm = {
@@ -45,15 +138,6 @@ return {
 					"when a {C:attention}playing card{} is added to deck"
 				}
 			},
-			j_chm_makisu = {
-				name = "Makisu",
-				text = {
-					"Create a random {C:attention}Sushi Joker",
-					"when a {C:attention}consumable{} is used",
-					"during a {C:attention}Boss Blind",
-					"{C:inactive}(Must have room)"
-				}
-			},
 			j_chm_chocolate_strawberry = {
 				name = "Chocolate Strawberry",
 				text = {
@@ -77,14 +161,6 @@ return {
 					"apply {C:dark_edition}Foil{} to them"
 				}
 			},
-			j_chm_watercolors = {
-				name = "Watercolors",
-				text = {
-					"If {C:attention}last hand{} of round",
-					"has exactly {C:attention}2{} cards,",
-					"apply {C:dark_edition}Holographic{} to them"
-				}
-			},
 			j_chm_elites = {
 				name = "Elites",
 				text = {
@@ -93,18 +169,10 @@ return {
 					"{C:inactive}(Must have room)"
 				}
 			},
-			j_chm_figure_1 = {
-				name = "Figure 1",
-				text = {
-					"Played {C:attention}Literature",
-					"{C:attention}Cards{} also give their",
-					"{C:chips}+Chips{} when scored"
-				}
-			},
 			j_chm_fungi = {
 				name = "Fungi",
 				text = {
-					"Discarded cards on the last discard",
+					"Discarded cards on {C:attention}final discard",
 					"of round add a {C:attention}playing card{} with",
 					"a random {C:attention}rank{} and {C:attention}suit{} to deck"
 				}
@@ -114,25 +182,16 @@ return {
 				text = {
 					"{X:red,C:white}X#1#{} Mult, decreases by",
 					"{X:red,C:white}X#2#{} Mult for each {C:attention}Unenhanced",
-					"card in played hand"
+					"card in scoring hand"
 				}
 			},
 			j_chm_ghost_costume = {
 				name = "Ghost Costume",
 				text = {
-					"{C:green}#1# in #2#{} chance to apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
-					"or {C:dark_edition}Polychrome{} to scored cards,",
-					"{C:red}-$#3#{} and create another",
-					"{C:attention}Costume Joker{} when sold"
-				}
-			},
-			j_chm_go_fish = {
-				name = "Go Fish",
-				text = {
-					"Draw {C:attention}6{} cards to hand if a",
-					"{C:attention}5{} card hand that has no",
-					"{C:attention}#1#{} or {C:attention}#2# is played",
-					"{s:0.8}Ranks change at end of round"
+					"{C:green}#1# in #2#{} chance to apply {C:dark_edition}Foil{}, ",
+					"{C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome{}",
+					"to scored cards, {C:red}-$#3#{} and create",
+					"another {C:attention}Costume Joker{} when sold"
 				}
 			},
 			j_chm_hand_roll = {
@@ -143,59 +202,33 @@ return {
 					"Decreases by {C:blue}-#3#{} hand#<s>3# and {C:red}-$#4#{} at end of round"
 				}
 			},
-			j_chm_keychain = {
-				name = "Keychain",
-				text = {
-					"Create {C:attention}#1#{} random",
-					"{C:attention}Tag#<s>1#{} when sold",
-					"Increases by {C:attention}#2#{} when a",
-					"{C:attention}Tag{} is obtained"
-				}
-			},
 			j_chm_koi = {
 				name = "Koi",
 				text = {
-					"Played cards gain {C:blue}+2{} held",
+					"Played cards gain {C:chips}+#1#{} held",
 					"in hand Chips when scored,",
-					"increases by {C:attention}+1{} when a",
+					"increases by {C:chips}+#2#{} Chips when a",
 					"{C:attention}Wild Card{} is discarded"
-				}
-			},
-			j_chm_motherboard = {
-				name = "Motherboard",
-				text = {
-					"This Joker gains {C:blue}+#1#{} Chips",
-					"when a {C:attention}listed {C:green,E:1}probability{} fails",
-					"and loses {C:red}-#2#{} Chips when",
-					"a {C:attention}listed {C:green,E:1}probability{} succeeds",
-					"{C:inactive}(Currently {C:blue}+#3#{C:inactive} Chips)"
-				}
-			},
-			j_chm_train_ticket = {
-				name = "Train Ticket",
-				text = {
-					"{C:red}+#1#{} discards when",
-					"{C:attention}third{} hand is played"
 				}
 			},
 			j_chm_monster_costume = {
 				name = "Monster Costume",
 				text = {
 					"Scored cards have a",
-					"{C:green}#4# in #5#{} chance of having a",
+					"{C:green}#1# in #2#{} chance of having a",
 					"random {C:attention}Enhancement{} applied to them,",
-					"{C:red}-$10{} and create another",
+					"{C:red}-$#3#{} and create another",
 					"{C:attention}Costume Joker{} when sold"
 				}
 			},
-			j_chm_onigiri = {
-				name = "Onigiri",
+			j_chm_motherboard = {
+				name = "Motherboard",
 				text = {
-					"{C:red}#1#{} Chips",
-					"This Joker gains {C:blue}+#2#{} Chips",
-					"per discard and is",
-					"destroyed at {C:chips}+#3#{} Chips",
-					"{C:attention}+#4#{} Voucher slot"
+					"This Joker gains {C:chips}+#1#{} Chips",
+					"when a {C:attention}listed {C:green,E:1}probability{} fails",
+					"and loses {C:red}-#2#{} Chips when",
+					"a {C:attention}listed {C:green,E:1}probability{} succeeds",
+					"{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
 				}
 			},
 			j_chm_overgrown = {
@@ -211,6 +244,14 @@ return {
 				text = {
 					"{C:attention}Ricochet Cards{} additionally",
 					"upgrade when held in hand"
+				}
+			},
+			j_chm_watercolors = {
+				name = "Watercolors",
+				text = {
+					"If {C:attention}last hand{} of round",
+					"has exactly {C:attention}2{} cards,",
+					"apply {C:dark_edition}Holographic{} to them"
 				}
 			},
 			j_chm_celosia = {
@@ -270,21 +311,6 @@ return {
 					"{C:red}+#2#{} Mult"
 				}
 			},
-			j_chm_rotten = {
-				name = "Rotten Joker",
-				text = {
-					"{C:attention}Rotten Cards{} instead",
-					"give {C:white,X:mult}X#1#{} Mult and",
-					"{C:money}$#2#{} when scored"
-				}
-			},
-			j_chm_trickster = {
-				name = "Trickster",
-				text = {
-					"{C:attention}+#1#{} card slot",
-					"available in shop"
-				}
-			},
 			j_chm_toycar = {
 				name = "Toy Car",
 				text = {
@@ -309,10 +335,6 @@ return {
 					"{C:dark_edition}+#1#{} Joker slot",
 					"Sell this card to create",
 					"a free {C:attention}Negative Tag"
-				},
-				unlock = {
-					"Have at least",
-					"{C:attention,E:2}9{} Jokers at once"
 				}
 			},
 			j_chm_wonders = {
@@ -333,15 +355,6 @@ return {
 					"{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}"
 				}
 			},
-			j_chm_punk = {
-				name = "Punk Joker",
-				text = {
-					"This Joker gains {C:blue}+#1#{} Chips",
-					"when a {C:spades}Spade{} or {C:clubs}Club{}",
-					"card is destroyed",
-					"{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
-				}
-			},
 			j_chm_tako_nigiri = {
 				name = "Tako Nigiri",
 				text = {
@@ -351,15 +364,6 @@ return {
 					"At {C:attention}#3#{}, creates a random {C:legendary,E:1}Legendary {C:attention}Joker"
 				}
 			},
-			j_chm_tamago = {
-				name = "Tamago",
-				text = {
-					"Sell this card to gain {C:money}$#1#{}",
-					"Decrease by {C:red}-$#2#{} and increase {C:attention}sell value",
-					"of the {C:attention}Joker{} to the right by {C:money}$#3#",
-					"whenever a {C:attention}Blind{} is skipped"
-				}
-			},
 			j_chm_pumpkin_costume = {
 				name = "Pumpkin Costume",
 				text = {
@@ -367,15 +371,6 @@ return {
 					"random {C:attention}Seal{} to scored cards",
 					"{C:red}-$#3#{} and create another",
 					"{C:attention}Costume Joker{} when sold"
-				}
-			},
-			j_chm_salmon_nigiri = {
-				name = "Salmon Nigiri",
-				text = {
-					"{C:mult}+#1#{} Mult",
-					"decreases by {C:red}-#2#{} when a card is scored",
-					"All cards permanently gain {C:mult}+#3#",
-					"bonus held in hand Mult when scored"
 				}
 			},
 			j_chm_tobiko = {
@@ -417,7 +412,7 @@ return {
 				name = "House",
 				text = {
 					"Add a {C:attention}permanent{} bonus",
-					"{C:blue}+#1#{} held in hand Chips",
+					"{C:chips}+#1#{} held in hand Chips",
 					"to up to {C:attention}#2#{} selected card#<s>2#"
 				}
 			},
@@ -680,18 +675,18 @@ return {
 			m_chm_doodle = {
 				name = "Doodle",
 				text = {
-					"{C:green}#1# in #2#{} chance to give {C:red}+4{} Mult",
-					"{C:green}#1# in #2#{} chance to give {C:blue}+30{} Chips",
-					"{C:green}#1# in #2#{} chance to give {X:red,C:white}X2{} Mult",
-					"{C:green}#1# in #2#{} chance to earn {C:money}+$3",
+					"{C:green}#1# in #2#{} chance to give {C:mult}+#3#{} Mult",
+					"{C:green}#4# in #5#{} chance to give {C:chips}+#6#{} Chip#<s>6#",
+					"{C:green}#7# in #8#{} chance to give {C:white,X:mult}X#9#{} Mult",
+					"{C:green}#10# in #11#{} chance to earn {C:money}$#12#",
 				}
 			},
 			m_chm_literature = {
 				name = "Literature",
 				text = {
 					"No rank or suit",
-					"{C:blue}+#1#{} Chips when held in hand",
-					"Increases by {C:chips}+#2#{} Chips",
+					"{C:chips}+#1#{} Chip#<s>1# when held in hand",
+					"Increases by {C:chips}+#2#{} Chip#<s>2#",
 					"when {C:attention}discarded"
 				}
 			},
@@ -722,10 +717,10 @@ return {
 			m_chm_ricochet = {
 				name = "Ricochet",
 				text = {
-					"{C:chips}+#1#{} Chips every {C:attention}#2# {C:inactive}(#3#){} times discarded or scored",
-					"{C:mult}+#4#{} Mult every {C:attention}#5# {C:inactive}(#6#){} times discarded or scored",
-					"{C:money}+$#7#{} every {C:attention}#8# {C:inactive}(#9#){} times discarded or scored",
-					"{C:white,X:mult}X#10#{} Mult every {C:attention}#11# {C:inactive}(#12#){} times discarded or scored"
+					"{C:chips}+#1#{} Chip#<s>1# every {C:attention}#2# {C:inactive}[#3#]{} times discarded or scored",
+					"{C:mult}+#4#{} Mult every {C:attention}#5# {C:inactive}[#6#]{} times discarded or scored",
+					"Earn {C:money}$#7#{} every {C:attention}#8# {C:inactive}[#9#]{} times discarded or scored",
+					"{C:white,X:mult}X#10#{} Mult every {C:attention}#11# {C:inactive}[#12#]{} times discarded or scored"
 				}
 			},
 			m_chm_rotten = {

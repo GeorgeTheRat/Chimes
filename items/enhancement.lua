@@ -4,37 +4,58 @@ SMODS.Enhancement {
     pos = { x = 0, y = 0 },
     config = {
         extra = {
-            odds = 4,
-            mult = 4,
-            xmult = 2,
+            chips_odds = 4,
             chips = 30,
+            mult_odds = 4,
+            mult = 4,
+            xmult_odds = 4,
+            xmult = 2,
+            dollars_odds = 4,
             dollars = 3
         }
     },
     atlas = "enhancement",
     weight = 5,
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "m_chm_oodle")
-        return { vars = { numerator, denominator } }
+        local chips_numerator, chips_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.chips_odds, "m_chm_doodle")
+        local mult_numerator, mult_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.mult_odds, "m_chm_doodle")
+        local xmult_numerator, xmult_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.xmult_odds, "m_chm_doodle")
+        local dollars_numerator, dollars_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.dollars_odds, "m_chm_doodle")
+        return {
+            vars = { 
+                chips_numerator,
+                chips_denominator,
+                card.ability.extra.chips,
+                mult_numerator,
+                mult_denominator,
+                card.ability.extra.mult,
+                xmult_numerator,
+                xmult_denominator,
+                card.ability.extra.xmult,
+                dollars_numerator,
+                dollars_denominator,
+                card.ability.extra.dollars
+            }
+        }
     end,
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
-            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.odds) then
+            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.chips_odds) then
                 return {
                     mult = card.ability.extra.mult
                 }
             end
-            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.odds) then
+            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.mult_odds) then
                 return {
                     xmult = card.ability.extra.xmult
                 }
             end
-            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.odds) then
+            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.xmult_odds) then
                 return {
                     chips = card.ability.extra.chips
                 }
             end
-            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.odds) then
+            if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.dollars_odds) then
                 return {
                     dollars = card.ability.extra.dollars
                 }
@@ -235,9 +256,15 @@ SMODS.Enhancement {
         if (context.discard and context.other_card == card) or (SMODS.find_card("j_chm_richochet") and context.main_scoring and context.cardarea == G.hand) then
             reset_counters()
             increment_counters()
+            if (card.ability.extra.dollars_counter + 1) >= card.ability.extra.dollars_trigger then
+                ease_dollars(card.ability.extra.dollars)
+                card_eval_status_text(card, "extra", nil, nil, nil, {
+                    message = "$" .. card.ability.extra.dollars,
+                    colour = G.C.MONEY
+                })
+            end
             card_eval_status_text(card, "extra", nil, nil, nil, {
-                message = "Upgrade!",
-                colour = G.C.ATTENTION
+                message = "Upgrade!"
             })
         end
         -- main scoring to increment counters
@@ -293,7 +320,7 @@ SMODS.Enhancement {
             local rotten_joker = SMODS.find_card("j_chm_rotten")[1]
             if rotten_joker then
                 return {
-                    xmult = -rotten_joker.ability.extra.xmult,
+                    xmult = rotten_joker.ability.extra.xmult,
                     dollars = rotten_joker.ability.extra.dollars
                 }
             else
@@ -330,14 +357,14 @@ SMODS.Enhancement {
             }
         end
         if context.main_scoring and context.cardarea == G.play then
+            local overgrown_count = 0
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].config.center.key == "j_chm_overgrownjoker" then
-                    card.ability.extra.odds = 40
-                else
-                    card.ability.extra.odds = 20
+                if G.jokers.cards[i].config.center.key == "j_chm_overgrown" then
+                    overgrown_count = overgrown_count + 1
                 end
             end
-            if SMODS.pseudorandom_probability(card, "m_chm_vine", 1, card.ability.extra.odds) then
+            local current_odds = card.ability.extra.odds * (2 ^ overgrown_count)
+            if SMODS.pseudorandom_probability(card, "m_chm_vine", 1, current_odds) then
                 card:set_ability(G.P_CENTERS.m_chm_overgrown)
                 return {
                     message = "Card Modified!",

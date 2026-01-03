@@ -1165,7 +1165,6 @@ SMODS.Consumable {
     name = "Stork",
     set = "Lenormand",
     pos = { x = 9, y = 2 },
-    config = { extra = { consumablesheld = 0 } },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)

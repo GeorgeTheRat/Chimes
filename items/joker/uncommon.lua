@@ -81,6 +81,114 @@ SMODS.Joker{
     end
 }
 
+SMODS.Joker {
+    key = "california_roll",
+    name = "California Roll",
+    config = {
+        extra = {
+            create = 5,
+            decrease = 1
+        }
+    },
+    pos = { x = 5, y = 0 },
+    cost = 6,
+    rarity = 2,
+    eternal_compat = false,
+    atlas = "joker",
+    pools = { ["sushi"] = true },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.create,
+                card.ability.extra.decrease
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self then
+            for i = 1, math.ceil(card.ability.extra.create) do
+                if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            if #G.jokers.cards < G.jokers.config.card_limit then
+                                SMODS.add_card({ set = "Joker" })
+                            end
+                            G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                            return true
+                        end
+                    }))
+                end
+            end
+            for i = 1, math.ceil(card.ability.extra.create) do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        if #G.consumeables.cards < G.consumeables.config.card_limit then
+                            play_sound("timpani")
+                            local forced_key = Chimes.random_consumable("california_roll", nil, "j_chm_california_roll")
+                            local _card = create_card("Consumeables", G.consumeables, nil, nil, nil, nil, forced_key.config.center_key, "california_roll")
+                            _card:add_to_deck()
+                            G.consumeables:emplace(_card)
+                        end
+                        return true
+                    end,
+                }))
+            end
+        elseif context.playing_card_added and card.ability.extra.create > 0 then
+            card.ability.extra.create = card.ability.extra.create - card.ability.extra.decrease
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local selected_tag = pseudorandom_element(G.P_TAGS, pseudoseed("j_chm_california_roll"))
+                    local tag = Tag(selected_tag.key)
+                    if tag.name == "Orbital Tag" then
+                        local _poker_hands = {}
+                        for k, v in pairs(G.GAME.hands) do
+                            if v.visible then
+                                _poker_hands[#_poker_hands + 1] = k
+                            end
+                        end
+                        tag.ability.orbital_hand = pseudorandom_element(_poker_hands, "j_chm_california_roll")
+                    end
+                    tag:set_ability()
+                    add_tag(tag)
+                    play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
+                    return true
+                end
+            }))
+            if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        if #G.jokers.cards < G.jokers.config.card_limit then
+                            SMODS.add_card({ set = "Joker" })
+                        end
+                        G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                        return true
+                    end
+                }))
+            end
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if #G.consumeables.cards < G.consumeables.config.card_limit then
+                        play_sound("timpani")
+                        local forced_key = Chimes.random_consumable("california_roll", nil, "j_chm_california_roll")
+                        local _card = create_card("Consumeables", G.consumeables, nil, nil, nil, nil, forced_key.config.center_key, "california_roll")
+                        _card:add_to_deck()
+                        G.consumeables:emplace(_card)
+                    end
+                    return true
+                end,
+            }))
+            if card.ability.extra.create == 0 then
+                return {
+                    message = "Consumed!",
+                    colour = G.C.ATTENTION
+                }
+            end
+        end
+    end
+}
+
 SMODS.Joker{
     key = "chocolate_strawberry",
     name = "Chocolate Strawberry",
@@ -106,30 +214,9 @@ SMODS.Joker{
                 card.ability.extra.context = 1
             end
             if card.ability.extra.joker_slots == 1 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound("tarot1")
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = "after",
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true
-                            end,
-                        }))
-                        return true
-                    end,
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
-                    message = localize("k_eaten"),
-                    colour = G.C.FILTER,
+                    message = localize("k_eaten_ex")
                 }
             end
         end
@@ -280,39 +367,18 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.before then
-            if card.ability.extra.xmult > 1 then
-                local count = 0
-                for _, playing_card in pairs(context.full_hand or {}) do
-                    if not next(SMODS.get_enhancements(playing_card)) then
-                        count = count + 1
-                    end
+            local count = 0
+            for _, playing_card in pairs(context.scoring_hand or {}) do
+                if not next(SMODS.get_enhancements(playing_card)) then
+                    count = count + 1
                 end
+            end
+            if card.ability.extra.xmult - (count * card.ability.extra.xmult_mod) > 1 then
                 card.ability.extra.xmult = card.ability.extra.xmult - (count * card.ability.extra.xmult_mod)
             else
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound("tarot1")
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = "after",
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true
-                            end,
-                        }))
-                        return true
-                    end,
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
-                    message = "Eaten!",
-                    colour = G.C.FILTER,
+                    message = localize("k_eaten_ex")
                 }
             end
         end
@@ -438,27 +504,10 @@ SMODS.Joker {
                             card.ability.extra.plusdollars = math.max(0, (card.ability.extra.plusdollars) - 1)
                             return true
                         else
-                            G.E_MANAGER:add_event(Event({
-                                func = function()
-                                    play_sound("tarot1")
-                                    card.T.r = -0.2
-                                    card:juice_up(0.3, 0.4)
-                                    card.states.drag.is = true
-                                    card.children.center.pinch.x = true
-                                    G.E_MANAGER:add_event(Event({
-                                        trigger = "after",
-                                        delay = 0.3,
-                                        blockable = false,
-                                        func = function()
-                                            G.jokers:remove_card(card)
-                                            card:remove()
-                                            card = nil
-                                            return true
-                                        end,
-                                    }))
-                                    return true
-                                end,
-                            }))
+                            SMODS.destroy_cards(card, nil, nil, true)
+                            return {
+                                message = localize("k_eaten_ex")
+                            }
                         end
                     end,
                     message = "-" .. tostring(card.ability.extra.plushands_mod),
@@ -473,16 +522,53 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker{
+    key = "koi",
+    name = "Koi",
+    config = {
+        extra = {
+            perma_h_bonus = 2,
+            perma_h_bonus_mod = 1
+        }
+    },
+    pos = { x = 7, y = 1 },
+    cost = 6,
+    rarity = 2,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
+        return {
+            vars = {
+                card.ability.extra.perma_h_bonus,
+                card.ability.extra.perma_h_bonus_mod
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            context.other_card.ability.perma_h_bonus = (context.other_card.ability.perma_h_bonus or 0) + card.ability.extra.perma_h_bonus
+            return {
+                message = localize("k_upgrade_ex"),
+                colour = G.C.CHIPS
+            }
+        end
+        if context.other_card and context.discard and SMODS.has_enhancement(context.other_card, "m_wild") then
+            card.ability.perma_h_bonus = card.ability.perma_h_bonus + card.ability.extra.perma_h_bonus_mod
+            return {
+                message = localize("k_upgrade_ex"),
+                colour = G.C.CHIPS
+            }
+        end
+    end
+}
+
 SMODS.Joker {
     key = "monster_costume",
     name = "Monster Costume",
     config = {
         extra = {
-            edititionion = 1,
             odds = 5,
             dollars = 10,
-            costumes2 = 0,
-            respect = 0
         }
     },
     pos = { x = 0, y = 2 },
@@ -490,16 +576,14 @@ SMODS.Joker {
     rarity = 2,
     blueprint_compat = true,
     atlas = "joker",
-    pools = { ["chm_costumes"] = true },
+    pools = { ["costumes"] = true },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_monstercostume")
         return {
             vars = {
-                card.ability.extra.edititionion,
-                card.ability.extra.costumes2,
-                card.ability.extra.respect,
                 numerator,
-                denominator
+                denominator,
+                card.ability.extra.dollars
             }
         }
     end,
@@ -514,10 +598,11 @@ SMODS.Joker {
                 end
                 local random_enhancement = pseudorandom_element(enhancement_pool, "edit_card_enhancement")
                 context.other_card:set_ability(random_enhancement)
-                card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+                return {
                     message = "Card Modified!",
-                    colour = G.C.BLUE
-                })
+                    colour = G.C.BLUE,
+                    card = context.other_card
+                }
             end
         end
         if context.selling_self and not context.blueprint then
@@ -531,23 +616,19 @@ SMODS.Joker {
                             G.GAME.joker_buffer = G.GAME.joker_buffer + 1
                             G.E_MANAGER:add_event(Event({
                                 func = function()
-                                    local joker_card = SMODS.add_card({
-                                        set = "chm_ostumes2"
-                                    })
+                                    local joker_card = SMODS.add_card({ set = "costumes" })
                                     if joker_card then
+                                        G.GAME.joker_buffer = 0
                                     end
-                                    G.GAME.joker_buffer = 0
-                                    return true
                                 end
                             }))
                         end
                         if created_joker then
-                            card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+                            return {
                                 message = localize("k_plus_joker"),
                                 colour = G.C.BLUE
-                            })
+                            }
                         end
-                        return true
                     end
                 }
             }
@@ -591,78 +672,6 @@ SMODS.Joker {
                 card.ability.extra.chips = (card.ability.extra.chips) - card.ability.extra.chips_mod_2
             end
         end
-    end
-}
-
-SMODS.Joker {
-    key = "onigiri",
-    name = "Onigiri",
-    config = {
-        extra = {
-            chips = -75,
-            chips_mod = 15,
-            chips_destruction = 0,
-            voucher_slots = 1
-        }
-    },
-    pos = { x = 2, y = 2 },
-    cost = 4,
-    rarity = 2,
-    blueprint_compat = true,
-    atlas = "joker",
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.chips,
-                card.ability.extra.chips_mod,
-                card.ability.extra.chips_destruction,
-                card.ability.extra.voucher_slots
-            }
-        }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                chips = card.ability.extra.chips
-            }
-        end
-        if context.pre_discard and not context.blueprint then
-            if (card.ability.extra.chips + card.ability.extra.chips_mod) >= card.ability.extra.chips_destruction then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound("tarot1")
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = "after",
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true
-                            end,
-                        }))
-                        return true
-                    end,
-                }))
-                return {
-                    message = localize("k_eaten"),
-                    colour = G.C.FILTER,
-                }
-            else
-                card.ability.extra.chips = (card.ability.extra.chips) + card.ability.extra.chips_mod
-            end
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        SMODS.change_voucher_limit(card.ability.extra.voucher_slots)
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        SMODS.change_voucher_limit(-card.ability.extra.voucher_slots)
     end
 }
 
@@ -782,114 +791,6 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = "california_roll",
-    name = "California Roll",
-    config = {
-        extra = {
-            create = 5,
-            decrease = 1
-        }
-    },
-    pos = { x = 5, y = 0 },
-    cost = 6,
-    rarity = 2,
-    eternal_compat = false,
-    atlas = "joker",
-    pools = { ["chm_sushi"] = true },
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.create,
-                card.ability.extra.decrease
-            }
-        }
-    end,
-    calculate = function(self, card, context)
-        if context.selling_self then
-            for i = 1, math.ceil(card.ability.extra.create) do
-                if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            if #G.jokers.cards < G.jokers.config.card_limit then
-                                SMODS.add_card({ set = "Joker" })
-                            end
-                            G.GAME.joker_buffer = G.GAME.joker_buffer - 1
-                            return true
-                        end
-                    }))
-                end
-            end
-            for i = 1, math.ceil(card.ability.extra.create) do
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        if #G.consumeables.cards < G.consumeables.config.card_limit then
-                            play_sound("timpani")
-                            local forced_key = Chimes.random_consumable("california_roll", nil, "j_chm_california_roll")
-                            local _card = create_card("Consumeables", G.consumeables, nil, nil, nil, nil, forced_key.config.center_key, "california_roll")
-                            _card:add_to_deck()
-                            G.consumeables:emplace(_card)
-                        end
-                        return true
-                    end,
-                }))
-            end
-        elseif context.playing_card_added and card.ability.extra.create > 0 then
-            card.ability.extra.create = card.ability.extra.create - card.ability.extra.decrease
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    local selected_tag = pseudorandom_element(G.P_TAGS, pseudoseed("j_chm_california_roll"))
-                    local tag = Tag(selected_tag.key)
-                    if tag.name == "Orbital Tag" then
-                        local _poker_hands = {}
-                        for k, v in pairs(G.GAME.hands) do
-                            if v.visible then
-                                _poker_hands[#_poker_hands + 1] = k
-                            end
-                        end
-                        tag.ability.orbital_hand = pseudorandom_element(_poker_hands, "j_chm_california_roll")
-                    end
-                    tag:set_ability()
-                    add_tag(tag)
-                    play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
-                    return true
-                end
-            }))
-            if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        if #G.jokers.cards < G.jokers.config.card_limit then
-                            SMODS.add_card({ set = "Joker" })
-                        end
-                        G.GAME.joker_buffer = G.GAME.joker_buffer - 1
-                        return true
-                    end
-                }))
-            end
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    if #G.consumeables.cards < G.consumeables.config.card_limit then
-                        play_sound("timpani")
-                        local forced_key = Chimes.random_consumable("california_roll", nil, "j_chm_california_roll")
-                        local _card = create_card("Consumeables", G.consumeables, nil, nil, nil, nil, forced_key.config.center_key, "california_roll")
-                        _card:add_to_deck()
-                        G.consumeables:emplace(_card)
-                    end
-                    return true
-                end,
-            }))
-            if card.ability.extra.create == 0 then
-                return {
-                    message = "Consumed!",
-                    colour = G.C.ATTENTION
-                }
-            end
-        end
-    end
-}
-
-SMODS.Joker {
     key = "toycar",
     name = "Toy Car",
     config = {
@@ -972,79 +873,68 @@ SMODS.Joker {
     end
 }
 
--- SMODS.Joker {
---     key = "wine",
---     name = "Wine",
---     config = { extra = { joker_slots = 1 } },
---     pos = { x = 4, y = 4 },
---     cost = 7,
---     rarity = 2,
---     blueprint_compat = true,
---     eternal_compat = false,
---     unlocked = false,
---     discovered = false,
---     atlas = "joker",
---     loc_vars = function(self, info_queue, card)
---         info_queue[#info_queue + 1] = G.P_TAGS.tag_negative
---         return { vars = { card.ability.extra.joker_slots } }
---     end,
---     in_pool = function(self, args)
---         return not args or 
---             (args.source ~= "buf" and 
---                 args.source ~= "jud" and
---                 (args.source == "sho" or
---                 args.source == "rif" or
---                 args.source == "rta" or
---                 args.source == "sou" or
---                 args.source == "uta" or
---                 args.source == "wra"))
---     end,
---     calculate = function(self, card, context)
---         if context.selling_self then
---             G.E_MANAGER:add_event(Event({
---                 func = function()
---                     add_tag(Tag("tag_negative"))
---                     play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
---                     play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
---                     return true
---                 end
---             }))
---             return nil, true
---         end
---     end,
---     add_to_deck = function(self, card, from_debuff)
---         G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.joker_slots
---     end,
---     remove_from_deck = function(self, card, from_debuff)
---         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.joker_slots
---     end,
---     check_for_unlock = function(self, args)
---         if args.type == "modify_jokers" then
---             local count = 0
---             for _, joker in ipairs(G.jokers.cards) do
---                 count = count + 1
---             end
---             if count >= to_big(9) then
---                 return true
---             end
---         end
---         return false
---     end
--- }
--- G.FUNCS.check_for_buy_space = function(card)
---     if card.config.center.key == "j_chm_wine" then
---         return true
---     end
---     return G.FUNCS.check_for_buy_space(card)
--- end
--- G.FUNCS.can_select_card = function(e)
---     if e.config.ref_table.config.center.key == "j_chm_wine" then
---         e.config.colour = G.C.GREEN
---         e.config.button = "use_card"
---     else
---         G.FUNCS.can_select_card(e)
---     end
--- end
+SMODS.Joker {
+    key = "wine",
+    name = "Wine",
+    config = { extra = { joker_slots = 1 } },
+    pos = { x = 4, y = 4 },
+    cost = 7,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = false,
+    unlocked = false,
+    discovered = false,
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_negative
+        return { vars = { card.ability.extra.joker_slots } }
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    add_tag(Tag("tag_negative"))
+                    play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
+                    play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
+                    return true
+                end
+            }))
+            return nil, true
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.joker_slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.joker_slots
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == "modify_jokers" then
+            local count = 0
+            for _, joker in ipairs(G.jokers.cards) do
+                count = count + 1
+            end
+            if count >= to_big(9) then
+                return true
+            end
+        end
+        return false
+    end
+}
+G.FUNCS.check_for_buy_space = function(card)
+    if card.config.center.key == "j_chm_wine" then
+        return true
+    end
+    return G.FUNCS.check_for_buy_space(card)
+end
+G.FUNCS.can_select_card = function(e)
+    if e.config.ref_table.config.center.key == "j_chm_wine" then
+        e.config.colour = G.C.GREEN
+        e.config.button = "use_card"
+    else
+        G.FUNCS.can_select_card(e)
+    end
+end
 
 SMODS.Joker {
     key = "wonders",
@@ -1181,7 +1071,7 @@ SMODS.Joker {
     rarity = 2,
     blueprint_compat = true,
     atlas = "joker",
-    pools = { ["chm_sushi"] = true },
+    pools = { ["sushi"] = true },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, "j_chm_tobiko")
         return {
@@ -1197,29 +1087,9 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.reroll_shop and SMODS.pseudorandom_probability(card, "tobiko_reroll_shop", 1, card.ability.extra.odds, "j_chm_tobiko", false) then
             if card.ability.extra.rerolls <= card.ability.extra.rerolls - card.ability.extra.reroll_mod then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound("tarot1")
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = "after",
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true
-                            end,
-                        }))
-                        return true
-                    end,
-                }))
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
-                    message = "Eaten!"
+                    message = localize("k_eaten_ex")
                 }
             else
                 card.ability.extra.rerolls = math.max(0, card.ability.extra.rerolls - card.ability.extra.reroll_mod)

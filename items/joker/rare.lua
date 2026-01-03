@@ -321,7 +321,7 @@ SMODS.Joker {
     rarity = 3,
     eternal_compat = false,
     atlas = "joker",
-    pools = { ["chm_sushi"] = true },
+    pools = { ["sushi"] = true },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
