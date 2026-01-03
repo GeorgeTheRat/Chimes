@@ -536,7 +536,7 @@ return {
 				name = "Tower",
 				text = {
 					"Add a permanent {C:mult}+#1#{} Mult",
-					"to#<up to>2# {C:attention}#2#{} selected card#<s>2#"
+					"to#< up to>2# {C:attention}#2#{} selected card#<s>2#"
 				}
 			},
 			c_chm_garden = {
@@ -676,7 +676,7 @@ return {
 				name = "Doodle",
 				text = {
 					"{C:green}#1# in #2#{} chance to give {C:mult}+#3#{} Mult",
-					"{C:green}#4# in #5#{} chance to give {C:chips}+#6#{} Chip#<s>6#",
+					"{C:green}#4# in #5#{} chance to give {C:chips}+#6#{} chip#<s>6#",
 					"{C:green}#7# in #8#{} chance to give {C:white,X:mult}X#9#{} Mult",
 					"{C:green}#10# in #11#{} chance to earn {C:money}$#12#",
 				}
@@ -685,8 +685,8 @@ return {
 				name = "Literature",
 				text = {
 					"No rank or suit",
-					"{C:chips}+#1#{} Chip#<s>1# when held in hand",
-					"Increases by {C:chips}+#2#{} Chip#<s>2#",
+					"{C:chips}+#1#{} chip#<s>1# when held in hand",
+					"Increases by {C:chips}+#2#{} chip#<s>2#",
 					"when {C:attention}discarded"
 				}
 			},
@@ -710,14 +710,14 @@ return {
 			m_chm_overgrown = {
 				name = "Overgrown",
 				text = {
-					"{C:blue}+#1#{} Chip#<s>1#{}",
+					"{C:blue}+#1#{} chip#<s>1#{}",
 					"No rank or suit"
 				}
 			},
 			m_chm_ricochet = {
 				name = "Ricochet",
 				text = {
-					"{C:chips}+#1#{} Chip#<s>1# every {C:attention}#2# {C:inactive}[#3#]{} times discarded or scored",
+					"{C:chips}+#1#{} chip#<s>1# every {C:attention}#2# {C:inactive}[#3#]{} times discarded or scored",
 					"{C:mult}+#4#{} Mult every {C:attention}#5# {C:inactive}[#6#]{} times discarded or scored",
 					"Earn {C:money}$#7#{} every {C:attention}#8# {C:inactive}[#9#]{} times discarded or scored",
 					"{C:white,X:mult}X#10#{} Mult every {C:attention}#11# {C:inactive}[#12#]{} times discarded or scored"
@@ -734,7 +734,7 @@ return {
 				name = "Vine",
 				text = {
 					"Retrigger this card {C:attention}once{} for",
-					"each free consumable slot",
+					"each free consumable slot,",
 					"{C:green}#1# in #2# {}chance of becoming an",
 					"{C:attention}Overgrown Card{} when scored"
 				}
