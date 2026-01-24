@@ -908,6 +908,18 @@ SMODS.Joker {
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.joker_slots
     end,
+    in_pool = function(self, args)
+        return
+            not args or
+            (args.source ~= "buf" and
+            args.source ~= "jud" and
+            (args.source == "sho" or
+            args.source == "rif" or
+            args.source == "rta" or
+            args.source == "sou" or
+            args.source == "uta" or
+            args.source == "wra"))
+    end,
     check_for_unlock = function(self, args)
         if args.type == "modify_jokers" then
             local count = 0
@@ -921,18 +933,21 @@ SMODS.Joker {
         return false
     end
 }
+local original_check_for_buy_space = G.FUNCS.check_for_buy_space
+local original_can_select_card = G.FUNCS.can_select_card
 G.FUNCS.check_for_buy_space = function(card)
-    if card.config.center.key == "j_chm_wine" then
+    if card.config.center and card.config.center.key == "j_chm_wine" then
         return true
     end
-    return G.FUNCS.check_for_buy_space(card)
+    return original_check_for_buy_space(card)
 end
+
 G.FUNCS.can_select_card = function(e)
-    if e.config.ref_table.config.center.key == "j_chm_wine" then
+    if e.config.ref_table and e.config.ref_table.config and e.config.ref_table.config.center and e.config.ref_table.config.center.key == "j_chm_wine" then
         e.config.colour = G.C.GREEN
         e.config.button = "use_card"
     else
-        G.FUNCS.can_select_card(e)
+        original_can_select_card(e)
     end
 end
 

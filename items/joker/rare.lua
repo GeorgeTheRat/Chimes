@@ -368,7 +368,7 @@ SMODS.Joker {
         end
         if context.end_of_round and not context.game_over and context.main_eval and context.beat_boss then
             if (card.ability.extra.create or 0) ~= 0 then
-                card.ability.extra.create = math.max(0, card.ability.extra.create - card.abaility.extra.create_mod)
+                card.ability.extra.create = math.max(0, card.ability.extra.create - card.ability.extra.create_mod)
                 if card.ability.extra.create == 1 then
                     card:jiggle()
                 end
