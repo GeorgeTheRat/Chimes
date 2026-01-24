@@ -73,8 +73,8 @@ return {
 			j_chm_salmon_nigiri = {
 				name = "Salmon Nigiri",
 				text = {
-					"{C:mult}+#1#{} Mult",
-					"decreases by {C:red}-#2#{} when a card is scored",
+					"{C:mult}+#1#{} Mult, decreases by",
+					"{C:red}-#2#{} Mult when a card is scored",
 					"All cards permanently gain {C:mult}+#3#",
 					"bonus held in hand Mult when scored"
 				}
@@ -82,10 +82,10 @@ return {
 			j_chm_tamago = {
 				name = "Tamago",
 				text = {
-					"Sell this card to gain {C:money}$#1#{}",
-					"Decrease by {C:red}-$#2#{} and increase {C:attention}sell value",
-					"of the {C:attention}Joker{} to the right by {C:money}$#3#",
-					"whenever a {C:attention}Blind{} is skipped"
+					"Sell this card to gain {C:money}$#1#{},",
+					"decreases by {C:red}-$#2#{} and increases",
+					"{C:attention}sell value{} of {C:attention}Joker{} to the right",
+					"by {C:money}$#3#{} when {C:attention}Blind{} is skipped"
 				}
 			},
 			j_chm_train_ticket = {
@@ -131,9 +131,9 @@ return {
 			j_chm_california_roll = {
 				name = "California Roll",
 				text = {
-					"Create {C:attention}#1#{} {C:attention}Joker#<s>1#{} and",
-					"{C:attention}consumable#<s>1#{} when this Joker is sold",
-					"Decrease by {C:red}-#2#{} and create a",
+					"Create {C:attention}#1#{} random {C:attention}Joker#<s>1#{} and",
+					"{C:attention}consumable#<s>1#{} when this Joker is sold,",
+					"decreases by {C:red}-#2#{} and creates a random",
 					"{C:attention}Tag{}, {C:attention}Joker{}, and {C:attention}consumable",
 					"when a {C:attention}playing card{} is added to deck"
 				}
@@ -141,8 +141,8 @@ return {
 			j_chm_chocolate_strawberry = {
 				name = "Chocolate Strawberry",
 				text = {
-					"{C:dark_edition}+#1#{} Joker slots while in a {C:attention}Blind",
-					"Decreases by {C:dark_edition}-#2#{} at end of round"
+					"{C:dark_edition}+#1#{} Joker slots while in a {C:attention}Blind,",
+					"decreases by {C:dark_edition}-#2#{} at end of round"
 				}
 			},
 			j_chm_colored_pencils = {
