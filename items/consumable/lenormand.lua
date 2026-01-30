@@ -140,7 +140,7 @@ SMODS.Consumable {
         }
     end,
     can_use = function(self, card)
-        return G.hand
+        return G.hand and #G.hand.cards > 0
     end,
     use = function(self, card, area, copier)
         local destroyed_cards = {}
@@ -351,7 +351,7 @@ SMODS.Consumable {
         }
     end,
     can_use = function(self, card)
-        return G.hand
+        return G.hand and #G.hand.cards > 0
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
@@ -717,7 +717,7 @@ SMODS.Consumable {
         }
     end,
     can_use = function(self, card)
-        return G.hand.cards
+        return G.hand and #G.hand.cards > 0
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
@@ -1173,7 +1173,7 @@ SMODS.Consumable {
         }
     end,
     can_use = function(self, card)
-        return G.hand
+        return G.hand and #G.hand.cards > 0
     end,
     use = function(self, card, area, copier)
         local used_card = copier or card
@@ -1394,7 +1394,7 @@ SMODS.Consumable {
     cost = 4,
     atlas = "consumable",
     can_use = function(self, card)
-        return G.hand and #G.hand.cards > 0
+        return G.hand and #G.hand.cards > 1
     end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.x_earn_value } }
