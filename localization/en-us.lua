@@ -49,7 +49,7 @@ return {
 				text = {
 					"{C:chips}+#1#{} Chips",
 					"This Joker loses {C:red}-#2#{} Chips",
-					"per discard",
+					"when discard is used",
 					"{C:attention}+#3#{} Voucher slot"
 				}
 			},

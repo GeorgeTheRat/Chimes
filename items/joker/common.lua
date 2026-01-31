@@ -267,7 +267,7 @@ SMODS.Joker {
             }
         end
         if context.pre_discard and not context.blueprint then
-            if (card.ability.extra.chips - card.ability.extra.chips_mod) >= 0 then
+            if (card.ability.extra.chips - card.ability.extra.chips_mod) <= 0 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize("k_eaten_ex")
