@@ -669,7 +669,7 @@ SMODS.Joker {
             if context.result then
                 card.ability.extra.chips = math.max(0, (card.ability.extra.chips) - card.ability.extra.chips_mod)
             else
-                card.ability.extra.chips = (card.ability.extra.chips) - card.ability.extra.chips_mod_2
+                card.ability.extra.chips = (card.ability.extra.chips) + card.ability.extra.chips_mod_2
             end
         end
     end
