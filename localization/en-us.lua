@@ -148,7 +148,7 @@ return {
 			j_chm_colored_pencils = {
 				name = "Colored Pencils",
 				text = {
-					"If {C:attention}last hand{} of round",
+					"If {C:attention}final hand{} of round",
 					"has only {C:attention}1{} card,",
 					"apply {C:dark_edition}Polychrome{} to it "
 				}
@@ -156,7 +156,7 @@ return {
 			j_chm_crayons = {
 				name = "Crayons",
 				text = {
-					"If {C:attention}last hand{} of round",
+					"If {C:attention}final hand{} of round",
 					"has exactly {C:attention}3{} cards,",
 					"apply {C:dark_edition}Foil{} to them"
 				}
@@ -249,7 +249,7 @@ return {
 			j_chm_watercolors = {
 				name = "Watercolors",
 				text = {
-					"If {C:attention}last hand{} of round",
+					"If {C:attention}final hand{} of round",
 					"has exactly {C:attention}2{} cards,",
 					"apply {C:dark_edition}Holographic{} to them"
 				}
