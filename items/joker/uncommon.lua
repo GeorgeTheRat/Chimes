@@ -196,14 +196,14 @@ SMODS.Joker{
     pos = { x = 6, y = 0 },
     cost = 4,
     rarity = 2,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = false,
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.joker_slots, card.ability.extra.joker_slots_mod } }
     end,
     calculate = function(self, card, context)
-        if ((G.GAME.blind:get_type() == "Small" or G.GAME.blind:get_type() == "Big" or G.GAME.blind.boss) and not context.blueprint) and card.ability.extra.context == 1 then
+        if (G.GAME.blind.in_blind and not context.blueprint) and card.ability.extra.context == 1 then
             G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.joker_slots
             card.ability.extra.context = 0
         end
@@ -221,7 +221,7 @@ SMODS.Joker{
             end
         end
         if context.selling_self and not context.blueprint then
-            if G.GAME.blind:get_type() == "Small" or G.GAME.blind:get_type() == "Big" or G.GAME.blind.boss then
+            if G.GAME.blind.in_blind then
                 G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.joker_slots
                 card.ability.extra.joker_slots = card.ability.extra.joker_slots - card.ability.extra.joker_slots_mod
             end
@@ -1108,7 +1108,7 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.reroll_shop and SMODS.pseudorandom_probability(card, "tobiko_reroll_shop", 1, card.ability.extra.odds, "j_chm_tobiko", false) then
+        if context.reroll_shop and SMODS.pseudorandom_probability(card, "tobiko_reroll_shop", 1, card.ability.extra.odds, "j_chm_tobiko", false) and not context.blueprint then
             if card.ability.extra.rerolls <= card.ability.extra.rerolls - card.ability.extra.reroll_mod then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
@@ -1140,7 +1140,7 @@ SMODS.Joker {
                 end
             end
             return {
-                message = "Sell Value Reset!",
+                message = "Reset",
                 colour = G.C.RED
             }
         end

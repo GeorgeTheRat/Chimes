@@ -443,7 +443,7 @@ SMODS.Joker {
     end,
     calculate = function(self, card, context)
         if context.selling_self then
-            ease_dollars(card.ability.extra.dollars, true)
+            ease_dollars(card.ability.extra.dollars)
         end
         if context.skip_blind then
             if card.ability.extra.dollars - card.ability.extra.dollars_mod <= 0 then
