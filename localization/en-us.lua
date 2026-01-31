@@ -342,7 +342,7 @@ return {
 				text = {
 					"Played {C:attention}7s{} give {C:white,X:mult}X#1#{} Mult when scored",
 					"{C:attention}7s{} give {C:money}$#2#{} when held in hand",
-					"for every {C:attention}7{} in played hand"
+					"for every scoring {C:attention}7{} in played hand"
 				}
 			},
 			j_chm_togarashi = {

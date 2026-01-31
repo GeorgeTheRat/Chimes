@@ -989,8 +989,8 @@ SMODS.Joker {
         end
         if context.individual and context.cardarea == G.hand and context.other_card:get_id() == 7 and not context.end_of_round then
             local count = 0
-            for _, card in ipairs(G.hand and G.hand.cards or {}) do
-                if card.base.id == 7 then
+            for _, scored_card in ipairs(context.scoring_hand) do
+                if scored_card.base.id == 7 then
                     count = count + 1
                 end
             end
