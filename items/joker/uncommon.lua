@@ -994,9 +994,11 @@ SMODS.Joker {
                     count = count + 1
                 end
             end
-            return {
-                dollars = count * card.ability.extra.dollars
-            }
+            if count > 0 then
+                return {
+                    dollars = count * card.ability.extra.dollars
+                }
+            end
         end
     end
 }
