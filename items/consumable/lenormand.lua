@@ -1390,7 +1390,7 @@ SMODS.Consumable {
     name = "Garden",
     set = "Lenormand",
     pos = { x = 3, y = 1 },
-    config = { extra = { x_earn_value = 5 } },
+    config = { extra = { x_earn_value = 4 } },
     cost = 4,
     atlas = "consumable",
     can_use = function(self, card)
@@ -1739,7 +1739,7 @@ SMODS.Consumable {
 SMODS.Consumable {
     key = "book",
     name = "Book",
-    config = { extra = { max_highlighted = 1 } },
+    config = { extra = { max_highlighted = 2 } },
     set = "Lenormand",
     pos = { x = 3, y = 0 },
     cost = 4,
@@ -2316,7 +2316,7 @@ SMODS.Consumable {
     name = "Moon",
     set = "Lenormand",
     pos = { x = 1, y = 2 },
-    config = { extra = { max_highlighted = 2 } },
+    config = { extra = { max_highlighted = 1 } },
     cost = 4,
     atlas = "consumable",
     loc_vars = function(self, info_queue, card)

@@ -30,8 +30,8 @@ return {
 				name = "Keychain",
 				text = {
 					"Create {C:attention}#1#{} random",
-					"{C:attention}Tag#<s>1#{} when sold",
-					"Increases by {C:attention}#2#{} when a",
+					"{C:attention}Tag#<s>1#{} when sold,",
+					"increases by {C:attention}#2#{} when a",
 					"{C:attention}Tag{} is obtained"
 				}
 			},
@@ -141,7 +141,7 @@ return {
 			j_chm_chocolate_strawberry = {
 				name = "Chocolate Strawberry",
 				text = {
-					"{C:dark_edition}+#1#{} Joker slots while in a {C:attention}Blind,",
+					"{C:dark_edition}+#1#{} Joker slots while in a {C:attention}Blind{},",
 					"decreases by {C:dark_edition}-#2#{} at end of round"
 				}
 			},
@@ -181,7 +181,7 @@ return {
 				name = "Garlic",
 				text = {
 					"{X:red,C:white}X#1#{} Mult, decreases by",
-					"{X:red,C:white}X#2#{} Mult for each {C:attention}Unenhanced",
+					"{X:red,C:white}X#2#{} Mult per {C:attention}Unenhanced",
 					"card in scoring hand"
 				}
 			},
@@ -197,8 +197,8 @@ return {
 			j_chm_hand_roll = {
 				name = "Hand Roll",
 				text = {
-					"{C:blue}+#1#{} hands when {C:attention}Blind{} is selected, earn",
-					"{C:money}$#2#{} for each hand remaining at end of round",
+					"{C:blue}+#1#{} hands when {C:attention}Blind{} is selected",
+					"Earn {C:money}$#2#{} per hand remaining at end of round",
 					"Decreases by {C:blue}-#3#{} hand#<s>3# and {C:red}-$#4#{} at end of round"
 				}
 			},
@@ -324,7 +324,7 @@ return {
 				name = "Waterfall",
 				text = {
 					"Retrigger each played",
-					"{C:attention}6{}, {C:attention}7{}, {C:attention}8{}, {C:attention}9{}, and {C:attention}10{} once for each",
+					"{C:attention}6{}, {C:attention}7{}, {C:attention}8{}, {C:attention}9{}, and {C:attention}10{} once for every",
 					"{C:attention}Two Pair{} played previously this round",
 					"{C:inactive}(Currently {C:attention}#1#{C:inactive} retriggers)"
 				}
@@ -419,7 +419,7 @@ return {
 			c_chm_tree = {
 				name = "Tree",
 				text = {
-					"Earn {C:money}$#1#{} for each card below",
+					"Earn {C:money}$#1#{} per card below",
 					"{C:attention}#2#{} in your full deck",
 					"{C:inactive}(Currently {C:money}+$#3#{C:inactive})"
 				}
@@ -454,7 +454,7 @@ return {
 				text = {
 					"Destroy {C:attention}#1#{} random {C:attention}Joker#<s>1#{},",
 					"apply {C:dark_edition}Holographic{} to",
-					"{C:attention}#2#{} random {C:attention}Joker#<s>2#"
+					"{C:attention}#2#{} other random {C:attention}Joker#<s>2#"
 				}
 			},
 			c_chm_scythe = {
@@ -508,15 +508,16 @@ return {
 			c_chm_stars = {
 				name = "Stars",
 				text = {
-					"Level up a random {C:attention}poker hand #1#{} time",
-					"for each {C:attention}Blind{} skipped this run",
+					"Level up a random",
+					"{C:attention}poker hand #1#{} time per",
+					"{C:attention}Blind{} skipped this run",
 					"{C:inactive}(Currently {C:attention}#2#{C:inactive})"
 				}
 			},
 			c_chm_stork = {
 				name = "Stork",
 				text = {
-					"Add {C:attention}Enhanced Cards{} equal",
+					"Add {C:enhanced}Enhanced{} cards equal",
 					"to {C:attention}double{} the number of",
 					"{C:attention}consumables{} owned to hand",
 					"{C:inactive}(Currently {C:attention}#1#{C:inactive})"
@@ -600,7 +601,7 @@ return {
 				name = "Man",
 				text = {
 					"Apply#<, a>1# random",
-					"{C:attention}Enhancement#<s>1#{} to #<up to>1#",
+					"{C:enhanced}Enhancement#<s>1#{} to #<up to>1#",
 					"{C:attention}#1#{} selected card#<s>1#"
 				}
 			},
@@ -685,16 +686,16 @@ return {
 				name = "Literature",
 				text = {
 					"No rank or suit",
-					"{C:chips}+#1#{} chip#<s>1# when held in hand",
-					"Increases by {C:chips}+#2#{} chip#<s>2#",
+					"{C:chips}+#1#{} chip#<s>1# when held in hand,",
+					"increases by {C:chips}+#2#{} chip#<s>2#",
 					"when {C:attention}discarded"
 				}
 			},
 			m_chm_mechanical = {
 				name = "Mechanical",
 				text = {
-					"{C:white,X:mult}X#1#{} Mult",
-					"Increases by {C:white,X:mult}X#2#{} Mult",
+					"{C:white,X:mult}X#1#{} Mult,",
+					"increases by {C:white,X:mult}X#2#{} Mult",
 					"when {C:attention}discarded",
 					"Resets after hand played"
 				}

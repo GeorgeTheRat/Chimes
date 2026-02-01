@@ -15,7 +15,6 @@ SMODS.Enhancement {
         }
     },
     atlas = "enhancement",
-    weight = 5,
     loc_vars = function(self, info_queue, card)
         local chips_numerator, chips_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.chips_odds, "m_chm_doodle")
         local mult_numerator, mult_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.mult_odds, "m_chm_doodle")
@@ -79,7 +78,6 @@ SMODS.Enhancement {
     no_rank = true,
     no_suit = true,
     always_scores = true,
-    weight = 5,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -122,7 +120,6 @@ SMODS.Enhancement {
         }
     },
     atlas = "enhancement",
-    weight = 5,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -155,7 +152,6 @@ SMODS.Enhancement {
     pos = { x = 3, y = 0 },
     config = { extra = { levels = 2 } },
     atlas = "enhancement",
-    weight = 5,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.levels } }
     end,
@@ -187,9 +183,11 @@ SMODS.Enhancement {
     no_rank = true,
     no_suit = true,
     always_scores = true,
-    weight = 0,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.chips } }
+    end,
+    in_pool = function(self, args)
+        return false
     end
 }
 
@@ -214,7 +212,6 @@ SMODS.Enhancement {
         } 
     },
     atlas = "enhancement",
-    weight = 5,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -234,9 +231,13 @@ SMODS.Enhancement {
         }
     end,
     calculate = function(self, card, context)
-        -- reset counters that have reached their triggers
         local function reset_counters()
-            local counters = { "chip", "mult", "dollars", "xmult" }
+            local counters = {
+                "chip",
+                "mult",
+                "dollars",
+                "xmult"
+            }
             for _, counter_type in ipairs(counters) do
                 local counter_key = counter_type .. "_counter"
                 local trigger_key = counter_type .. "_trigger"
@@ -245,15 +246,13 @@ SMODS.Enhancement {
                 end
             end
         end
-        -- increment all counters
         local function increment_counters()
             card.ability.extra.chip_counter = card.ability.extra.chip_counter + 1
             card.ability.extra.mult_counter = card.ability.extra.mult_counter + 1
             card.ability.extra.dollars_counter = card.ability.extra.dollars_counter + 1
             card.ability.extra.xmult_counter = card.ability.extra.xmult_counter + 1
         end
-        -- on discard or held in hand if wallbang joker is owned reset (if applicable) and increment counters
-        if (context.discard and context.other_card == card) or (SMODS.find_card("j_chm_richochet") and context.main_scoring and context.cardarea == G.hand) then
+        if (context.discard and context.other_card == card) or (SMODS.find_card("j_chm_wallbang") and context.main_scoring and context.cardarea == G.hand) then
             reset_counters()
             increment_counters()
             if (card.ability.extra.dollars_counter + 1) >= card.ability.extra.dollars_trigger then
@@ -306,7 +305,6 @@ SMODS.Enhancement {
         }
     },
     atlas = "enhancement",
-    weight = 5,
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

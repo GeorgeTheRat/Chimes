@@ -193,11 +193,14 @@ SMODS.Joker {
             }
         end
         if card.ability.extra.toggle == 1 and context.tag_added and not context.blueprint then
-            card.ability.extra.tags = card.ability.extra.tags + card.ability.extra.tags_mod
-            return {
-                message = "+" .. card.ability.extra.tags_mod .. " Tag" .. (card.ability.extra.tags_mod > 1 and "s" or ""),
-                colour = G.C.BLUE
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "tags",
+                scalar_value = "tags_mod",
+                scaling_message = {
+                    message = "+" .. card.ability.extra.tags_mod .. " Tag" .. (card.ability.extra.tags_mod > 1 and "s" or "")
+                }
+            })
         end
     end
 }
@@ -273,7 +276,13 @@ SMODS.Joker {
                     message = localize("k_eaten_ex")
                 }
             else
-                card.ability.extra.chips = math.max(0, card.ability.extra.chips - card.ability.extra.chips_mod)
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "chips",
+                    scalar_value = "chips_mod",
+                    operator = "-",
+                    colour = G.C.CHIPS
+                })
             end
         end
     end,
@@ -290,7 +299,7 @@ SMODS.Joker {
     name = "Punk Joker",
     config = {
         extra = {
-            chip_mod = 20,
+            chips_mod = 20,
             chips = 0
         }
     },
@@ -302,25 +311,28 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.chip_mod,
+                card.ability.extra.chips_mod,
                 card.ability.extra.chips
             }
         }
     end,
     calculate = function(self, card, context)
         if context.remove_playing_cards and context.removed then
-            local spade_or_club_count = 0
+            local count = 0
             for _, removed_card in ipairs(context.removed) do
                 if removed_card:is_suit("Spades") or removed_card:is_suit("Clubs") then
-                    spade_or_club_count = spade_or_club_count + 1
+                    count = count + 1
                 end
             end
-            if spade_or_club_count > 0 then
-                card.ability.extra.chips = card.ability.extra.chips + (card.ability.extra.chip_mod * spade_or_club_count)
-                return {
-                    message = "Upgrade!",
-                    colour = G.C.BLUE
-                }
+            if count > 0 then
+                for i = 1, count do
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "chips",
+                        scalar_value = "chips_mod",
+                        colour = G.C.CHIPS
+                    })
+                end
             end
         end
         if context.joker_main then
