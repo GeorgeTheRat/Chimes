@@ -32,6 +32,7 @@ SMODS.Consumable {
                     tag:set_ability()
                     add_tag(tag)
                     play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
+                    used_card:juice_up(0.3, 0.3)
                     return true
                 end
             }))
@@ -40,6 +41,7 @@ SMODS.Consumable {
             trigger = "after",
             delay = 0.4,
             func = function()
+                used_card:juice_up(0.3, 0.5)
                 ease_dollars(-card.ability.extra.dollars, true)
                 return true
             end
@@ -402,7 +404,7 @@ SMODS.Consumable {
                     suit = card_suits[1]
                 })
                 if card1 then
-                    local enhancement = SMODS.poll_enhancement({mod = 10, guaranteed = true})
+                    local enhancement = SMODS.poll_enhancement({ mod = 10, guaranteed = true })
                     if enhancement then
                         card1:set_ability(enhancement)
                     end
@@ -414,8 +416,7 @@ SMODS.Consumable {
                     suit = card_suits[2]
                 })
                 if card2 then
-                    local edition = poll_edition("clouds_edition", nil, true, true, 
-                        {"e_polychrome", "e_holo", "e_foil"})
+                    local edition = poll_edition("clouds_edition", nil, true, true, {"e_polychrome", "e_holo", "e_foil"})
                     card2:set_edition(edition, true)
                     table.insert(cards, card2)
                 end

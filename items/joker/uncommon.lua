@@ -590,7 +590,7 @@ SMODS.Joker{
             }
         end
         if context.other_card and context.discard and SMODS.has_enhancement(context.other_card, "m_wild") then
-            card.ability.perma_h_bonus = card.ability.perma_h_bonus + card.ability.extra.perma_h_bonus_mod
+            card.ability.extra.perma_h_bonus = card.ability.extra.perma_h_bonus + card.ability.extra.perma_h_bonus_mod
             return {
                 message = localize("k_upgrade_ex"),
                 colour = G.C.CHIPS
