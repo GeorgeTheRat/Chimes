@@ -709,13 +709,16 @@ SMODS.Joker {
                     ref_table = card.ability.extra,
                     ref_value = "chips",
                     scalar_value = "chips_mod",
-                    message_colour = G.C.CHIPS,
                     operation = function(ref_table, ref_value, initial, change)
                         ref_table[ref_value] = ref_table[ref_value] - change
                         if ref_table[ref_value] <= 0 then
                             ref_table[ref_value] = 0
                         end
-                    end
+                    end,
+                    scaling_message = {
+                        message = "Downgrade!",
+                        colour = G.C.RED
+                    }
                 })
             else
                 SMODS.scale_card(card, {
