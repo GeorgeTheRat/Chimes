@@ -48,10 +48,10 @@ SMODS.ConsumableType({
 
 SMODS.ObjectType({
     key = "sushi",
-    default = "c_chm_californiaroll"
+    default = "c_chm_california_roll"
 })
 
 SMODS.ObjectType({
     key = "costumes",
-    default = "c_chm_ghostcostume"
+    default = "c_chm_ghost_costume"
 })
