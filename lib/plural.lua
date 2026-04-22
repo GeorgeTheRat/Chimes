@@ -1,30 +1,30 @@
 -- simple plural s function for localization
--- taken right from cryptid with a single change to support empty fields lol
+-- taken right from cryptid with a small change to support empty fields lol
 function Chimes.pluralize(str, vars)
-    local inside = str:match("<(.-)>") -- finds args
+	local inside = str:match("<(.-)>")
     local _table = {}
     if inside then
-        for v in (inside .. ","):gmatch("([^,]*),") do -- adds args to array (capture empty fields too)
+        for v in (inside .. ","):gmatch("([^,]*),") do
             table.insert(_table, v)
         end
-        local num = vars[tonumber(string.match(str, ">(%d+)"))] -- gets reference variable
+        local num = vars[tonumber(string.match(str, ">(%d+)"))]
         if type(num) == "string" then
             num = (Big and to_number(to_big(num))) or num
         end
         if not num then
             num = 1
         end
-        local plural = _table[1] -- default
-        local checks = { [1] = "=" } -- checks 1 by default
-        local checks1mod = false -- tracks if 1 was modified
+        local plural = _table[1]
+        local checks = { [1] = "=" }
+        local checks1mod = false
         if #_table > 1 then
             for i = 2, #_table do
                 local isnum = tonumber(_table[i])
                 if isnum then
                     if not checks1mod then
                         checks[1] = nil
-                    end -- dumb stuff
-                    checks[isnum] = "<" .. (_table[i + 1] or "") -- do less than for custom values
+                    end
+                    checks[isnum] = "<" .. (_table[i + 1] or "")
                     if isnum == 1 then
                         checks1mod = true
                     end
@@ -35,7 +35,7 @@ function Chimes.pluralize(str, vars)
             end
         end
         local function fch(str, c)
-            return string.sub(str, 1, 1) == c -- gets first char and returns boolean
+            return string.sub(str, 1, 1) == c
         end
         local keys = {}
         for k in pairs(checks) do

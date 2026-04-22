@@ -404,7 +404,7 @@ return {
 				name = "Ship",
 				text = {
 					"Destroy all cards in hand,",
-					"create {C:attention}#1#{} cards with",
+					"create {C:attention}#1#{} card#<s>1# with",
 					"a random {C:attention}rank{} and {C:attention}suit",
 				}
 			},
@@ -412,8 +412,8 @@ return {
 				name = "House",
 				text = {
 					"Add a {C:attention}permanent{} bonus",
-					"{C:chips}+#1#{} held in hand Chips",
-					"to up to {C:attention}#2#{} selected card#<s>2#"
+					"{C:chips}+#1#{} held in hand chips",
+					"to#< up to>1# {C:attention}#2#{} selected card#<s>2#"
 				}
 			},
 			c_chm_tree = {
@@ -427,8 +427,8 @@ return {
 			c_chm_clouds = {
 				name = "Clouds",
 				text = {
-					"Create {C:attention}#1#{} card#<s>1# with a random {C:enhanced}Enhancement,",
-					"{C:attention}#2#{} card#<s>2# with a random {C:dark_edition}Edition,",
+					"Create {C:attention}#1#{} card#<s>1# with a random {C:enhanced}Enhancement{},",
+					"{C:attention}#2#{} card#<s>2# with a random {C:dark_edition}Edition{},",
 					"and {C:attention}#3#{} card#<s>3# with a random {C:attention}Seal",
 				}
 			},
@@ -444,9 +444,9 @@ return {
 				name = "Coffin",
 				text = {
 					"Destroy {C:attention}#1#{} random",
-					"cards in hand,",
-					"create {C:attention}#2#{} cards",
-					"with random {C:dark_edition}Editions"
+					"card#<s>1# in hand,",
+					"create {C:attention}#2#{} card#<s>2#",
+					"with #<,a>2# random {C:dark_edition}Edition#<s>2#"
 				}
 			},
 			c_chm_flowers = {
@@ -476,9 +476,9 @@ return {
 			c_chm_birds = {
 				name = "Birds",
 				text = {
-					"Apply {C:dark_edition}Foil{} to",
-					"up to {C:attention}#1#",
-					"selected card#<s>1#"
+					"Applies {C:dark_edition}Foil{} to",
+					"#<up to>1# {C:attention}#1#{}#<, selected>1#",
+					"#<selected >1# card#<s>1#"
 				}
 			},
 			c_chm_child = {
@@ -509,7 +509,7 @@ return {
 				name = "Stars",
 				text = {
 					"Level up a random",
-					"{C:attention}poker hand #1#{} time per",
+					"{C:attention}poker hand #1#{} time#<s>1# per",
 					"{C:attention}Blind{} skipped this run",
 					"{C:inactive}(Currently {C:attention}#2#{C:inactive})"
 				}
@@ -520,6 +520,7 @@ return {
 					"Add {C:enhanced}Enhanced{} cards equal",
 					"to {C:attention}double{} the number of",
 					"{C:attention}consumables{} owned to hand",
+					"{s:0.8}excluding Stork",
 					"{C:inactive}(Currently {C:attention}#1#{C:inactive})"
 				}
 			},
@@ -530,14 +531,14 @@ return {
 					"lowest ranked card in",
 					"hand to the bonus",
 					"held in hand {C:mult}+Mult",
-					"of {C:attention}#1#{} selected card"
+					"of {C:attention}#1#{} selected card#<s>1#"
 				}
 			},
 			c_chm_tower = {
 				name = "Tower",
 				text = {
 					"Add a permanent {C:mult}+#1#{} Mult",
-					"to#< up to>2# {C:attention}#2#{} selected card#<s>2#"
+					"to#<, up to>2# {C:attention}#2#{} selected card#<s>2#"
 				}
 			},
 			c_chm_garden = {
@@ -601,7 +602,7 @@ return {
 				name = "Man",
 				text = {
 					"Apply#<, a>1# random",
-					"{C:enhanced}Enhancement#<s>1#{} to #<up to>1#",
+					"{C:enhanced}Enhancement#<s>1#{} to#< up to>1#",
 					"{C:attention}#1#{} selected card#<s>1#"
 				}
 			},
@@ -632,7 +633,7 @@ return {
 				name = "Moon",
 				text = {
 					"Enhances#< up to>1# {C:attention}#1#{}",
-					"selected card#<s>1# into#<, a>1#",
+					"selected card#<s>1# into#<, an>1#",
 					"{C:attention}Old Card#<s>1#"
 				}
 			},

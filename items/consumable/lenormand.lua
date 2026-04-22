@@ -795,8 +795,14 @@ SMODS.Consumable {
             delay(0.3)
             local destroyed_cards = {}
             local temp_hand = {}
+            local highlighted_cards = {}
+            for _, highlighted_card in ipairs(G.hand.highlighted) do
+                highlighted_cards[highlighted_card] = true
+            end
             for _, playing_card in ipairs(G.hand.cards) do
-                temp_hand[#temp_hand + 1] = playing_card
+                if not highlighted_cards[playing_card] then
+                    temp_hand[#temp_hand + 1] = playing_card
+                end
             end
             table.sort(temp_hand, function(a, b)
                 return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card
@@ -1099,13 +1105,13 @@ SMODS.Consumable {
         return true
     end,
     use = function(self, card, area, copier)
-        if tonumber(G.GAME.dollars) >= card.ability.extra.fordollars then
+        if G.GAME.dollars and tonumber(G.GAME.dollars) >= card.ability.extra.fordollars then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
                 func = function()
                     card:juice_up(0.3, 0.5)
-                    ease_dollars(-(math.floor(tonumber(G.GAME.dollars) / card.ability.extra.fordollars) * card.ability.extra.losedollars), true)
+                    ease_dollars(-(math.floor(tonumber(G.GAME.dollars or 0) / card.ability.extra.fordollars) * card.ability.extra.losedollars), true)
                     return true
                 end
             }))
@@ -1117,7 +1123,7 @@ SMODS.Consumable {
             func = function()
                 card:juice_up(0.3, 0.5)
                 play_sound("timpani")
-                ease_dollars((lenient_bignum(G.GAME.dollars * 3)), true)
+                ease_dollars((lenient_bignum((G.GAME.dollars or 0) * 3)), true)
                 return true
             end
         }))
