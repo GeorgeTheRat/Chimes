@@ -477,8 +477,8 @@ return {
 				name = "Birds",
 				text = {
 					"Applies {C:dark_edition}Foil{} to",
-					"#<up to>1#{C:attention}#1#{}#<, selected>1#",
-					"#<selected >1# card#<s>1#"
+					"#<up to>1# {C:attention}#1#{}#<, selected>1#",
+					"#<selected >1#card#<s>1#"
 				}
 			},
 			c_chm_child = {
