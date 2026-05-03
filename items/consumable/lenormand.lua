@@ -1105,13 +1105,13 @@ SMODS.Consumable {
         return true
     end,
     use = function(self, card, area, copier)
-        if G.GAME.dollars and tonumber(G.GAME.dollars) >= card.ability.extra.fordollars then
+        if G.GAME.dollars and lenient_bignum(G.GAME.dollars) >= card.ability.extra.fordollars then
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 delay = 0.4,
                 func = function()
                     card:juice_up(0.3, 0.5)
-                    ease_dollars(-(math.floor(tonumber(G.GAME.dollars or 0) / card.ability.extra.fordollars) * card.ability.extra.losedollars), true)
+                    ease_dollars(-(math.floor(lenient_bignum(G.GAME.dollars or 0) / card.ability.extra.fordollars) * card.ability.extra.losedollars), true)
                     return true
                 end
             }))
