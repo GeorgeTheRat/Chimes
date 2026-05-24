@@ -1135,7 +1135,7 @@ SMODS.Consumable {
     key = "stars",
     name = "Stars",
     set = "Lenormand",
-    pos = {x = 8, y = 2},
+    pos = { x = 8, y = 2 },
     config = { extra = { levels = 1 } },
     cost = 4,
     atlas = "consumable",
