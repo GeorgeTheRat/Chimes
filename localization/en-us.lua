@@ -449,7 +449,7 @@ return {
 					"Destroy {C:attention}#1#{} random",
 					"card#<s>1# in hand,",
 					"create {C:attention}#2#{} card#<s>2#",
-					"with #<,a>2# random {C:dark_edition}Edition#<s>2#"
+					"with#<, a>2# random {C:dark_edition}Edition#<s>2#"
 				}
 			},
 			c_chm_flowers = {
