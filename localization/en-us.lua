@@ -98,8 +98,7 @@ return {
 			j_chm_trickster = {
 				name = "Trickster",
 				text = {
-					"{C:attention}+#1#{} card slot",
-					"available in shop"
+					"{C:attention}+#1#{} Booster Pack slot#<s>1#"
 				}
 			},
 			j_chm_alarm = {
@@ -311,7 +310,7 @@ return {
 					"{C:red}+#2#{} Mult"
 				}
 			},
-			j_chm_toycar = {
+			j_chm_toy_car = {
 				name = "Toy Car",
 				text = {
 					"Earn {C:money}$#1#{} when a",
@@ -573,7 +572,17 @@ return {
 					"{C:attention}Rotten Card#<s>1#"
 				}
 			},
-			-- the heart
+			c_chm_heart = {
+				name = "Heart",
+				text = {
+					"Apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome",
+					"to a random card in hand",
+					"Earn {C:money}$#1#{} per {C:dark_edition}Foil{} card in deck,",
+					"{C:money}$#2#{} per {C:dark_edition}Holographic{} card in deck,",
+					"and {C:money}$#3#{} per {C:dark_edition}Polychrome{} card in deck",
+					"{C:inactive}(Currently {C:money}$#4#{C:inactive}, {C:money}$#5#{C:inactive}, and {C:money}$#6#{C:inactive})"
+				}
+			},
 			c_chm_ring = {
 				name = "Ring",
 				text = {
@@ -648,12 +657,9 @@ return {
 			c_chm_fish = {
 				name = "Fish",
 				text = {
-					"Apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or {C:dark_edition}Polychrome",
-					"to a random card in hand",
-					"Earn {C:money}$#1#{} per {C:dark_edition}Foil{} card in deck,",
-					"{C:money}$#2#{} per {C:dark_edition}Holographic{} card in deck,",
-					"and {C:money}$#3#{} per {C:dark_edition}Polychrome{} card in deck",
-					"{C:inactive}(Currently {C:money}$#4#{C:inactive}, {C:money}$#5#{C:inactive}, and {C:money}$#6#{C:inactive})"
+					"Create {C:attention}#1#{} random",
+					"{C:attention}Sushi Joker#<s>1#",
+					"{C:inactive}(Must have room)"
 				}
 			},
             c_chm_anchor = {
