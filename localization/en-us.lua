@@ -334,6 +334,10 @@ return {
 					"{C:dark_edition}+#1#{} Joker slot",
 					"Sell this card to create",
 					"a free {C:attention}Negative Tag"
+				},
+				unlock = {
+					"Have {C:attention,E:1}9{} Jokers",
+					"at the same time"
 				}
 			},
 			j_chm_wonders = {
@@ -749,7 +753,7 @@ return {
 			}
 		},
 		Other = {
-			p_chm_lenormand_pack = {
+			p_chm_lenormand = {
 				name = "Lenormand Pack",
 				text = {
 					"Choose {C:attention}#1#{} of#< up to>2#",
@@ -757,19 +761,19 @@ return {
 					"be used immediately"
 				}
 			},
-			p_chm_jumbo_lenormand_pack = {
+			p_chm_jumbo_lenormand = {
 				name = "Jumbo Lenormand Pack",
 				text = {
-					"Choose {C:attention}1{} of up to",
-					"{C:attention}4{} {C:lenormand}Lenormand{} cards to",
+					"Choose {C:attention}#1#{} of#< up to>2#",
+					"{C:attention}#2#{} {C:lenormand}Lenormand{} cards to",
 					"be used immediately"
 				}
 			},
-			p_chm_mega_lenormand_pack = {
+			p_chm_mega_lenormand = {
 				name = "Mega Lenormand Pack",
 				text = {
-					"Choose {C:attention}2{} of up to",
-					"{C:attention}4{} {C:lenormand}Lenormand{} cards to",
+					"Choose {C:attention}#1#{} of#< up to>2#",
+					"{C:attention}#2#{} {C:lenormand}Lenormand{} cards to",
 					"be used immediately"
 				}
 			}
