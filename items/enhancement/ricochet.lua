@@ -44,7 +44,7 @@ SMODS.Enhancement {
             card.ability.extra.dollars_counter = card.ability.extra.dollars_counter + 1
             card.ability.extra.xmult_counter = card.ability.extra.xmult_counter + 1
         end
-        if (context.discard and context.other_card == card) or (SMODS.find_card("j_chm_wallbang") and context.main_scoring and context.cardarea == G.hand) then
+        if (context.discard and context.other_card == card) or (next(SMODS.find_card("j_chm_wallbang")) and context.main_scoring and context.cardarea == G.hand) then
             local counters = {
                 "chip",
                 "mult",
