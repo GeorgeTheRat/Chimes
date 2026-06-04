@@ -1,33 +1,3 @@
-local function foilcardsindeck()
-    local count = 0
-    for _, card in ipairs(G.playing_cards or {}) do
-        if card.edition and card.edition.foil then
-            count = count + 1 
-        end
-    end
-    return count
-end
-
-local function holographiccardsindeck()
-    local count = 0
-    for _, card in ipairs(G.playing_cards or {}) do
-        if card.edition and card.edition.holo then
-            count = count + 1 
-        end
-    end
-    return count
-end
-
-local function polychromecardsindeck()
-    local count = 0
-    for _, card in ipairs(G.playing_cards or {}) do
-        if card.edition and card.edition.polychrome then
-            count = count + 1 
-        end
-    end
-    return count
-end
-
 SMODS.Consumable {
     key = "fish",
     name = "Fish",
@@ -49,7 +19,7 @@ SMODS.Consumable {
             func = function()
                 play_sound("timpani")
                 SMODS.add_card({
-                    set = "chm_sushi",
+                    set = "sushi",
                     area = G.jokers,
                     key_append = "c_chm_fish"
                 })
