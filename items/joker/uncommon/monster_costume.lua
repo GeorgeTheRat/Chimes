@@ -32,42 +32,39 @@ SMODS.Joker {
                         enhancement_pool[#enhancement_pool + 1] = enhancement
                     end
                 end
-                local random_enhancement = pseudorandom_element(enhancement_pool, "edit_card_enhancement")
-                context.other_card:set_ability(random_enhancement)
+                context.other_card:set_ability(pseudorandom_element(enhancement_pool, "edit_card_enhancement"))
                 return {
                     message = "Card Modified!",
-                    colour = G.C.BLUE,
-                    card = context.other_card
+                    colour = G.C.BLUE
                 }
             end
         end
         if context.selling_self then
-            return {
-                dollars = -card.ability.extra.dollars,
-                extra = {
+            ease_dollars(-card.ability.extra.dollars)
+            local created_joker = false
+            if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                created_joker = true
+                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                G.E_MANAGER:add_event(Event({
                     func = function()
-                        local created_joker = false
-                        if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                            created_joker = true
-                            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-                            G.E_MANAGER:add_event(Event({
-                                func = function()
-                                    local joker_card = SMODS.add_card({ set = "costumes" })
-                                    if joker_card then
-                                        G.GAME.joker_buffer = 0
-                                    end
-                                end
-                            }))
+                        local joker_card = SMODS.add_card({
+                            set = "costumes",
+                            area = G.jokers,
+                            key_append = "j_bof_monster_costume",
+                        })
+                        if joker_card then
+                            G.GAME.joker_buffer = 0
                         end
-                        if created_joker then
-                            return {
-                                message = localize("k_plus_joker"),
-                                colour = G.C.BLUE
-                            }
-                        end
+                        return true
                     end
+                }))
+            end
+            if created_joker then
+                return {
+                    message = localize("k_plus_joker"),
+                    colour = G.C.BLUE
                 }
-            }
+            end
         end
     end
 }
