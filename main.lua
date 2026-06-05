@@ -65,6 +65,7 @@ local files = {
         "items/enhancement/ricochet",
         "items/enhancement/rotten",
         "items/enhancement/vine",
+        "items/enhancement/overgrown",
     },
     joker = {
         common = {
