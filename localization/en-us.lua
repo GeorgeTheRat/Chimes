@@ -687,7 +687,7 @@ return {
 			m_chm_doodle = {
 				name = "Doodle",
 				text = {
-					"{C:green}#1# in #2#{} chance to give {C:mult}+#3#{} chip#<s>3#",
+					"{C:green}#1# in #2#{} chance to give {C:chips}+#3#{} chip#<s>3#",
 					"{C:green}#4# in #5#{} chance to give {C:mult}+#6#{} Mult",
 					"{C:green}#7# in #8#{} chance to give {C:white,X:mult}X#9#{} Mult",
 					"{C:green}#10# in #11#{} chance to earn {C:money}$#12#",
