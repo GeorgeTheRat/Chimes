@@ -522,7 +522,7 @@ return {
 				text = {
 					"Add {C:enhanced}Enhanced{} cards equal",
 					"to {C:attention}double{} the number of",
-					"{C:attention}consumables{} owned to hand",
+					"{C:attention}consumables{} owned to hand,",
 					"{s:0.8}excluding Stork",
 					"{C:inactive}(Currently {C:attention}#1#{C:inactive})"
 				}

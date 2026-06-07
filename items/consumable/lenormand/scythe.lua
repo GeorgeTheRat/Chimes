@@ -16,7 +16,7 @@ SMODS.Consumable {
             vars = {
                 card.ability.extra.destroy,
                 card.ability.extra.dollars,
-                math.floor(lenient_bignum(G.GAME.dollars / card.ability.extra.dollars)) or 0,
+                math.floor(G.GAME.dollars / card.ability.extra.dollars) or 0,
             }
         }
     end,

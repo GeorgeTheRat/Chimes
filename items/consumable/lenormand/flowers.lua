@@ -2,7 +2,7 @@ SMODS.Consumable {
     key = "flowers",
     name = "Flowers",
     set = "Lenormand",
-    pos = { x = 1, y = 1 },
+    pos = { x = 8, y = 0 },
     config = {
         extra = {
             destroy = 1,
