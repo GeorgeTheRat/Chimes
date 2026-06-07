@@ -27,13 +27,19 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, "j_chm_ghost_costume", 1, card.ability.extra.odds) then
+        if context.before and SMODS.pseudorandom_probability(card, "j_chm_ghost_costume", 1, card.ability.extra.odds) then
             local random_edition = poll_edition("edit_card_edition", nil, true, true)
-            if random_edition then
-                context.other_card:set_edition(random_edition, true)
+            for _, scored_card in ipairs(context.scoring_hand) do
+                scored_card:set_edition(random_edition, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        scored_card:juice_up()
+                        return true
+                    end
+                }))
             end
             return {
-                message = "Card Modified!",
+                message = "Modified!",
                 colour = G.C.BLUE
             }
         end

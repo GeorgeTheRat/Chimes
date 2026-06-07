@@ -24,20 +24,24 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.before then
-            if SMODS.pseudorandom_probability(card, "j_chm_pumpkin_costume", 1, card.ability.extra.odds) then
-                local random_seal = SMODS.poll_seal({
-                    mod = 10,
-                    guaranteed = true
-                })
-                if random_seal then
-                    context.other_card:set_seal(random_seal, true)
-                end
-                return {
-                    message = "Card Modified!",
-                    colour = G.C.BLUE
-                }
+        if context.before and SMODS.pseudorandom_probability(card, "j_chm_pumpkin_costume", 1, card.ability.extra.odds) then
+            local random_seal = SMODS.poll_seal({
+                mod = 10,
+                guaranteed = true
+            })
+            for _, scored_card in ipairs(context.scoring_hand) do
+                scored_card:set_seal(random_seal)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        scored_card:juice_up()
+                        return true
+                    end
+                }))
             end
+            return {
+                message = "Sealed!",
+                colour = G.C.BLUE
+            }
         end
         if context.selling_self then
             ease_dollars(-card.ability.extra.dollars)

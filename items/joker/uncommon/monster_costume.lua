@@ -24,20 +24,26 @@ SMODS.Joker {
         }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if SMODS.pseudorandom_probability(card, "j_chm_monster_costume", 1, card.ability.extra.odds) then
-                local enhancement_pool = {}
-                for _, enhancement in pairs(G.P_CENTER_POOLS.Enhanced) do
-                    if not enhancement.overrides_base_rank then
-                        enhancement_pool[#enhancement_pool + 1] = enhancement
-                    end
+        if context.before and SMODS.pseudorandom_probability(card, "j_chm_monster_costume", 1, card.ability.extra.odds) then
+            local enhancement_pool = {}
+            for _, enhancement in pairs(G.P_CENTER_POOLS.Enhanced) do
+                if not enhancement.overrides_base_rank then
+                    enhancement_pool[#enhancement_pool + 1] = enhancement
                 end
-                context.other_card:set_ability(pseudorandom_element(enhancement_pool, "edit_card_enhancement"))
-                return {
-                    message = "Card Modified!",
-                    colour = G.C.BLUE
-                }
             end
+            for _, scored_card in ipairs(context.scoring_hand) do
+                scored_card:set_ability(pseudorandom_element(enhancement_pool, "j_chm_monster_costume"))
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        scored_card:juice_up()
+                        return true
+                    end
+                }))
+            end
+            return {
+                message = "Enhanced!",
+                colour = G.C.BLUE
+            }
         end
         if context.selling_self then
             ease_dollars(-card.ability.extra.dollars)
