@@ -39,26 +39,20 @@ SMODS.Enhancement {
     end,
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
+            local ret = {}
             if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.chips_odds) then
-                return {
-                    mult = card.ability.extra.mult
-                }
+                ret.mult = card.ability.extra.mult
             end
             if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.mult_odds) then
-                return {
-                    xmult = card.ability.extra.xmult
-                }
+                ret.xmult = card.ability.extra.xmult
             end
             if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.xmult_odds) then
-                return {
-                    chips = card.ability.extra.chips
-                }
+                ret.chips = card.ability.extra.chips
             end
             if SMODS.pseudorandom_probability(card, "c_chm_doodle", 1, card.ability.extra.dollars_odds) then
-                return {
-                    dollars = card.ability.extra.dollars
-                }
+                ret.dollars = card.ability.extra.dollars
             end
+            return ret
         end
     end
 }
