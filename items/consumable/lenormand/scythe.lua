@@ -34,7 +34,7 @@ SMODS.Consumable {
             return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card
         end)
         pseudoshuffle(temp_hand, "c_chm_scythe")
-        for i = 1, math.floor(lenient_bignum(G.GAME.dollars / card.ability.extra.dollars)) do
+        for i = 1, math.floor(G.GAME.dollars / card.ability.extra.dollars) do
             destroyed_cards[#destroyed_cards + 1] = temp_hand[i]
         end
         G.E_MANAGER:add_event(Event({

@@ -38,7 +38,7 @@ SMODS.Joker {
                 }
             })
         end
-        if context.end_of_round and not context.game_over and context.main_eval and not context.blueprint then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             if (card.ability.extra.plushands - card.ability.extra.plushands_mod <= 0) or (card.ability.extra.plusdollars - card.ability.extra.plusdollars_mod <= 0) then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {

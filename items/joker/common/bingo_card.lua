@@ -23,7 +23,7 @@ SMODS.Joker{
         }
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             if card.ability.extra.blinds_defeated + 1 >= card.ability.extra.total_req then
                 card.ability.extra.blinds_defeated = 0
                 return {

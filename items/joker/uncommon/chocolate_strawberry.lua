@@ -21,7 +21,7 @@ SMODS.Joker{
             G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.joker_slots
             card.ability.extra.context = 0
         end
-        if context.end_of_round and not context.game_over and context.main_eval and not context.blueprint then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             if card.ability.extra.joker_slots >= 2 then
                 G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.joker_slots
                 card.ability.extra.joker_slots = card.ability.extra.joker_slots - card.ability.extra.joker_slots_mod

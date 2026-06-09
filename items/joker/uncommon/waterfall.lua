@@ -33,7 +33,7 @@ SMODS.Joker {
                 }
             end
         end
-        if context.end_of_round and context.game_over == false and context.main_eval then
+        if context.end_of_round and context.main_eval then
             card.ability.extra.retriggers = 0
             return {
                 message = "Reset!",
